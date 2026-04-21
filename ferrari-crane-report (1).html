@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F.lli Ferrari Crane — Brand Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C8102E;
+    --dark: #0E0E0E;
+    --mid: #1A1A1A;
+    --panel: #232323;
+    --border: #333;
+    --gold: #D4A847;
+    --text: #E8E8E8;
+    --muted: #888;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--mid);
+    border-bottom: 3px solid var(--red);
+    padding: 60px 60px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: 'FERRARI';
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 200px;
+    color: rgba(200,16,46,0.06);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6vw, 80px);
+    line-height: 1;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--red); }
+  .hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-desc {
+    max-width: 640px;
+    color: #bbb;
+    font-size: 15.5px;
+    line-height: 1.75;
+    border-left: 3px solid var(--red);
+    padding-left: 18px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { text-align: left; }
+  .hero-stat .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--red);
+    line-height: 1;
+  }
+  .hero-stat .label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* NAV */
+  .toc {
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .toc a {
+    display: block;
+    padding: 16px 20px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .toc a:hover { color: var(--white); border-bottom-color: var(--red); }
+
+  /* CONTENT */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 60px; }
+  .section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  .section-body {
+    color: #c0c0c0;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .section-body p { margin-bottom: 14px; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--panel);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 24px 0;
+    color: #ddd;
+    font-size: 14.5px;
+    font-style: italic;
+  }
+  .callout strong { color: var(--gold); font-style: normal; }
+
+  /* SERIES CARDS */
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .series-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .series-card:hover { border-color: var(--red); }
+  .series-card::before {
+    content: attr(data-series);
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .series-badge {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .series-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .series-card .tagline {
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .series-card p {
+    font-size: 13.5px;
+    color: #999;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .series-spec-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    padding: 6px 0;
+    border-top: 1px solid var(--border);
+  }
+  .series-spec-row span:last-child { color: var(--white); font-weight: 500; font-family: 'DM Mono', monospace; }
+  .usage-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .tag.blue { border-color: #4A9EFF; color: #4A9EFF; }
+  .tag.green { border-color: #4CAF7D; color: #4CAF7D; }
+  .tag.orange { border-color: #FF7C4A; color: #FF7C4A; }
+  .tag.purple { border-color: #A87CFF; color: #A87CFF; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; margin-top: 24px; border-radius: 6px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: var(--panel);
+  }
+  thead {
+    background: var(--red);
+  }
+  thead th {
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(200,16,46,0.06); }
+  tbody td {
+    padding: 11px 16px;
+    color: #ccc;
+    vertical-align: middle;
+  }
+  tbody td:first-child { font-weight: 600; color: var(--white); font-family: 'DM Mono', monospace; }
+  .highlight-row { background: rgba(212,168,71,0.07) !important; }
+  .highlight-row td { color: #e0c97c !important; }
+  .highlight-row td:first-child { color: var(--gold) !important; }
+
+  /* SPEC EXPLAINER */
+  .spec-explainer {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 32px;
+    margin-top: 24px;
+  }
+  .spec-explainer h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--white);
+    margin-bottom: 18px;
+  }
+  .spec-row {
+    display: flex;
+    gap: 20px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-term {
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    color: var(--red);
+    font-weight: 500;
+    min-width: 180px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .spec-explain { font-size: 13.5px; color: #bbb; line-height: 1.6; }
+  .spec-explain strong { color: var(--white); }
+  .spec-explain em { color: var(--gold); font-style: normal; }
+
+  /* MOUNTING SECTION */
+  .mount-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .mount-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 22px;
+  }
+  .mount-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mount-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--red);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .mount-card p { font-size: 13px; color: #999; line-height: 1.65; }
+  .mount-card .pros {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #4CAF7D;
+    font-weight: 600;
+  }
+
+  /* STRENGTH */
+  .strength-list { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .strength-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--red);
+    border-radius: 4px;
+    padding: 18px 22px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .strength-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: rgba(200,16,46,0.25);
+    line-height: 1;
+    min-width: 36px;
+  }
+  .strength-body h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .strength-body p { font-size: 13.5px; color: #999; line-height: 1.6; }
+
+  /* COMPETITOR TABLE */
+  .comp-badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+  .comp-badge.win { background: rgba(76,175,125,0.15); color: #4CAF7D; border: 1px solid #4CAF7D; }
+  .comp-badge.mid { background: rgba(212,168,71,0.15); color: var(--gold); border: 1px solid var(--gold); }
+  .comp-badge.low { background: rgba(200,16,46,0.12); color: #ff6666; border: 1px solid #ff6666; }
+
+  /* CLOSING */
+  .closing {
+    background: var(--red);
+    padding: 48px 60px;
+    text-align: center;
+  }
+  .closing h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: white;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .closing p { color: rgba(255,255,255,0.8); max-width: 560px; margin: 0 auto; font-size: 15px; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--mid);
+    padding: 28px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+  }
+  .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--red); }
+  .footer-note { font-size: 12px; color: var(--muted); }
+  .footer-company { font-size: 12px; color: #666; text-align: right; }
+
+  @media (max-width: 700px) {
+    .hero, .toc, .container, .footer, .closing { padding-left: 24px; padding-right: 24px; }
+    .series-grid { grid-template-columns: 1fr; }
+    .mount-grid { grid-template-columns: 1fr; }
+    .hero::before { display: none; }
+    .toc { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Brand Overview — Internal Report</div>
+  <h1>F.lli <span>Ferrari</span><br>Crane</h1>
+  <div class="hero-sub">Hydraulic Truck-Mounted Loader Crane · Made in Italy</div>
+  <div class="hero-desc">
+    Dipersiapkan untuk keperluan internal Triatra Sinergi Pratama — menjelaskan secara menyeluruh tentang brand crane hidrolik Ferrari: siapa mereka, apa saja tipe-tipenya, bagaimana membaca spesifikasinya, dan mengapa memilih Ferrari adalah keputusan yang tepat.
+  </div>
+  <div class="hero-meta">
+    <div class="hero-stat"><div class="num">30+</div><div class="label">Tahun Pengalaman</div></div>
+    <div class="hero-stat"><div class="num">90tm</div><div class="label">Kapasitas Angkat Maks</div></div>
+    <div class="hero-stat"><div class="num">9</div><div class="label">Lini Seri Produk</div></div>
+    <div class="hero-stat"><div class="num">117+</div><div class="label">Varian Model</div></div>
+  </div>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <a href="#tentang">Tentang Ferrari</a>
+  <a href="#tipe">Tipe & Seri</a>
+  <a href="#spesifikasi">Spesifikasi</a>
+  <a href="#cara-baca">Cara Baca Spec</a>
+  <a href="#mounting">Posisi Pemasangan</a>
+  <a href="#keunggulan">Keunggulan</a>
+  <a href="#kompetitor">vs Kompetitor</a>
+</nav>
+
+<!-- SECTION 1: TENTANG -->
+<div id="tentang">
+  <div class="container">
+    <div class="section">
+      <div class="section-label">Bagian 01</div>
+      <div class="section-title">Apa Itu F.lli Ferrari Crane?</div>
+      <div class="section-body">
+        <p><strong style="color:#fff">F.lli Ferrari</strong> (dibaca: "Fratelli Ferrari" — artinya <em>"Saudara-saudara Ferrari"</em>) adalah produsen crane hidrolik asal Italia yang sudah lebih dari 30 tahun menjadi salah satu pemimpin dunia di bidang <em>truck-mounted knuckle boom crane</em> — crane lipat yang dipasang di atas truk.</p>
+        <p>Perusahaan ini berbasis di Italia dan kini menjadi bagian dari <strong style="color:#fff">Hyva Group</strong>, sebuah grup manufaktur peralatan hidraulik global. Sekitar <strong style="color:#fff">80% produksinya diekspor ke luar Italia</strong>, menjangkau puluhan negara di berbagai benua.</p>
+        <p>Ferrari bukan nama mobil — ini adalah brand crane industri serius yang dipakai di sektor konstruksi, logistik, pertambangan, minyak &amp; gas, pertanian, hingga kehutanan. Crane mereka dirancang untuk dipasang di truk, lalu digunakan untuk mengangkat, memuat, dan memindahkan material berat dengan presisi tinggi.</p>
+      </div>
+      <div class="callout">
+        <strong>Analogi sederhana:</strong> Bayangkan crane Ferrari seperti lengan robot hidrolik yang terlipat rapi di atas truk. Saat dibutuhkan, lengan ini bisa memanjang, berputar, dan mengangkat beban berat — lalu dilipat kembali saat truk berjalan. Itulah knuckle boom crane.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: TIPE & SERI -->
+<div id="tipe">
+  <div class="container">
+    <div class="section">
+      <div class="section-label">Bagian 02</div>
+      <div class="section-title">Tipe & Seri Produk Ferrari</div>
+      <div class="section-body">
+        <p>Ferrari membagi produknya ke dalam beberapa <strong style="color:#fff">seri (series)</strong>, di mana setiap seri memiliki kapasitas angkat dan karakteristik yang berbeda. Semakin besar nomor serinya, semakin besar kapasitas dan kemampuannya.</p>
+      </div>
+
+      <div class="series-grid">
+
+        <!-- 300 -->
+        <div class="series-card" data-series="300">
+          <div class="series-badge">Seri 300</div>
+          <h3>300 Series</h3>
+          <div class="tagline">Compact · Ringan · Fleksibel</div>
+          <p>Crane entry-level dengan <strong>satu seksi boom</strong>. Ukurannya kompak dan ringan, ideal untuk truk kecil dan pickup. Kapasitas angkat mulai 1 ton-meter.</p>
+          <div class="series-spec-row"><span>Kapasitas Maks</span><span>~3 tm</span></div>
+          <div class="series-spec-row"><span>Jangkauan Maks</span><span>~4.25 m</span></div>
+          <div class="series-spec-row"><span>Cocok untuk Truk</span><span>Kecil / Pickup</span></div>
+          <div class="usage-tags">
+            <span class="tag green">Logistik Ringan</span>
+            <span class="tag blue">Urban Works</span>
+            <span class="tag orange">Floriculture</span>
+          </div>
+        </div>
+
+        <!-- 500 -->
+        <div class="series-card" data-series="500">
+          <div class="series-badge">Seri 500</div>
+          <h3>500 Series</h3>
+          <div class="tagline">Medium · Serbaguna · Populer</div>
+          <p>Seri menengah yang paling banyak digunakan. Tersedia dengan ekstensi teleskopik dan jib untuk menjangkau area yang lebih jauh. Pilihan populer untuk kebutuhan umum.</p>
+          <div class="series-spec-row"><span>Kapasitas Maks</span><span>~8 tm</span></div>
+          <div class="series-spec-row"><span>Jangkauan Maks</span><span>~10–14 m</span></div>
+          <div class="series-spec-row"><span>Cocok untuk Truk</span><span>Medium</span></div>
+          <div class="usage-tags">
+            <span class="tag green">Konstruksi</span>
+            <span class="tag blue">Distribusi</span>
+            <span class="tag orange">Pertanian</span>
+          </div>
+        </div>
+
+        <!-- 700 -->
+        <div class="series-card" data-series="700">
+          <div class="series-badge">Seri 700</div>
+          <h3>700 Series</h3>
+          <div class="tagline">Heavy Duty · Jangkauan Lebar</div>
+          <p>Seri berat dengan 12+ model berbeda. Dirancang untuk pekerjaan industri dan konstruksi skala besar. Jangkauan dan kapasitas angkat jauh lebih besar.</p>
+          <div class="series-spec-row"><span>Kapasitas Maks</span><span>~49 tm</span></div>
+          <div class="series-spec-row"><span>Jangkauan Maks</span><span>hingga 29 m</span></div>
+          <div class="series-spec-row"><span>Cocok untuk Truk</span><span>Besar / Heavy Duty</span></div>
+          <div class="usage-tags">
+            <span class="tag orange">Konstruksi Berat</span>
+            <span class="tag purple">Oil & Gas</span>
+            <span class="tag blue">Mining Support</span>
+          </div>
+        </div>
+
+        <!-- 7000 -->
+        <div class="series-card" data-series="7000">
+          <div class="series-badge">Seri 7000 — NEW GEN</div>
+          <h3>7000 Series</h3>
+          <div class="tagline">Generasi Baru · Full Electronic</div>
+          <p>Generasi terbaru Ferrari. Dilengkapi sistem elektronik canggih, platform kontrol baru, fitur Dynamic Load Check dan Radio Remote Control. Desain modular — bisa dikonfigurasi sesuai kebutuhan.</p>
+          <div class="series-spec-row"><span>Kapasitas Maks</span><span>hingga 90 tm</span></div>
+          <div class="series-spec-row"><span>Fitur Unggulan</span><span>Magic Touch, IoT</span></div>
+          <div class="series-spec-row"><span>Standar</span><span>EN12999:2020 EU</span></div>
+          <div class="usage-tags">
+            <span class="tag purple">Semua Sektor</span>
+            <span class="tag orange">High-Tech</span>
+            <span class="tag blue">Smart Operation</span>
+          </div>
+        </div>
+
+        <!-- 8 series -->
+        <div class="series-card" data-series="8">
+          <div class="series-badge">Seri 8 (6000)</div>
+          <h3>8 Series</h3>
+          <div class="tagline">Non-CE · Pasar Global</div>
+          <p>Dirancang khusus untuk pasar di luar Eropa (non-CE market), termasuk Asia Tenggara. Versi ini lebih terjangkau namun tetap mempertahankan kualitas Ferrari. Cocok untuk Indonesia.</p>
+          <div class="series-spec-row"><span>Kapasitas Maks</span><span>~25 tm</span></div>
+          <div class="series-spec-row"><span>Jangkauan Maks</span><span>hingga 19.2 m</span></div>
+          <div class="series-spec-row"><span>Target Pasar</span><span>Asia, Afrika, dll</span></div>
+          <div class="usage-tags">
+            <span class="tag green">Konstruksi</span>
+            <span class="tag orange">Pertambangan</span>
+            <span class="tag blue">Logistik</span>
+          </div>
+        </div>
+
+        <!-- 900 -->
+        <div class="series-card" data-series="900">
+          <div class="series-badge">Seri 900</div>
+          <h3>900 Series</h3>
+          <div class="tagline">Large Capacity · Industrial</div>
+          <p>Seri berkapasitas besar untuk kebutuhan industri berat. Dipasangkan dengan truk besar dan digunakan di proyek-proyek skala besar seperti infrastruktur dan migas.</p>
+          <div class="series-spec-row"><span>Model</span><span>980, 990</span></div>
+          <div class="series-spec-row"><span>Kapasitas Maks</span><span>Sangat Besar</span></div>
+          <div class="series-spec-row"><span>Sektor</span><span>Industri Berat</span></div>
+          <div class="usage-tags">
+            <span class="tag purple">Oil & Gas</span>
+            <span class="tag orange">Infrastruktur</span>
+            <span class="tag blue">Heavy Industry</span>
+          </div>
+        </div>
+
+        <!-- 9000 -->
+        <div class="series-card" data-series="9000">
+          <div class="series-badge">Seri 9000 — FLAGSHIP</div>
+          <h3>9000 Series</h3>
+          <div class="tagline">Top of the Line · Max Performance</div>
+          <p>Seri tertinggi Ferrari. Gabungan kapasitas angkat maksimum dan teknologi paling canggih. Untuk aplikasi paling menuntut di sektor industri premium.</p>
+          <div class="series-spec-row"><span>Kapasitas Maks</span><span>90 tm</span></div>
+          <div class="series-spec-row"><span>Performa</span><span>Puncak Lini Ferrari</span></div>
+          <div class="series-spec-row"><span>Fitur</span><span>Full Smart System</span></div>
+          <div class="usage-tags">
+            <span class="tag purple">Flagship</span>
+            <span class="tag orange">Mega Project</span>
+          </div>
+        </div>
+
+        <!-- Sky Line -->
+        <div class="series-card" data-series="SKY">
+          <div class="series-badge">Sky Line Series</div>
+          <h3>Sky Line</h3>
+          <div class="tagline">Personnel Lifting · People Mover</div>
+          <p>Seri khusus untuk mengangkat personel (orang), bukan hanya material. Dilengkapi keranjang/basket untuk pekerja yang harus bekerja di ketinggian. Memenuhi standar keselamatan kerja di ketinggian.</p>
+          <div class="series-spec-row"><span>Fungsi</span><span>Angkat Personel</span></div>
+          <div class="series-spec-row"><span>Kapasitas</span><span>1–2 Orang + Material</span></div>
+          <div class="series-spec-row"><span>Sektor</span><span>Konstruksi, Utilitas</span></div>
+          <div class="usage-tags">
+            <span class="tag blue">Aerial Work</span>
+            <span class="tag green">Maintenance</span>
+            <span class="tag orange">Utility</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: SPESIFIKASI -->
+<div id="spesifikasi">
+  <div class="container">
+    <div class="section">
+      <div class="section-label">Bagian 03</div>
+      <div class="section-title">Spesifikasi Utama per Seri</div>
+      <div class="section-body">
+        <p>Tabel berikut merangkum spesifikasi kunci dari masing-masing seri. Baris yang disorot kuning adalah seri yang paling relevan untuk pasar dan kebutuhan industri di Indonesia.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Seri</th>
+              <th>Kelas (tm)</th>
+              <th>Maks. Angkat (kg)</th>
+              <th>Jangkauan Maks (m)</th>
+              <th>Tipe Boom</th>
+              <th>Sektor Utama</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>300</td>
+              <td>1–3 tm</td>
+              <td>860–2.055 kg</td>
+              <td>2.79–4.25 m</td>
+              <td>1 Seksi / Compact</td>
+              <td>Logistik Ringan, Urban</td>
+            </tr>
+            <tr>
+              <td>500</td>
+              <td>4–8 tm</td>
+              <td>2.000–4.000 kg</td>
+              <td>10–14 m</td>
+              <td>Teleskopik + Jib</td>
+              <td>Konstruksi, Distribusi</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>700</td>
+              <td>10–49 tm</td>
+              <td>4.000–25.000 kg</td>
+              <td>14–29 m</td>
+              <td>Multi-Seksi + Ekstensi</td>
+              <td>Konstruksi Berat, Oil & Gas</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>8 Series (6000)</td>
+              <td>11–25 tm</td>
+              <td>4.300–7.300 kg</td>
+              <td>4.48–19.2 m</td>
+              <td>Artikulasi + Teleskopik</td>
+              <td>Asia Tenggara, Pertambangan</td>
+            </tr>
+            <tr>
+              <td>7000</td>
+              <td>hingga 90 tm</td>
+              <td>hingga 63.240 kg</td>
+              <td>hingga 29.4 m</td>
+              <td>Full Artikulasi + Jib</td>
+              <td>Semua Sektor, Smart System</td>
+            </tr>
+            <tr>
+              <td>900</td>
+              <td>Besar</td>
+              <td>Sangat Besar</td>
+              <td>Lebar</td>
+              <td>Heavy Duty</td>
+              <td>Industri Berat</td>
+            </tr>
+            <tr>
+              <td>9000 (Flagship)</td>
+              <td>90 tm</td>
+              <td>63.240 kg</td>
+              <td>29.4 m</td>
+              <td>Flagship Multi-Seksi</td>
+              <td>Mega Project</td>
+            </tr>
+            <tr>
+              <td>Sky Line</td>
+              <td>5–7 tm</td>
+              <td>1.605–2.000 kg</td>
+              <td>7.5–10 m</td>
+              <td>Boom + Basket Personel</td>
+              <td>Aerial Work, Utilitas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: CARA BACA -->
+<div id="cara-baca">
+  <div class="container">
+    <div class="section">
+      <div class="section-label">Bagian 04</div>
+      <div class="section-title">Cara Membaca Spesifikasi Crane</div>
+      <div class="section-body">
+        <p>Spesifikasi crane kerap terlihat rumit, tapi sebenarnya ada beberapa istilah kunci yang cukup dipahami untuk menilai apakah sebuah crane cocok untuk kebutuhan tertentu. Berikut panduan membaca spec Ferrari:</p>
+      </div>
+
+      <div class="spec-explainer">
+        <h4>Kamus Istilah Spesifikasi Crane</h4>
+
+        <div class="spec-row">
+          <div class="spec-term">Lifting Moment (tm)</div>
+          <div class="spec-explain">
+            <strong>Ton-meter (tm)</strong> adalah ukuran <em>kemampuan kerja total</em> crane — gabungan antara berat yang bisa diangkat dan jarak dari titik putar crane. <br>
+            Contoh: <em>10 tm</em> berarti bisa mengangkat <strong>10 ton di jarak 1 meter</strong>, atau <strong>1 ton di jarak 10 meter</strong>. Semakin besar tm, semakin kuat crane tersebut.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-term">Max. Lifting Capacity (kg)</div>
+          <div class="spec-explain">
+            Berat maksimum yang bisa diangkat crane, biasanya diukur <strong>pada jangkauan minimum (posisi terdekat)</strong>. Contoh: <em>7.300 kg</em> = bisa angkat beban hingga 7,3 ton, tapi hanya saat crane dalam posisi paling pendek. Makin panjang boom, makin kecil kapasitas angkat yang diizinkan.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-term">Max. Extension Reach (m)</div>
+          <div class="spec-explain">
+            Jangkauan maksimum boom crane saat fully extended (dipanjangkan penuh). Contoh: <em>19.2 m</em> berarti crane bisa menjangkau titik sejauh 19 meter dari tubuh crane. Semakin jauh jangkauan, kapasitas angkat pada titik itu semakin berkurang.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-term">Knuckle Boom / Articulated</div>
+          <div class="spec-explain">
+            Jenis crane <strong>berlengan lipat</strong> (seperti jari yang bisa ditekuk). Ini adalah tipe utama Ferrari. Keunggulannya: bisa dilipat kompak saat transport, lalu memanjang dan meliuk saat digunakan — ideal untuk bekerja di ruang sempit atau di belakang bak truk.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-term">Telescopic Extensions</div>
+          <div class="spec-explain">
+            Bagian boom yang bisa <strong>memanjang secara teleskopik</strong> (seperti antena). Sering ditulis sebagai angka jumlah seksi — misalnya <em>"6 extensions"</em> berarti boom punya 6 sambungan teleskopik, memungkinkan jangkauan yang jauh lebih panjang.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-term">Jib</div>
+          <div class="spec-explain">
+            Lengan tambahan yang dipasang di ujung boom utama untuk menambah <strong>jangkauan ke sudut yang sulit</strong>. Biasanya lebih tipis. Contoh: <em>"A3J2 jib"</em> = jib dengan 3 seksi artikulasi dan 2 seksi tambahan.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-term">Outriggers / Stabilizers</div>
+          <div class="spec-explain">
+            Kaki-kaki penyangga yang dibuka ke samping saat crane beroperasi untuk <strong>menstabilkan truk</strong> agar tidak oleng saat mengangkat beban berat. Ada dua tipe: <em>hydraulic</em> (otomatis) dan <em>manual</em>.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-term">Radio Remote Control (RRC)</div>
+          <div class="spec-explain">
+            Sistem kendali jarak jauh tanpa kabel. Operator bisa <strong>mengoperasikan crane dari posisi yang aman</strong>, tidak harus berdiri di samping truk. Brand yang umum dipakai: <em>Scanreco</em> dan <em>Hetronic</em>.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-term">Dynamic Load Check</div>
+          <div class="spec-explain">
+            Fitur khusus seri 7000/9000 Ferrari: <strong>sistem verifikasi otomatis</strong> yang mengecek kapasitas angkat aman berdasarkan kondisi aktual truk (kemiringan, posisi stabilizer, dll). Mencegah kecelakaan akibat overload.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        <strong>Tips baca spec Ferrari cepat:</strong> Lihat angka <em>ton-meter (tm)</em> terlebih dahulu — itu adalah angka paling penting yang menentukan seberapa "kuat" sebuah crane. Kemudian cek jangkauan maksimum (meter) untuk memastikan crane bisa menjangkau titik kerja yang dibutuhkan.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: MOUNTING -->
+<div id="mounting">
+  <div class="container">
+    <div class="section">
+      <div class="section-label">Bagian 05</div>
+      <div class="section-title">Di Mana Crane Ferrari Dipasang?</div>
+      <div class="section-body">
+        <p>Crane Ferrari adalah <strong style="color:#fff">truck-mounted crane</strong> — artinya dipasang langsung di atas badan truk. Ada beberapa posisi dan konfigurasi pemasangan yang umum digunakan:</p>
+      </div>
+
+      <div class="mount-grid">
+        <div class="mount-card">
+          <h4><div class="mount-icon">🚛</div>Behind-Cab (Di Belakang Kabin)</h4>
+          <p>Posisi paling umum. Crane dipasang di rangka truk, tepat di belakang kabin pengemudi. Beban kerja dibagi antara depan dan belakang, memberikan keseimbangan terbaik.</p>
+          <div class="pros">✓ Stabilitas tinggi · ✓ Jangkauan luas ke belakang bak</div>
+        </div>
+        <div class="mount-card">
+          <h4><div class="mount-icon">📦</div>Rear-Mounted (Di Belakang Bak)</h4>
+          <p>Crane dipasang di ujung belakang truk. Cocok untuk pekerjaan yang membutuhkan akses di titik paling belakang kendaraan, seperti bongkar muat material panjang.</p>
+          <div class="pros">✓ Akses belakang maksimal · ✓ Bak penuh bisa digunakan</div>
+        </div>
+        <div class="mount-card">
+          <h4><div class="mount-icon">🏗️</div>Mid-Mounted (Di Tengah Bak)</h4>
+          <p>Posisi di tengah bak truk. Digunakan untuk aplikasi khusus yang butuh jangkauan merata ke semua arah. Kurang umum tapi ada untuk kebutuhan spesifik industri.</p>
+          <div class="pros">✓ Jangkauan 360° lebih merata</div>
+        </div>
+        <div class="mount-card">
+          <h4><div class="mount-icon">🚜</div>Special Vehicle (Kendaraan Khusus)</h4>
+          <p>Crane juga bisa dipasang di kendaraan selain truk biasa, seperti: trailer panjang, flatbed, atau kendaraan offroad khusus untuk pertambangan dan kehutanan.</p>
+          <div class="pros">✓ Fleksibel untuk medan berat · ✓ Mining & forestry</div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:24px">
+        <strong>Catatan Penting:</strong> Ferrari menyediakan tim installer profesional yang terlatih untuk memasang crane ke berbagai jenis kendaraan. Pemasangan yang benar sangat kritis untuk keselamatan dan performa crane.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: KEUNGGULAN -->
+<div id="keunggulan">
+  <div class="container">
+    <div class="section">
+      <div class="section-label">Bagian 06</div>
+      <div class="section-title">Keunggulan Ferrari Dibanding Kompetitor</div>
+      <div class="section-body">
+        <p>Berikut adalah poin-poin kekuatan utama yang membuat F.lli Ferrari menjadi pilihan unggulan di segmen truck-mounted crane:</p>
+      </div>
+
+      <div class="strength-list">
+
+        <div class="strength-item">
+          <div class="strength-num">01</div>
+          <div class="strength-body">
+            <h4>Bagian dari Hyva Group — Jaringan Global yang Kuat</h4>
+            <p>Sebagai anak perusahaan Hyva Group, Ferrari memiliki jaringan distributor dan layanan purna jual (aftersales) yang tersebar luas di seluruh dunia, termasuk Asia Tenggara. Spare part bisa didapat dengan cepat — bahkan bisa diairfreight dalam 10 hari dari pabrik Italia. Ini artinya <strong style="color:#fff">downtime diminimalkan</strong>.</p>
+          </div>
+        </div>
+
+        <div class="strength-item">
+          <div class="strength-num">02</div>
+          <div class="strength-body">
+            <h4>Teknologi Generasi Baru — Smart & Connected</h4>
+            <p>Seri 7000 dan 9000 hadir dengan fitur <strong style="color:#fff">Magic Touch</strong> (otomasi posisi crane dari transport ke operasional dengan satu sentuhan), <strong style="color:#fff">Dynamic Load Check</strong> (pencegahan overload real-time), dan konektivitas IoT untuk monitoring jarak jauh. Ini adalah level teknologi yang tidak semua kompetitor miliki di segmen harga yang sama.</p>
+          </div>
+        </div>
+
+        <div class="strength-item">
+          <div class="strength-num">03</div>
+          <div class="strength-body">
+            <h4>Range Produk Paling Lengkap di Kelasnya</h4>
+            <p>Dengan 117+ model dari 9 seri berbeda — mulai dari crane ringan 1 tm untuk pickup, hingga crane raksasa 90 tm untuk mega project — Ferrari bisa melayani hampir semua kebutuhan dalam satu brand. Perusahaan tidak perlu berganti supplier saat skala kebutuhan berubah.</p>
+          </div>
+        </div>
+
+        <div class="strength-item">
+          <div class="strength-num">04</div>
+          <div class="strength-body">
+            <h4>Kualitas Made in Italy — Standar Eropa</h4>
+            <p>Seluruh produksi dilakukan di Italia dengan standar ketat. Crane untuk pasar Eropa memenuhi <strong style="color:#fff">EN12999:2020 dan EN 13849</strong> — standar keselamatan crane Eropa yang sangat tinggi. Untuk pasar non-CE (termasuk Indonesia), kualitas material dan engineering tetap sama, hanya konfigurasi berbeda.</p>
+          </div>
+        </div>
+
+        <div class="strength-item">
+          <div class="strength-num">05</div>
+          <div class="strength-body">
+            <h4>Modularitas Tinggi — Konfigurasi Bebas</h4>
+            <p>Crane Ferrari dirancang modular: customer bisa memilih panjang boom, jumlah ekstensi, tipe jib, sistem kontrol (manual atau radio remote), aksesori tambahan, dan lainnya. Hasilnya adalah crane yang benar-benar disesuaikan dengan kebutuhan operasional spesifik, bukan solusi one-size-fits-all.</p>
+          </div>
+        </div>
+
+        <div class="strength-item">
+          <div class="strength-num">06</div>
+          <div class="strength-body">
+            <h4>Seri Non-CE untuk Pasar Asia — Value Proposition Kuat</h4>
+            <p>Seri 8 (6000) dirancang khusus untuk pasar di luar Eropa seperti Indonesia. Ini berarti: engineering yang sudah dioptimasi untuk kondisi penggunaan di negara berkembang, harga lebih kompetitif dibanding seri CE, namun tetap membawa DNA kualitas Ferrari Italia.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: KOMPETITOR -->
+<div id="kompetitor">
+  <div class="container">
+    <div class="section">
+      <div class="section-label">Bagian 07</div>
+      <div class="section-title">Ferrari vs Kompetitor Utama</div>
+      <div class="section-body">
+        <p>Kompetitor utama di segmen truck-mounted knuckle boom crane adalah <strong style="color:#fff">HIAB</strong> (Swedia), <strong style="color:#fff">Fassi</strong> (Italia), dan <strong style="color:#fff">Palfinger</strong> (Austria). Berikut perbandingan objektifnya:</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Aspek</th>
+              <th>F.lli Ferrari</th>
+              <th>HIAB</th>
+              <th>Fassi</th>
+              <th>Palfinger</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Asal</td>
+              <td>🇮🇹 Italia</td>
+              <td>🇸🇪 Swedia</td>
+              <td>🇮🇹 Italia</td>
+              <td>🇦🇹 Austria</td>
+            </tr>
+            <tr>
+              <td>Grup Induk</td>
+              <td>Hyva Group</td>
+              <td>Cargotec</td>
+              <td>Independen</td>
+              <td>Palfinger AG</td>
+            </tr>
+            <tr>
+              <td>Kapasitas Maks</td>
+              <td><span class="comp-badge win">90 tm</span></td>
+              <td>~200 tm</td>
+              <td>~200 tm</td>
+              <td>~200 tm</td>
+            </tr>
+            <tr>
+              <td>Segmen Utama</td>
+              <td><span class="comp-badge win">Medium-Large</span></td>
+              <td>Semua segmen</td>
+              <td>Medium-Large</td>
+              <td>Semua segmen</td>
+            </tr>
+            <tr>
+              <td>Range Produk</td>
+              <td><span class="comp-badge win">117+ Model</span></td>
+              <td>Sangat Luas</td>
+              <td>Luas</td>
+              <td>Sangat Luas</td>
+            </tr>
+            <tr>
+              <td>Harga Relatif</td>
+              <td><span class="comp-badge win">Kompetitif</span></td>
+              <td><span class="comp-badge low">Premium Tinggi</span></td>
+              <td><span class="comp-badge mid">Menengah-Tinggi</span></td>
+              <td><span class="comp-badge mid">Menengah-Tinggi</span></td>
+            </tr>
+            <tr>
+              <td>Versi Non-CE (Asia)</td>
+              <td><span class="comp-badge win">Ada (Seri 8)</span></td>
+              <td>Terbatas</td>
+              <td>Terbatas</td>
+              <td>Ada</td>
+            </tr>
+            <tr>
+              <td>Jaringan di Asia Tenggara</td>
+              <td><span class="comp-badge win">Kuat (via Hyva)</span></td>
+              <td><span class="comp-badge win">Kuat</span></td>
+              <td><span class="comp-badge mid">Sedang</span></td>
+              <td><span class="comp-badge mid">Sedang</span></td>
+            </tr>
+            <tr>
+              <td>Smart Features (IoT)</td>
+              <td><span class="comp-badge win">Magic Touch, DLC</span></td>
+              <td>iQ System</td>
+              <td>FSC System</td>
+              <td>CPC System</td>
+            </tr>
+            <tr>
+              <td>Ketersediaan Spare Part</td>
+              <td><span class="comp-badge win">Cepat (10 hari)</span></td>
+              <td><span class="comp-badge win">Sangat Baik</span></td>
+              <td><span class="comp-badge mid">Cukup Baik</span></td>
+              <td><span class="comp-badge win">Sangat Baik</span></td>
+            </tr>
+            <tr>
+              <td>Value for Money</td>
+              <td><span class="comp-badge win">★★★★★</span></td>
+              <td><span class="comp-badge mid">★★★☆☆</span></td>
+              <td><span class="comp-badge mid">★★★★☆</span></td>
+              <td><span class="comp-badge mid">★★★☆☆</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="margin-top:28px">
+        <strong>Kesimpulan Kompetitif:</strong> Ferrari unggul dalam hal <em>value for money</em> — menawarkan kualitas Italia dan teknologi yang setara dengan kompetitor premium, namun dengan harga yang lebih kompetitif, terutama untuk pasar Asia. Ditambah jaringan Hyva Group yang sudah established di Asia Tenggara, Ferrari menjadi pilihan strategis yang cerdas untuk operasional jangka panjang.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="closing">
+  <h2>Keputusan yang Tepat.</h2>
+  <p>Memilih F.lli Ferrari berarti memilih 30 tahun reputasi Italia, teknologi terdepan, jangkauan global, dan nilai investasi terbaik di kelasnya. Bukan hanya crane — tapi partner kerja jangka panjang.</p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brand">F.lli FERRARI</div>
+  <div class="footer-note">Dokumen internal — Dipersiapkan oleh tim Triatra Sinergi Pratama<br>Sumber: flliferrari.com, Hyva Group, Crane Market, LECTURA Specs</div>
+  <div class="footer-company">Triatra Sinergi Pratama<br>Internal Brand Overview Report</div>
+</div>
+
+</body>
+</html>
