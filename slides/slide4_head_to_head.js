@@ -1,58 +1,70 @@
+// Slides 4-5 — Head-to-head (Medium, Big Cap). Run: node slide4_head_to_head.js
 const pptxgen = require('pptxgenjs');
 const pres = new pptxgen(); pres.layout = 'LAYOUT_WIDE';
-// FX — PLACEHOLDER, not confirmed by user. Change here and rebuild.
-const USD = 16500, EUR = 19000;
+const USD = 17803;                        // JISDOR 23 Sep 2026
+// Import taxes on competitor prices (Excel = import unit price). Ferrari prices already tax-inclusive.
+const PPN = 0.11, PPH22 = 0.025;          // PPN 12% x DPP 11/12 = 11% effective; PPh 22 with API
+const BM = {china: 0, eu: 0.05};          // ACFTA 0%; MFN assumed 5% — to confirm with BTKI
+const taxed = (usd, o) => usd * USD * (1 + BM[o]) * (1 + PPN + PPH22);
+const rp = v => 'Rp ' + (Math.round(v / 1000) * 1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 const C = {bg:'0F141A',card:'131A21',line:'26303A',txt:'EEF1F4',mut:'9AA6B2',yel:'FFD21F',red:'E30613',redT:'3A0E14'};
 const F = 'Arial';
-const rp = v => 'Rp' + Math.round(v/1e6).toLocaleString('en-US') + 'M';
-const s = pres.addSlide(); s.background = {color:C.bg};
-const T = (t,o) => s.addText(t, Object.assign({isTextBox:true,fontFace:F,color:C.txt,margin:0,valign:'top'},o));
-T('HEAD-TO-HEAD — FERRARI vs TOP-3 COMPETITORS BY 2025 REVENUE',{x:0.45,y:0.3,w:12.4,h:0.3,fontSize:11,color:C.yel,bold:true,charSpacing:1});
-T('Ferrari costs more than every rival, so it must win on quality, material and TSP support',{x:0.45,y:0.62,w:12.4,h:0.45,fontSize:18,bold:true});
-
-const classes = [
- {x:0.45, name:'MEDIUM CLASS', rng:'25 ≤ X < 45 tm', fer:['Ferrari','FBR350 R','~35 tm*',63000*USD],
-  comp:[['Sany Palfinger','SPK36080','34.8 tm',21896*USD],['XCMG','GSQZ330.4','33.8 tm',34431*USD],['Palfinger','PK32080C','30.4 tm',51379*USD]],
-  q:{Quality:['Italian build; 900 N/mm² steel; one-piece cast base','China JV build','China build','Austrian build; premium'],
-     Leadtime:['Ready stock at TSP (planned)','TBC','TBC','TBC'],
-     Support:['TSP nationwide network','Dealer network (TBC)','Dealer network (TBC)','Dealer network (TBC)']}},
- {x:6.88, name:'BIG CAP CLASS', rng:'X > 45 tm · min GVW 42 t', fer:['Ferrari','9601C A8','57.5 tm',160000*EUR],
-  comp:[['Palfinger','PK53002 SH B','50 tm',75926*USD],['Amco Veba','V950','46 tm',88792*USD],['XCMG','GSQZ880.6','88 tm',65289*USD]],
-  q:{Quality:['Italian build; 900 N/mm² steel; one-piece cast base','Austrian build; premium','Italian build (Hyva group)','China build'],
-     Leadtime:['Ready stock at TSP (planned)','TBC','TBC','TBC'],
-     Support:['TSP nationwide network','Dealer network (TBC)','Dealer network (TBC)','Dealer network (TBC)']}},
+const FER = {
+  quality:'Europe design, EN 12999, high-strength special steel, less material, higher working load',
+  lead:'Besides Europe/Brazil factory, also has China factory and stock — fast leadtime',
+  support:'Good — spare parts stock in Malaysia, 24/7 support team, Ferrari mechanics can fly in when needed'};
+const CN = {quality:'China design, heavier, no EN 12999, standard material', lead:'Fast, stock and factory in China',
+  support:'Poor, sold without after-sales support', price:'Cheaper, mass production, China factory'};
+const slides = [
+ {cls:'MEDIUM CLASS', rng:'25 ≤ X < 45 tm',
+  title:'Medium: Ferrari FBR350 R sits in Palfinger\'s price range, with Europe-grade build and faster leadtime',
+  cols:[
+   {n:'Sany Palfinger SPK36080', tm:'34.8 tm', p:taxed(21896,'china'), ...CN, price:CN.price},
+   {n:'XCMG GSQZ330.4', tm:'33.8 tm', p:taxed(34431,'china'), ...CN},
+   {n:'Palfinger PK32080C', tm:'30.4 tm', p:taxed(51379,'eu'), price:'Expensive, Europe (Italy) manufacturing only',
+    quality:'Europe design, EN 12999, high-strength special steel, less material, higher working load',
+    lead:'Besides Italy factory, also has China factory', support:'Good, many support points in Indonesia'},
+   {n:'Ferrari FBR350 R', tm:'~35 tm*', p:63000*USD, price:'Medium-priced positioning for this class', f:1, ...FER}]},
+ {cls:'BIG CAP CLASS', rng:'X > 45 tm · min GVW 42 t',
+  title:'Big Cap: Ferrari FBR450 R E4 costs less than Palfinger and Amco Veba, with equal European quality',
+  cols:[
+   {n:'Palfinger PK53002 SH B', tm:'50.1 tm', p:taxed(75926,'eu'), price:'Expensive, Europe (Austria) brand premium',
+    quality:'Europe design, EN 12999, high-strength steel, Power Link Plus',
+    lead:'Europe factory, also has China factory', support:'Good, many support points in Indonesia'},
+   {n:'Amco Veba V950', tm:'46 tm', p:taxed(88792,'eu'), price:'Most expensive, Italy manufacturing (Hyva group)',
+    quality:'Europe (Italy) design, EN 12999, high-strength steel',
+    lead:'Built in Italy (Poviglio) — longer leadtime', support:'Moderate, via Hyva group dealer network'},
+   {n:'XCMG GSQZ880.6', tm:'88 tm', p:taxed(65289,'china'), ...CN},
+   {n:'Ferrari FBR450 R E4', tm:'~45 tm*', p:1600000000, price:'Mid-range — below Palfinger and Amco Veba', f:1, ...FER}]},
 ];
-const W = 6.0;
-const hdr = {fill:{color:C.line},color:C.mut,bold:true,fontSize:9,fontFace:F};
-const cell = (t,o={}) => ({text:t,options:Object.assign({fill:{color:C.card},color:C.txt,fontSize:10,fontFace:F},o)});
-const fcell = (t,o={}) => cell(t,Object.assign({fill:{color:C.redT},bold:true,color:'FFFFFF'},o));
-for (const k of classes){
-  T([{text:k.name,options:{bold:true,color:C.txt}},{text:'   '+k.rng,options:{color:C.mut}}],{x:k.x,y:1.3,w:W,h:0.28,fontSize:12});
-  // price table
-  const all=[k.fer,...k.comp], rel=all.map(r=>r[3]/k.fer[3]);
-  const rows=[[{text:'Brand',options:hdr},{text:'Model / Type',options:hdr},{text:'Max Lifting Moment',options:hdr},{text:'Price — crane only',options:Object.assign({align:'right'},hdr)}]];
-  all.forEach((r,i)=>{const f=i?cell:fcell; rows.push([f(r[0]),f(r[1]),f(r[2]),f(rp(r[3]),{align:'right'})]);});
-  s.addTable(rows,{x:k.x,y:1.65,w:W,colW:[1.5,1.6,1.4,1.5],rowH:0.27,border:{type:'solid',pt:0.75,color:C.bg},margin:[0,0.07,0,0.07],valign:'middle'});
-  // qualitative table
-  const br=[k.fer[0],...k.comp.map(c=>c[0])];
-  const q=[[{text:'',options:hdr},...br.map((b,i)=>({text:b,options:Object.assign({},hdr,i?{}:{fill:{color:C.red},color:'FFFFFF'})}))]];
-  const lvl=all.map(r=>r[3]); const srt=[...lvl].sort((a,b)=>a-b);
-  const pw=v=>['Lowest','Low','High','Highest'][srt.indexOf(v)];
-  q.push([cell('Price',{bold:true,color:C.mut,fontSize:9}),...lvl.map((v,i)=>(i?cell:fcell)(pw(v),{fontSize:9}))]);
-  for (const [lab,v] of Object.entries(k.q)) q.push([cell(lab,{bold:true,color:C.mut,fontSize:9}),...v.map((t,i)=>(i?cell:fcell)(t,{fontSize:9,bold:i==0}))]);
-  s.addTable(q,{x:k.x,y:3.12,w:W,colW:[0.8,1.9,1.1,1.1,1.1],rowH:[0.27,0.27,0.52,0.27,0.4],border:{type:'solid',pt:0.75,color:C.bg},margin:[0.02,0.06,0.02,0.06],valign:'middle'});
+for (const k of slides) {
+  const s = pres.addSlide(); s.background = {color:C.bg};
+  const T = (t,o) => s.addText(t, Object.assign({isTextBox:true,fontFace:F,color:C.txt,margin:0,valign:'top'},o));
+  T(`HEAD-TO-HEAD — ${k.cls}  (${k.rng})`,{x:0.45,y:0.3,w:12.4,h:0.3,fontSize:11,color:C.yel,bold:true,charSpacing:1});
+  T(k.title,{x:0.45,y:0.62,w:12.4,h:0.4,fontSize:18,bold:true});
+  const H = (t,f) => ({text:t,options:{fill:{color:f?C.red:C.line},color:f?'FFFFFF':C.txt,bold:true,fontSize:10.5,fontFace:F}});
+  const L = t => ({text:t,options:{fill:{color:C.card},color:C.mut,bold:true,fontSize:10,fontFace:F}});
+  const V = (t,f,o={}) => ({text:t,options:Object.assign({fill:{color:f?C.redT:C.card},color:f?'FFFFFF':C.txt,bold:!!f,fontSize:10,fontFace:F},o)});
+  const rows = [[{text:'',options:{fill:{color:C.line}}}, ...k.cols.map(c=>H(c.n,c.f))]];
+  const add = (lab,key,o) => rows.push([L(lab), ...k.cols.map(c=>V(typeof key=='function'?key(c):c[key],c.f,o))]);
+  add('Max Lifting Moment','tm');
+  add('Price (crane only, IDR, incl. tax)', c=>rp(c.p), {fontSize:11.5});
+  add('Price (qualitative)','price'); add('Quality','quality'); add('Leadtime','lead'); add('Support','support');
+  s.addTable(rows,{x:0.45,y:1.2,w:12.43,colW:[1.63,2.7,2.7,2.7,2.7],rowH:[0.32,0.3,0.34,0.45,0.62,0.5,0.62],
+    border:{type:'solid',pt:0.75,color:C.bg},margin:[0.03,0.08,0.03,0.08],valign:'middle'});
+  const by = 4.8;
+  s.addShape(pres.shapes.RECTANGLE,{x:0.45,y:by,w:6.0,h:1.75,fill:{color:C.card}});
+  T('FERRARI-ONLY FEATURES — NO COMPETITOR EQUIVALENT',{x:0.65,y:by+0.15,w:5.6,h:0.25,fontSize:10,bold:true,color:C.yel});
+  T([{text:'High-strength special steel (900 N/mm²) — no competitor publishes a comparable figure.',options:{bullet:true,breakLine:true}},
+     {text:'Casted-base, one-piece construction — +50% strength vs welded (Ferrari claim); Palfinger relies on KTL surface coating instead.',options:{bullet:true}}],
+    {x:0.65,y:by+0.5,w:5.6,h:1.1,fontSize:11,paraSpaceAfter:6});
+  s.addShape(pres.shapes.RECTANGLE,{x:6.88,y:by,w:6.0,h:1.75,fill:{color:C.redT},line:{color:C.red,width:1}});
+  T('WHY FERRARI',{x:7.08,y:by+0.15,w:5.6,h:0.25,fontSize:10,bold:true,color:C.yel});
+  T(k.cls.startsWith('MEDIUM')
+    ? 'Chinese rivals are cheaper but carry no EN 12999 and no after-sales support. Against Palfinger, Ferrari is priced in the same range but adds special steel, a one-piece cast base, China stock for fast delivery and 24/7 support, which matters more to mining fleets than the price difference.'
+    : 'At Rp 1,6 billion, Ferrari costs less than Palfinger and Amco Veba with the same European design and EN 12999 standard. XCMG is cheaper but has no EN 12999 and weak support. Ferrari gives the best quality for the price in the Big Cap class.',
+    {x:7.08,y:by+0.5,w:5.6,h:1.15,fontSize:11});
+  T(`Competitor prices = 2025 average import unit price (Excel, HS 84269100+84264900) converted at USD 1 = Rp ${USD.toLocaleString('id-ID')} (JISDOR, 23 Sep 2026), then taxed: import duty 0% China (ACFTA) / 5% Europe (MFN, assumed), PPN 11%, PPh 22 2.5%. Ferrari prices already include tax. *Ferrari lifting moment inferred from model name, pending spec sheet.`,
+    {x:0.45,y:6.7,w:12.43,h:0.5,fontSize:8,color:C.mut});
 }
-// bottom band
-const by=5.2;
-s.addShape(pres.shapes.RECTANGLE,{x:0.45,y:by,w:6.0,h:1.55,fill:{color:C.card}});
-T('FERRARI-ONLY FEATURES — NO COMPETITOR EQUIVALENT',{x:0.65,y:by+0.15,w:5.6,h:0.25,fontSize:10,bold:true,color:C.yel});
-T([{text:'High-strength special steel (900 N/mm²) — no competitor publishes a comparable figure.',options:{bullet:true,breakLine:true}},
-   {text:'Casted-base, one-piece construction — +50% strength vs welded (Ferrari claim); Palfinger relies on KTL surface coating instead.',options:{bullet:true}}],
-  {x:0.65,y:by+0.48,w:5.6,h:0.95,fontSize:11,paraSpaceAfter:6});
-s.addShape(pres.shapes.RECTANGLE,{x:6.88,y:by,w:6.0,h:1.55,fill:{color:C.redT},line:{color:C.red,width:1}});
-T('WHY FERRARI DESPITE THE PRICE GAP',{x:7.08,y:by+0.15,w:5.6,h:0.25,fontSize:10,bold:true,color:C.yel});
-T('Every competitor matches Ferrari on standard crane technology, but none matches its steel grade or one-piece cast base. For mining customers running 24 t+ GVW trucks, that means a longer structural life for the price. TSP stock and nationwide support also cut downtime, which matters more to these customers than the purchase price.',
-  {x:7.08,y:by+0.48,w:5.6,h:1.0,fontSize:11});
-T(`Price basis: crane only. Competitors = average 2025 import unit price (HS 84269100+84264900); Ferrari = TSP price. FX used: USD 1 = Rp${USD.toLocaleString('en-US')}, EUR 1 = Rp${EUR.toLocaleString('en-US')} (ASSUMED — to be confirmed). *FBR350 R lifting moment inferred from model name, pending spec sheet. Quality/Leadtime/Support = draft TSP assessment, TBC to be validated.`,
-  {x:0.45,y:6.88,w:12.43,h:0.45,fontSize:8,color:C.mut});
-pres.writeFile({fileName:'Slide4_HeadToHead.pptx'}).then(()=>console.log('done'));
+pres.writeFile({fileName:'Slide4-5_HeadToHead.pptx'}).then(()=>console.log('done'));
