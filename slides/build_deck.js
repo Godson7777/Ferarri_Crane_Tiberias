@@ -20,7 +20,8 @@ const LOGO = {FERRARI:['logo_ferrari',3.798], 'SANY PALFINGER':['logo_sanypalfin
 const SRC = `Source: Indonesia import records, HS 84269100 + 84264900, Jan 2023 – ${D.last2026}; truck-mounted knuckle boom cranes only, Zoomlion excluded.`;
 
 const rp = v => 'Rp ' + (Math.round(v / 1e6) * 1e6).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-const rpx = v => 'Rp ' + (Math.round(v / 1000) * 1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+// rpx: prices rounded to Rp 10.000.000
+const rpx = v => 'Rp ' + (Math.round(v / 1e7) * 1e7).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 const pct = v => Math.round(v * 100) + '%';
 const title = s => s.toLowerCase().replace(/\b\w/g, m => m.toUpperCase());
 const brandName = b => ({'SANY PALFINGER':'Sany Palfinger','AMCO VEBA':'Amco Veba','XCMG':'XCMG','HIAB':'Hiab'}[b] || title(b));
@@ -79,22 +80,27 @@ const TB = {border:{type:'solid', pt:1, color:C.bg}, margin:[0.03, 0.08, 0.03, 0
   const uT = D.totUnits.Medium + D.totUnits.Heavy, uAll = K.reduce((a, k) => a + D.totUnits[k], 0);
   const s = slide('1 · WHICH CLASS SHOULD WE ENTER?',
     `Medium and Heavy: ${pct(uT / uAll)} of units but ${pct(vT / vAll)} of import value — our target classes`);
-  tableTitle(s, `Units Imported per Year by Class, 2023 – ${D.last2026}`, 0.45, 1.3, 7.6);
-  s.addChart(pres.charts.BAR, K.map(k => ({name:`${k} (${D.ranges[k]})`, labels:['2023', '2024', '2025', '2026 (Jan – 14 Aug)'], values:D.unitsYear[k]})),
+  tableTitle(s, 'Units Imported per Year by Class, 2023 – 2026 (2026 annualised)', 0.45, 1.3, 7.6);
+  const ann = k => [...D.unitsYear[k].slice(0, 3), Math.round(D.unitsYear[k][3] * D.f26)];
+  const chg = (a, b) => { const c = Math.round((b / a - 1) * 100); return (c >= 0 ? '▲ +' : '▼ −') + Math.abs(c) + '%'; };
+  s.addChart(pres.charts.BAR, K.map(k => ({name:`${k} (${D.ranges[k]})`, labels:['2023', '2024', '2025', '2026 (annualised)*'], values:ann(k)})),
     {x:0.35, y:1.55, w:7.8, h:2.85, barDir:'col', barGrouping:'clustered', barGapWidthPct:60,
      chartColors:[C.grey1, C.grey2, C.med, C.heavy], showValue:true, dataLabelPosition:'outEnd', dataLabelFontSize:8, dataLabelColor:C.mut, dataLabelFontFace:F,
      showLegend:true, legendPos:'t', legendFontSize:9, legendColor:C.txt, legendFontFace:F,
      catAxisLabelColor:C.mut, catAxisLabelFontSize:9, catAxisLabelFontFace:F, catAxisLineShow:false,
      valAxisHidden:true, valGridLine:{style:'none'}, catGridLine:{style:'none'}});
-  tableTitle(s, `Total Units and Import Value (IDR, before tax) by Class, 2023 – ${D.last2026}`, 0.45, 4.55, 7.6);
-  const rows = [[H('Class'), H('Max Lifting Moment'), H('Units', {align:'right'}), H('Import value (IDR, before tax)', {align:'right'}), H('Share of value', {align:'right'})]];
+  tableTitle(s, `Total Units and Import Value by Class, 2023 – ${D.last2026}, and Unit Trend`, 0.45, 4.55, 7.6);
+  const rows = [[H('Class'), H('Max Lifting Moment'), H('Units', {align:'right'}), H('Import value (IDR, before tax)', {align:'right'}), H('Share of value', {align:'right'}),
+    H('Units 2025 vs 2023', {align:'right'}), H('Units 2026* vs 2025', {align:'right'})]];
+  const tr = (t, o) => V(t, Object.assign({}, o, {align:'right', color:t[0] === '▲' ? '5BC98C' : 'F2777F'}));   // green up, red down
   K.forEach(k => {
-    const t = k === 'Medium' || k === 'Heavy', o = t ? {bold:true, color:CLS[k].c} : {};
+    const t = k === 'Medium' || k === 'Heavy', o = t ? {bold:true, color:CLS[k].c} : {}, a = ann(k);
     rows.push([V(k, o), V(D.ranges[k], o), V(String(D.totUnits[k]), Object.assign({align:'right'}, o)),
-      V(rp(D.totValueUSD[k] * USD), Object.assign({align:'right'}, o)), V(pct(D.totValueUSD[k] / vAll), Object.assign({align:'right'}, o))]);
+      V(rp(D.totValueUSD[k] * USD), Object.assign({align:'right'}, o)), V(pct(D.totValueUSD[k] / vAll), Object.assign({align:'right'}, o)),
+      tr(chg(a[0], a[2]), o), tr(chg(a[2], a[3]), o)]);
   });
-  rows.push([V('Total', {bold:true}), V(''), V(String(uAll), {bold:true, align:'right'}), V(rp(vAll * USD), {bold:true, align:'right'}), V('100%', {bold:true, align:'right'})]);
-  s.addTable(rows, Object.assign({x:0.45, y:4.82, w:7.6, colW:[1.2, 1.7, 1.0, 2.5, 1.2], rowH:0.28}, TB));
+  rows.push([V('Total', {bold:true}), V(''), V(String(uAll), {bold:true, align:'right'}), V(rp(vAll * USD), {bold:true, align:'right'}), V('100%', {bold:true, align:'right'}), V(''), V('')]);
+  s.addTable(rows, Object.assign({x:0.45, y:4.82, w:7.6, colW:[0.8, 1.05, 0.6, 1.95, 0.8, 1.2, 1.2], rowH:0.28}, TB));
   // KPI tiles
   tableTitle(s, 'Average Units Sold per Year', 8.45, 1.3, 4.4);
   [[D.avgTarget, 'Medium + Heavy', 'target classes', C.red], [D.avgOther, 'Light + Small', 'non-target classes', C.grey1]].forEach(([v, a, b, col], i) => {
@@ -103,7 +109,7 @@ const TB = {border:{type:'solid', pt:1, color:C.bg}, margin:[0.03, 0.08, 0.03, 0
     T(s, String(Math.round(v)), {x:x + 0.15, y:1.68, w:1.8, h:0.6, fontSize:32, bold:true});
     T(s, [{text:a, options:{bold:true, breakLine:true}}, {text:b + ' · units / year'}], {x:x + 0.15, y:2.33, w:1.85, h:0.5, fontSize:9, color:C.mut});
   });
-  T(s, `2026 annualised (Jan – 14 Aug × ${D.f26.toFixed(2)}); average of 4 years.`, {x:8.45, y:3.0, w:4.4, h:0.22, fontSize:7.5, color:C.dim});
+  T(s, `*2026 annualised (Jan – 14 Aug × ${D.f26.toFixed(2)}); average of 4 years.`, {x:8.45, y:3.0, w:4.4, h:0.22, fontSize:7.5, color:C.dim});
   s.addShape(pres.shapes.RECTANGLE, {x:8.45, y:3.35, w:4.4, h:3.3, fill:{color:C.card}, line:{color:C.card, width:0}});
   T(s, 'WHY MEDIUM AND HEAVY', {x:8.65, y:3.5, w:4.0, h:0.25, fontSize:10, bold:true, color:C.red});
   const avgT = vT / uT * USD, avgO = (vAll - vT) / (uAll - uT) * USD;
@@ -111,10 +117,13 @@ const TB = {border:{type:'solid', pt:1, color:C.bg}, margin:[0.03, 0.08, 0.03, 0
     {text:'Bigger value per deal', options:{bold:true, breakLine:true}},
     {text:`Fewer units per year, but ${pct(vT / vAll)} of the money. Average import value per unit is ${rp(avgT)} vs ${rp(avgO)} for Light + Small.`, options:{color:C.mut, breakLine:true}},
     {text:' ', options:{fontSize:6, breakLine:true}},
-    {text:'Fits TSP\'s core business', options:{bold:true, breakLine:true}},
-    {text:`Both classes need rear outriggers and heavy trucks: ${pct(D.gvw24Share)} of their units need a truck with GVW of 24 t or more — the mining-duty trucks TSP already serves.`, options:{color:C.mut}}],
-    {x:8.65, y:3.85, w:4.0, h:2.7, fontSize:11.5});
-  foot(s, SRC + ` Values converted at USD 1 = Rp ${USD.toLocaleString('id-ID')} (JISDOR, 23 Sep 2026).`);
+    {text:'Clear buyer profile', options:{bold:true, breakLine:true}},
+    {text:`${pct(D.gvw24Share)} of Medium and Heavy cranes need a truck with GVW of 24 t or more, so buyers are heavy truck fleet operators: mining, construction and heavy logistics.`, options:{color:C.mut, breakLine:true}},
+    {text:' ', options:{fontSize:6, breakLine:true}},
+    {text:'Trend: enter with focus', options:{bold:true, breakLine:true}},
+    {text:`Medium falls every year (${ann('Medium').join(' → ')}*). Heavy peaked in 2025 (${D.unitsYear.Heavy[2]} units) but runs at ~${ann('Heavy')[3]} in 2026. Target existing European-brand buyers rather than expect market growth.`, options:{color:C.mut}}],
+    {x:8.65, y:3.8, w:4.0, h:2.8, fontSize:10});
+  foot(s, SRC + ` Values converted at USD 1 = Rp ${USD.toLocaleString('id-ID')} (JISDOR, 23 Sep 2026). *2026 annualised: Jan – 14 Aug units × ${D.f26.toFixed(2)}.`);
 }
 
 // =============== 2. BRANDS 2025 (waterfall) ===============
@@ -214,14 +223,14 @@ const H2H = {
       {b:'FERRARI', m:'FBR350 R', ph:'fbr350r', tm:'~35 tm*', p:63000 * USD, tag:'Ferrari offer', pos:'On par with Palfinger (+3%)', f:1, ...FER}],
     why:'Chinese rivals are cheaper but have no EN 12999 and no after-sales support. Against Palfinger, Ferrari costs about the same yet adds special steel, a one-piece cast base, China stock and 24/7 support — what mining fleets value more than price.',
     note:'*FBR350 R lifting moment inferred from the model name, pending spec sheet.'},
-  Heavy:{fer:'FBR450 R E4', head:'Heavy: FBR450 R E4 undercuts Palfinger and Amco Veba at equal European quality',
+  Heavy:{fer:'FBR450 R E4', head:'Heavy: FBR450 R E4 matches Palfinger\'s price and undercuts Amco Veba',
     cols:[
       {b:'PALFINGER', m:'PK 53002 SH B', ph:'pk53002', tm:'50.1 tm', p:taxed(75926, 'eu'), tag:'Winner model, 2025', pos:'High — Austrian brand premium', ...PAL},
       {b:'AMCO VEBA', m:'V950', ph:'v950', tm:'46 tm', p:taxed(88792, 'eu'), tag:'Winner model, 2025', pos:'Highest — made in Italy', ...ITA},
       {b:'HYVA', m:'HC501X', ph:'hc501x', tm:'50 tm', p:taxed(59396, 'eu'), tag:'Added: #4 brand, 2025', pos:'Mid — made in Italy', ...ITA},
       {b:'XCMG', m:'GSQZ460.4', ph:'gsqz460', tm:'46 tm', p:taxed(40195, 'china'), tag:'Added: last import 2023', ...CN},
-      {b:'FERRARI', m:'FBR450 R E4', ph:'fbr450r', tm:'45.5 tm', p:1600000000, tag:'Ferrari offer', pos:'Below Palfinger and Amco Veba', f:1, ...FER}],
-    why:'At Rp 1.600.000.000, Ferrari is below Palfinger and Amco Veba — the brands most Heavy buyers choose — at the same EN 12999 standard. Hyva and XCMG are cheaper but sell few units; against them Ferrari leads with 900 N/mm² steel, a one-piece cast base and faster supply from China stock.',
+      {b:'FERRARI', m:'FBR450 R E4', ph:'fbr450r', tm:'45.5 tm', p:1600000000, tag:'Ferrari offer', pos:'On par with Palfinger, below Amco Veba', f:1, ...FER}],
+    why:'At Rp 1.600.000.000, Ferrari is on par with Palfinger and below Amco Veba — the brands most Heavy buyers choose — at the same EN 12999 standard. Hyva and XCMG are cheaper but sell few units; against them Ferrari leads with 900 N/mm² steel, a one-piece cast base and faster supply from China stock.',
     note:'HC501X: 2025 average of 2 units. GSQZ460.4: 2023 average (no import in 2024 – 2025).'}};
 function h2h(k, n) {
   const K = H2H[k], nc = K.cols.length, lab = 1.45, cw = (12.43 - lab) / nc;
@@ -260,7 +269,7 @@ function h2h(k, n) {
   s.addShape(pres.shapes.RECTANGLE, {x:6.88, y:by, w:6.0, h:bh, fill:{color:C.redT}, line:{color:C.red, width:1}});
   T(s, 'WHY FERRARI', {x:7.05, y:by + 0.07, w:5.7, h:0.2, fontSize:9, bold:true, color:'FFFFFF'});
   T(s, K.why, {x:7.05, y:by + 0.3, w:5.7, h:bh - 0.33, fontSize:fs});
-  foot(s, `Competitor prices: 2025 average import unit price (Excel) × Rp ${USD.toLocaleString('id-ID')}/USD (JISDOR 23 Sep 2026), plus import duty (0% China – ACFTA; 5% Europe – MFN, assumed), PPN 11% and PPh 22 2.5%. Ferrari prices already include tax. ${K.note}`);
+  foot(s, `Prices rounded to Rp 10.000.000. Competitors: 2025 average import unit price (Excel) × Rp ${USD.toLocaleString('id-ID')}/USD (JISDOR 23 Sep 2026) + import duty (0% China – ACFTA; 5% Europe – MFN, assumed), PPN 11%, PPh 22 2.5% — import cost before distributor margin, so their price to customers is higher. Ferrari: selling price to customers, incl. tax. ${K.note}`);
 }
 h2h('Medium', 4);
 h2h('Heavy', 5);
@@ -279,7 +288,7 @@ h2h('Heavy', 5);
           ['Do not chase', `Sany Palfinger and XCMG buyers (${mCN} of ${mTot} units) on price — Ferrari cannot match their cost.`]]},
     {k:'Heavy', ph:'fbr450r', m:'FBR450 R E4', stat:`${hEU} of ${hTot}`, statL:'Heavy units in 2025 bought from Palfinger and Amco Veba',
      pts:[['Target buyer', `Palfinger PK 53002 SH B (${D.brandsHeavy.find(r => r.Brand === 'PALFINGER').q} units) and Amco Veba V950 (${D.brandsHeavy.find(r => r.Brand === 'AMCO VEBA').q} units) customers.`],
-          ['Why we win', `Lower price than both (${rpx(P('Heavy', 'FBR450 R E4'))} vs ${rpx(P('Heavy', 'PK 53002 SH B'))} and ${rpx(P('Heavy', 'V950'))}) with the same EN 12999 standard.`],
+          ['Why we win', `Palfinger price level, below Amco Veba (${rpx(P('Heavy', 'FBR450 R E4'))} vs ${rpx(P('Heavy', 'PK 53002 SH B'))} and ${rpx(P('Heavy', 'V950'))}) with the same EN 12999 standard.`],
           ['Watch out', `45.5 tm is below PK 53002 SH B and HC501X (50 tm), and Hyva is cheaper (${rpx(P('Heavy', 'HC501X'))}) — lead with material, supply and support.`]]}];
   cards.forEach((c, i) => {
     const x = 0.45 + i * 6.43, y = 1.25, w = 6.0, h = 5.5;
@@ -300,4 +309,4 @@ h2h('Heavy', 5);
   foot(s, SRC + ' Prices as on slides 4 – 5 (IDR, incl. tax).');
 }
 
-pres.writeFile({fileName:'Flli_Ferrari_Market_Strategy_v2.pptx'}).then(() => console.log('done'));
+pres.writeFile({fileName:'Flli_Ferrari_Market_Strategy_v3.pptx'}).then(() => console.log('done'));
