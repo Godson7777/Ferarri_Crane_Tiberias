@@ -16,7 +16,7 @@ const CLS = {Medium:{c:C.med, pale:'FBE3BD', label:'MEDIUM', rng:'> 25 – 45 tm
              Heavy:{c:C.heavy, pale:'CFE3FE', label:'HEAVY', rng:'> 45 tm'}};
 const F = 'Arial';
 const LOGO = {FERRARI:['logo_ferrari',3.798], 'SANY PALFINGER':['logo_sanypalfinger',4.694], PALFINGER:['logo_palfinger',4.516],
-  'AMCO VEBA':['logo_amcoveba',4.469], XCMG:['logo_xcmg',4.587]};
+  'AMCO VEBA':['logo_amcoveba',4.469], XCMG:['logo_xcmg',4.587], HYVA:['logo_hyva',2.110]};
 const SRC = `Source: Indonesia import records, HS 84269100 + 84264900, Jan 2023 – ${D.last2026}; truck-mounted knuckle boom cranes only, Zoomlion excluded.`;
 
 const rp = v => 'Rp ' + (Math.round(v / 1e6) * 1e6).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -158,25 +158,35 @@ function waterfall(s, k, x, y, w, h) {
 // =============== 3. WINNER MODELS ===============
 {
   const s = slide('3 · WHICH MODELS DO THE LEADERS SELL?  (2025)',
-    'Each leading brand relies on one winner model — these are Ferrari\'s benchmarks');
+    'Winner models, plus two Medium runner-ups, are Ferrari\'s benchmarks');
   const notes = {
     'Heavy|PALFINGER':'One model = 100% of Palfinger\'s Heavy units.',
     'Heavy|AMCO VEBA':'One model = 100% of Amco Veba\'s Heavy units.',
-    'Heavy|XCMG':'Tie on units; GSQZ880.6 highlighted (higher value). Both are 86 – 88 tm.'};
+    'Heavy|XCMG':'Tie on units; GSQZ880.6 highlighted (higher value). Both are 86 – 88 tm.',
+    'Medium|SANY PALFINGER':'SPK42502 ties SPK32080 on units; ranked higher on value.',
+    'Medium|XCMG':'SQZ325.4 ties KSQZ300.3 on units; ranked higher on value.'};
+  const RUNNER = ['SANY PALFINGER SPK42502', 'XCMG SQZ325.4'];   // runner-ups added to the Medium head-to-head
   ['Medium', 'Heavy'].forEach((k, j) => {
     const y = 1.25 + j * 2.8;
     classTab(s, 0.45, y, k);
+    [[CLS[k].c, 'Winner model'], ...(k === 'Medium' ? [[CLS[k].pale, 'Runner-up, added to head-to-head']] : []), [C.grey2, 'Other models']].forEach(([col, t], i) => {
+      const lx = 3.3 + i * 2.0 + (i > 1 ? 1.0 : 0);
+      s.addShape(pres.shapes.RECTANGLE, {x:lx, y:y + 0.11, w:0.14, h:0.14, fill:{color:col}, line:{color:col, width:0}});
+      T(s, t, {x:lx + 0.2, y:y + 0.06, w:3.0, h:0.24, fontSize:8.5, color:C.mut, valign:'middle'});
+    });
     Object.entries(D['models' + k]).forEach(([br, ms], i) => {
       const x = 0.45 + i * 4.21, w = 4.01, cy = y + 0.45;
       s.addShape(pres.shapes.RECTANGLE, {x, y:cy, w, h:2.2, fill:{color:C.card}, line:{color:C.card, width:0}});
       logoTile(s, br, x + 0.15, cy + 0.12, 1.3, 0.29);
       T(s, `${brandName(br)}: Units Sold by Model, ${k}, 2025`, {x:x + 1.6, y:cy + 0.12, w:w - 1.7, h:0.3, fontSize:9, bold:true, valign:'middle'});
       const labels = ms.map(m => model(m.Model, br));
+      const ru = m => RUNNER.includes(m.Model);
       s.addChart(pres.charts.BAR, [
         {name:'Winner', labels, values:ms.map((m, t) => t ? 0 : m.q)},
-        {name:'Other', labels, values:ms.map((m, t) => t ? m.q : 0)}],
+        {name:'Runner-up', labels, values:ms.map((m, t) => t && ru(m) ? m.q : 0)},
+        {name:'Other', labels, values:ms.map((m, t) => t && !ru(m) ? m.q : 0)}],
         {x:x + 0.05, y:cy + 0.45, w:w - 0.15, h:ms.length === 1 ? 0.75 : 1.4, barDir:'bar', barGrouping:'stacked', barGapWidthPct:35,
-         chartColors:[CLS[k].c, C.grey2], showValue:true, dataLabelPosition:'inEnd', dataLabelFormatCode:'0;;;', dataLabelFontSize:9,
+         chartColors:[CLS[k].c, CLS[k].pale, C.grey2], showValue:true, dataLabelPosition:'inEnd', dataLabelFormatCode:'0;;;', dataLabelFontSize:9,
          dataLabelFontBold:true, dataLabelColor:C.bg, dataLabelFontFace:F, catAxisOrientation:'maxMin', catAxisLabelColor:C.txt,
          catAxisLabelFontSize:9, catAxisLabelFontFace:F, catAxisLineShow:false, valAxisHidden:true, valAxisMinVal:0,
          valAxisMaxVal:Math.max(...ms.map(m => m.q)), valGridLine:{style:'none'}, catGridLine:{style:'none'}, showLegend:false});
@@ -184,69 +194,72 @@ function waterfall(s, k, x, y, w, h) {
       if (n) T(s, n, {x:x + 0.15, y:cy + 1.8, w:w - 0.3, h:0.3, fontSize:8, color:C.mut, italic:true});
     });
   });
-  foot(s, SRC + ' Top 3 brands by 2025 import value per class (slide 2); up to 3 models shown per brand; highlighted bar = winner model (most units).');
+  foot(s, SRC + ' Top 3 brands by 2025 import value per class (slide 2); up to 3 models shown per brand; winner = most units, ties broken by import value.');
 }
 
 // =============== 4–5. HEAD-TO-HEAD ===============
 const FER = {quality:'EU design, EN 12999, high-strength steel + one-piece cast base', lead:'Fast — China factory and stock',
   support:'Good — parts stock in Malaysia, 24/7 team, fly-in mechanics'};
 const CN = {pos:'Low — China mass production', quality:'China design, heavier, no EN 12999', lead:'Fast — China factory and stock', support:'Poor — no after-sales support'};
+const PAL = {quality:'EU design, EN 12999, high-strength steel', lead:'Europe and China factories', support:'Good — many service points in Indonesia'};
+const ITA = {quality:'EU (Italy) design, EN 12999, high-strength steel', lead:'Built in Italy — longer leadtime', support:'Moderate — Hyva dealer network'};
 const H2H = {
   Medium:{fer:'FBR350 R', head:'Medium: FBR350 R is priced on par with Palfinger, with better build and faster supply',
     cols:[
-      {b:'SANY PALFINGER', m:'SPK36080', ph:'spk36080', tm:'34.8 tm', p:taxed(21896, 'china'), ...CN},
-      {b:'XCMG', m:'GSQZ330.4', ph:'gsqz330', tm:'33.8 tm', p:taxed(34431, 'china'), ...CN},
-      {b:'PALFINGER', m:'PK 32080 C', ph:'pk32080c', tm:'30.4 tm', p:taxed(51379, 'eu'), pos:'High — Europe-made',
-       quality:'EU design, EN 12999, high-strength steel', lead:'Europe and China factories', support:'Good — many service points in Indonesia'},
-      {b:'FERRARI', m:'FBR350 R', ph:'fbr350r', tm:'~35 tm*', p:63000 * USD, pos:'On par with Palfinger (+3%)', f:1, ...FER}],
+      {b:'SANY PALFINGER', m:'SPK36080', ph:'spk36080', tm:'34.8 tm', p:taxed(21896, 'china'), tag:'Winner model, 2025', ...CN},
+      {b:'SANY PALFINGER', m:'SPK42502', ph:'spk42502', tm:'42.5 tm', p:taxed(36414, 'china'), tag:'Runner-up, 2025', ...CN},
+      {b:'XCMG', m:'GSQZ330.4', ph:'gsqz330', tm:'33.8 tm', p:taxed(34431, 'china'), tag:'Winner model, 2025', ...CN},
+      {b:'XCMG', m:'SQZ325.4', ph:'sqz325', tm:'32.5 tm', p:taxed(27176, 'china'), tag:'Runner-up, 2025', ...CN},
+      {b:'PALFINGER', m:'PK 32080 C', ph:'pk32080c', tm:'30.4 tm', p:taxed(51379, 'eu'), tag:'Winner model, 2025', pos:'High — Europe-made', ...PAL},
+      {b:'FERRARI', m:'FBR350 R', ph:'fbr350r', tm:'~35 tm*', p:63000 * USD, tag:'Ferrari offer', pos:'On par with Palfinger (+3%)', f:1, ...FER}],
     why:'Chinese rivals are cheaper but have no EN 12999 and no after-sales support. Against Palfinger, Ferrari costs about the same yet adds special steel, a one-piece cast base, China stock and 24/7 support — what mining fleets value more than price.',
     note:'*FBR350 R lifting moment inferred from the model name, pending spec sheet.'},
   Heavy:{fer:'FBR450 R E4', head:'Heavy: FBR450 R E4 undercuts Palfinger and Amco Veba at equal European quality',
     cols:[
-      {b:'PALFINGER', m:'PK 53002 SH B', ph:'pk53002', tm:'50.1 tm', p:taxed(75926, 'eu'), pos:'High — Austrian brand premium',
-       quality:'EU design, EN 12999, high-strength steel', lead:'Europe and China factories', support:'Good — many service points in Indonesia'},
-      {b:'AMCO VEBA', m:'V950', ph:'v950', tm:'46 tm', p:taxed(88792, 'eu'), pos:'Highest — made in Italy',
-       quality:'EU (Italy) design, EN 12999, high-strength steel', lead:'Built in Italy — longer leadtime', support:'Moderate — Hyva dealer network'},
-      {b:'FERRARI', m:'FBR450 R E4', ph:'fbr450r', tm:'45.5 tm', p:1600000000, pos:'Lowest of the three', f:1, ...FER}],
-    why:'At Rp 1.600.000.000, Ferrari is below Palfinger and Amco Veba while meeting the same European standard (EN 12999). It adds two things neither rival offers — 900 N/mm² steel and a one-piece cast base — plus faster supply from China stock.',
-    note:''}};
+      {b:'PALFINGER', m:'PK 53002 SH B', ph:'pk53002', tm:'50.1 tm', p:taxed(75926, 'eu'), tag:'Winner model, 2025', pos:'High — Austrian brand premium', ...PAL},
+      {b:'AMCO VEBA', m:'V950', ph:'v950', tm:'46 tm', p:taxed(88792, 'eu'), tag:'Winner model, 2025', pos:'Highest — made in Italy', ...ITA},
+      {b:'HYVA', m:'HC501X', ph:'hc501x', tm:'50 tm', p:taxed(59396, 'eu'), tag:'Added: #4 brand, 2025', pos:'Mid — made in Italy', ...ITA},
+      {b:'XCMG', m:'GSQZ460.4', ph:'gsqz460', tm:'46 tm', p:taxed(40195, 'china'), tag:'Added: last import 2023', ...CN},
+      {b:'FERRARI', m:'FBR450 R E4', ph:'fbr450r', tm:'45.5 tm', p:1600000000, tag:'Ferrari offer', pos:'Below Palfinger and Amco Veba', f:1, ...FER}],
+    why:'At Rp 1.600.000.000, Ferrari is below Palfinger and Amco Veba — the brands most Heavy buyers choose — at the same EN 12999 standard. Hyva and XCMG are cheaper but sell few units; against them Ferrari leads with 900 N/mm² steel, a one-piece cast base and faster supply from China stock.',
+    note:'HC501X: 2025 average of 2 units. GSQZ460.4: 2023 average (no import in 2024 – 2025).'}};
 function h2h(k, n) {
-  const K = H2H[k], nc = K.cols.length, lab = 1.55, cw = (12.43 - lab) / nc;
+  const K = H2H[k], nc = K.cols.length, lab = 1.45, cw = (12.43 - lab) / nc;
   const s = slide(`${n} · HEAD-TO-HEAD — ${CLS[k].label} CLASS`, K.head);
   classTab(s, 0.45, 1.2, k, 3.2, 0.4, 14);
-  tableTitle(s, `${k} Class (${CLS[k].rng}): Ferrari ${K.fer} vs 2025 Winner Models`, 3.85, 1.28, 8.9);
+  tableTitle(s, `${k} Class (${CLS[k].rng}): Ferrari ${K.fer} vs Competitor Models`, 3.85, 1.28, 8.9);
   K.cols.forEach((c, i) => {
-    const x = 0.45 + lab + i * cw, y = 1.75, hh = 1.18;
+    const x = 0.45 + lab + i * cw, y = 1.72, hh = 1.5, ps = 0.86;
     s.addShape(pres.shapes.RECTANGLE, {x:x + 0.01, y, w:cw - 0.02, h:hh, fill:{color:c.f ? C.red : C.line}, line:{color:c.f ? C.red : C.line, width:0}});
-    s.addImage({path:`assets/photo_${c.ph}.jpg`, x:x + 0.06, y:y + 0.05, w:hh - 0.1, h:hh - 0.1});
-    const tx = x + hh + 0.02, tw = cw - hh - 0.1;
-    logoTile(s, c.b, tx, y + 0.12, Math.min(tw, 1.55), Math.min(tw, 1.55) / (c.b === 'FERRARI' ? 3.798 : 4.2));
-    T(s, c.m, {x:tx, y:y + 0.55, w:tw, h:0.3, fontSize:c.f ? 13 : 12, bold:true, color:'FFFFFF'});
-    T(s, c.f ? 'Ferrari offer' : 'Winner model, 2025', {x:tx, y:y + 0.85, w:tw, h:0.22, fontSize:8, color:c.f ? 'FFD7D9' : C.mut});
+    s.addImage({path:`assets/photo_${c.ph}.jpg`, x:x + (cw - ps) / 2, y:y + 0.05, w:ps, h:ps});
+    const lw = Math.min(cw - 0.3, 1.3);
+    logoTile(s, c.b, x + (cw - lw) / 2, y + 0.95, lw, 0.24);
+    T(s, c.m, {x:x + 0.05, y:y + 1.2, w:cw - 0.1, h:0.16, fontSize:c.f ? 11 : 10, bold:true, color:'FFFFFF', align:'center'});
+    T(s, c.tag, {x:x + 0.05, y:y + 1.34, w:cw - 0.1, h:0.14, fontSize:7, color:c.f ? 'FFD7D9' : C.mut, align:'center'});
   });
-  const L = t => V(t, {bold:true, color:C.mut, fontSize:8.5});
-  const cell = (c, t, o = {}) => V(t, Object.assign(c.f ? {fill:{color:C.redT}, bold:true, color:'FFFFFF'} : {}, o));
+  const L = t => V(t, {bold:true, color:C.mut, fontSize:8});
+  const cell = (c, t, o = {}) => V(t, Object.assign({fontSize:8.5}, c.f ? {fill:{color:C.redT}, bold:true, color:'FFFFFF'} : {}, o));
   const rows = [];
   const add = (t, f, o) => rows.push([L(t), ...K.cols.map(c => cell(c, f(c), o))]);
-  add('Max Lifting Moment', c => c.tm);
-  add('Price per unit, crane only (IDR, incl. tax)', c => rpx(c.p), {fontSize:11});
+  add('Max Lifting Moment', c => c.tm, {fontSize:9.5});
+  add('Price per unit, crane only (IDR, incl. tax)', c => rpx(c.p), {fontSize:10});
   add('Price position', c => c.pos); add('Quality', c => c.quality); add('Leadtime', c => c.lead); add('Support', c => c.support);
-  s.addTable(rows, Object.assign({x:0.45, y:2.97, w:12.43, colW:[lab, ...K.cols.map(() => cw)], rowH:[0.3, 0.4, 0.3, 0.42, 0.3, 0.42]}, TB));
-  let by = 5.28;
+  s.addTable(rows, Object.assign({x:0.45, y:3.28, w:12.43, colW:[lab, ...K.cols.map(() => cw)], rowH:k === 'Heavy' ? [0.26, 0.34, 0.28, 0.42, 0.28, 0.42] : [0.26, 0.38, 0.36, 0.5, 0.36, 0.5]}, TB));
+  let by = 5.78;
   if (k === 'Heavy') {
-    T(s, [{text:'Why not XCMG?  ', options:{bold:true, color:C.heavy}}, {text:'XCMG is #3 in Heavy (slide 2), but its winners GSQZ880.6 and GSQZ860.6 are 86 – 88 tm — almost double the 45 – 50 tm of the cranes compared here. Not a like-for-like rival, so this comparison focuses on Palfinger and Amco Veba.', options:{color:C.mut}}],
-      {x:0.45, y:5.2, w:12.43, h:0.4, fontSize:9});
-    by = 5.62;
+    T(s, [{text:'Why these four?  ', options:{bold:true, color:C.heavy}}, {text:'Palfinger and Amco Veba each sold only one Heavy model in 2025, so there is no runner-up. We add Hyva HC501X (#4 brand by value, slide 2) and XCMG GSQZ460.4 (46 tm) — XCMG\'s 2025 winners GSQZ880.6/860.6 are 86 – 88 tm, not a like-for-like rival.', options:{color:C.mut}}],
+      {x:0.45, y:5.36, w:12.43, h:0.4, fontSize:8.5});
+    by = 5.82;
   }
-  const bh = 6.82 - by;
+  const bh = 6.85 - by, fs = k === 'Heavy' ? 8.5 : 9.5;
   s.addShape(pres.shapes.RECTANGLE, {x:0.45, y:by, w:6.0, h:bh, fill:{color:C.card}, line:{color:C.card, width:0}});
-  T(s, 'FERRARI-ONLY FEATURES — NO COMPETITOR EQUIVALENT', {x:0.62, y:by + 0.1, w:5.7, h:0.22, fontSize:9.5, bold:true, color:C.red});
+  T(s, 'FERRARI-ONLY FEATURES — NO COMPETITOR EQUIVALENT', {x:0.62, y:by + 0.07, w:5.7, h:0.2, fontSize:9, bold:true, color:C.red});
   T(s, [{text:'High-strength special steel (900 N/mm²) — no competitor publishes a comparable figure.', options:{bullet:true, breakLine:true}},
         {text:'One-piece cast base — +50% strength vs welded (Ferrari data); Palfinger uses KTL surface coating instead.', options:{bullet:true}}],
-    {x:0.62, y:by + 0.38, w:5.7, h:bh - 0.45, fontSize:k === 'Heavy' ? 9.5 : 10.5, paraSpaceAfter:k === 'Heavy' ? 1 : 4});
+    {x:0.62, y:by + 0.3, w:5.7, h:bh - 0.33, fontSize:fs, paraSpaceAfter:1});
   s.addShape(pres.shapes.RECTANGLE, {x:6.88, y:by, w:6.0, h:bh, fill:{color:C.redT}, line:{color:C.red, width:1}});
-  T(s, 'WHY FERRARI', {x:7.05, y:by + 0.1, w:5.7, h:0.22, fontSize:9.5, bold:true, color:'FFFFFF'});
-  T(s, K.why, {x:7.05, y:by + 0.38, w:5.7, h:bh - 0.45, fontSize:k === 'Heavy' ? 9.5 : 10.5});
+  T(s, 'WHY FERRARI', {x:7.05, y:by + 0.07, w:5.7, h:0.2, fontSize:9, bold:true, color:'FFFFFF'});
+  T(s, K.why, {x:7.05, y:by + 0.3, w:5.7, h:bh - 0.33, fontSize:fs});
   foot(s, `Competitor prices: 2025 average import unit price (Excel) × Rp ${USD.toLocaleString('id-ID')}/USD (JISDOR 23 Sep 2026), plus import duty (0% China – ACFTA; 5% Europe – MFN, assumed), PPN 11% and PPh 22 2.5%. Ferrari prices already include tax. ${K.note}`);
 }
 h2h('Medium', 4);
@@ -258,16 +271,16 @@ h2h('Heavy', 5);
   const bm = D.brandsMedium, bh = D.brandsHeavy, sum = (a, f) => a.filter(f).reduce((t, r) => t + r.q, 0);
   const mTot = sum(bm, () => 1), mEU = sum(bm, r => ['PALFINGER', 'AMCO VEBA', 'HIAB'].includes(r.Brand)), mCN = sum(bm, r => ['SANY PALFINGER', 'XCMG'].includes(r.Brand));
   const hTot = sum(bh, () => 1), hEU = sum(bh, r => ['PALFINGER', 'AMCO VEBA'].includes(r.Brand));
-  const pM = H2H.Medium.cols, pH = H2H.Heavy.cols;
+  const P = (k, m) => H2H[k].cols.find(c => c.m === m).p;
   const cards = [
     {k:'Medium', ph:'fbr350r', m:'FBR350 R', stat:`${mEU} of ${mTot}`, statL:'Medium units in 2025 bought from European brands (Palfinger, Amco Veba, Hiab)',
      pts:[['Target buyer', `Palfinger PK 32080 C and other European-brand customers.`],
-          ['Why we win', `Same price level as Palfinger (${rpx(pM[3].p)} vs ${rpx(pM[2].p)}), plus special steel, cast base, China stock and 24/7 support.`],
+          ['Why we win', `Same price level as Palfinger (${rpx(P('Medium', 'FBR350 R'))} vs ${rpx(P('Medium', 'PK 32080 C'))}), plus special steel, cast base, China stock and 24/7 support.`],
           ['Do not chase', `Sany Palfinger and XCMG buyers (${mCN} of ${mTot} units) on price — Ferrari cannot match their cost.`]]},
     {k:'Heavy', ph:'fbr450r', m:'FBR450 R E4', stat:`${hEU} of ${hTot}`, statL:'Heavy units in 2025 bought from Palfinger and Amco Veba',
      pts:[['Target buyer', `Palfinger PK 53002 SH B (${D.brandsHeavy.find(r => r.Brand === 'PALFINGER').q} units) and Amco Veba V950 (${D.brandsHeavy.find(r => r.Brand === 'AMCO VEBA').q} units) customers.`],
-          ['Why we win', `Lower price than both (${rpx(pH[2].p)} vs ${rpx(pH[0].p)} and ${rpx(pH[1].p)}) with the same EN 12999 standard.`],
-          ['Watch out', `45.5 tm is below PK 53002 SH B (50.1 tm) — lead with price, material and support, not lifting moment.`]]}];
+          ['Why we win', `Lower price than both (${rpx(P('Heavy', 'FBR450 R E4'))} vs ${rpx(P('Heavy', 'PK 53002 SH B'))} and ${rpx(P('Heavy', 'V950'))}) with the same EN 12999 standard.`],
+          ['Watch out', `45.5 tm is below PK 53002 SH B and HC501X (50 tm), and Hyva is cheaper (${rpx(P('Heavy', 'HC501X'))}) — lead with material, supply and support.`]]}];
   cards.forEach((c, i) => {
     const x = 0.45 + i * 6.43, y = 1.25, w = 6.0, h = 5.5;
     s.addShape(pres.shapes.RECTANGLE, {x, y, w, h, fill:{color:C.card}, line:{color:C.card, width:0}});
@@ -287,4 +300,4 @@ h2h('Heavy', 5);
   foot(s, SRC + ' Prices as on slides 4 – 5 (IDR, incl. tax).');
 }
 
-pres.writeFile({fileName:'Flli_Ferrari_Market_Strategy.pptx'}).then(() => console.log('done'));
+pres.writeFile({fileName:'Flli_Ferrari_Market_Strategy_v2.pptx'}).then(() => console.log('done'));
