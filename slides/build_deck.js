@@ -82,25 +82,21 @@ const TB = {border:{type:'solid', pt:1, color:C.bg}, margin:[0.03, 0.08, 0.03, 0
     `Medium and Heavy: ${pct(uT / uAll)} of units but ${pct(vT / vAll)} of import value — our target classes`);
   tableTitle(s, 'Units Imported per Year by Class, 2023 – 2026 (2026 annualised)', 0.45, 1.3, 7.6);
   const ann = k => [...D.unitsYear[k].slice(0, 3), Math.round(D.unitsYear[k][3] * D.f26)];
-  const chg = (a, b) => { const c = Math.round((b / a - 1) * 100); return (c >= 0 ? '▲ +' : '▼ −') + Math.abs(c) + '%'; };
   s.addChart(pres.charts.BAR, K.map(k => ({name:`${k} (${D.ranges[k]})`, labels:['2023', '2024', '2025', '2026 (annualised)*'], values:ann(k)})),
     {x:0.35, y:1.55, w:7.8, h:2.85, barDir:'col', barGrouping:'clustered', barGapWidthPct:60,
      chartColors:[C.grey1, C.grey2, C.med, C.heavy], showValue:true, dataLabelPosition:'outEnd', dataLabelFontSize:8, dataLabelColor:C.mut, dataLabelFontFace:F,
      showLegend:true, legendPos:'t', legendFontSize:9, legendColor:C.txt, legendFontFace:F,
      catAxisLabelColor:C.mut, catAxisLabelFontSize:9, catAxisLabelFontFace:F, catAxisLineShow:false,
      valAxisHidden:true, valGridLine:{style:'none'}, catGridLine:{style:'none'}});
-  tableTitle(s, `Total Units and Import Value by Class, 2023 – ${D.last2026}, and Unit Trend`, 0.45, 4.55, 7.6);
-  const rows = [[H('Class'), H('Max Lifting Moment'), H('Units', {align:'right'}), H('Import value (IDR, before tax)', {align:'right'}), H('Share of value', {align:'right'}),
-    H('Units 2025 vs 2023', {align:'right'}), H('Units 2026* vs 2025', {align:'right'})]];
-  const tr = (t, o) => V(t, Object.assign({}, o, {align:'right', color:t[0] === '▲' ? '5BC98C' : 'F2777F'}));   // green up, red down
+  tableTitle(s, `Total Units and Import Value by Class, 2023 – ${D.last2026}`, 0.45, 4.55, 7.6);
+  const rows = [[H('Class'), H('Max Lifting Moment'), H('Units', {align:'right'}), H('Import value (IDR, before tax)', {align:'right'}), H('Share of value', {align:'right'})]];
   K.forEach(k => {
-    const t = k === 'Medium' || k === 'Heavy', o = t ? {bold:true, color:CLS[k].c} : {}, a = ann(k);
+    const t = k === 'Medium' || k === 'Heavy', o = t ? {bold:true, color:CLS[k].c} : {};
     rows.push([V(k, o), V(D.ranges[k], o), V(String(D.totUnits[k]), Object.assign({align:'right'}, o)),
-      V(rp(D.totValueUSD[k] * USD), Object.assign({align:'right'}, o)), V(pct(D.totValueUSD[k] / vAll), Object.assign({align:'right'}, o)),
-      tr(chg(a[0], a[2]), o), tr(chg(a[2], a[3]), o)]);
+      V(rp(D.totValueUSD[k] * USD), Object.assign({align:'right'}, o)), V(pct(D.totValueUSD[k] / vAll), Object.assign({align:'right'}, o))]);
   });
-  rows.push([V('Total', {bold:true}), V(''), V(String(uAll), {bold:true, align:'right'}), V(rp(vAll * USD), {bold:true, align:'right'}), V('100%', {bold:true, align:'right'}), V(''), V('')]);
-  s.addTable(rows, Object.assign({x:0.45, y:4.82, w:7.6, colW:[0.8, 1.05, 0.6, 1.95, 0.8, 1.2, 1.2], rowH:0.28}, TB));
+  rows.push([V('Total', {bold:true}), V(''), V(String(uAll), {bold:true, align:'right'}), V(rp(vAll * USD), {bold:true, align:'right'}), V('100%', {bold:true, align:'right'})]);
+  s.addTable(rows, Object.assign({x:0.45, y:4.82, w:7.6, colW:[1.2, 1.7, 1.0, 2.5, 1.2], rowH:0.28}, TB));
   // KPI tiles
   tableTitle(s, 'Average Units Sold per Year', 8.45, 1.3, 4.4);
   [[D.avgTarget, 'Medium + Heavy', 'target classes', C.red], [D.avgOther, 'Light + Small', 'non-target classes', C.grey1]].forEach(([v, a, b, col], i) => {
@@ -117,12 +113,9 @@ const TB = {border:{type:'solid', pt:1, color:C.bg}, margin:[0.03, 0.08, 0.03, 0
     {text:'Bigger value per deal', options:{bold:true, breakLine:true}},
     {text:`Fewer units per year, but ${pct(vT / vAll)} of the money. Average import value per unit is ${rp(avgT)} vs ${rp(avgO)} for Light + Small.`, options:{color:C.mut, breakLine:true}},
     {text:' ', options:{fontSize:6, breakLine:true}},
-    {text:'Clear buyer profile', options:{bold:true, breakLine:true}},
-    {text:`${pct(D.gvw24Share)} of Medium and Heavy cranes need a truck with GVW of 24 t or more, so buyers are heavy truck fleet operators: mining, construction and heavy logistics.`, options:{color:C.mut, breakLine:true}},
-    {text:' ', options:{fontSize:6, breakLine:true}},
-    {text:'Trend: enter with focus', options:{bold:true, breakLine:true}},
-    {text:`Medium falls every year (${ann('Medium').join(' → ')}*). Heavy peaked in 2025 (${D.unitsYear.Heavy[2]} units) but runs at ~${ann('Heavy')[3]} in 2026. Target existing European-brand buyers rather than expect market growth.`, options:{color:C.mut}}],
-    {x:8.65, y:3.8, w:4.0, h:2.8, fontSize:10});
+    {text:'Built for heavy-duty sectors', options:{bold:true, breakLine:true}},
+    {text:`${pct(D.gvw24Share)} of Medium and Heavy cranes need a truck with GVW of 24 t or more — heavy-duty lifting for mining, construction and heavy logistics.`, options:{color:C.mut}}],
+    {x:8.65, y:3.85, w:4.0, h:2.7, fontSize:11.5});
   foot(s, SRC + ` Values converted at USD 1 = Rp ${USD.toLocaleString('id-ID')} (JISDOR, 23 Sep 2026). *2026 annualised: Jan – 14 Aug units × ${D.f26.toFixed(2)}.`);
 }
 
@@ -269,7 +262,7 @@ function h2h(k, n) {
   s.addShape(pres.shapes.RECTANGLE, {x:6.88, y:by, w:6.0, h:bh, fill:{color:C.redT}, line:{color:C.red, width:1}});
   T(s, 'WHY FERRARI', {x:7.05, y:by + 0.07, w:5.7, h:0.2, fontSize:9, bold:true, color:'FFFFFF'});
   T(s, K.why, {x:7.05, y:by + 0.3, w:5.7, h:bh - 0.33, fontSize:fs});
-  foot(s, `Prices rounded to Rp 10.000.000. Competitors: 2025 average import unit price (Excel) × Rp ${USD.toLocaleString('id-ID')}/USD (JISDOR 23 Sep 2026) + import duty (0% China – ACFTA; 5% Europe – MFN, assumed), PPN 11%, PPh 22 2.5% — import cost before distributor margin, so their price to customers is higher. Ferrari: selling price to customers, incl. tax. ${K.note}`);
+  foot(s, `Prices rounded to Rp 10.000.000. Competitors: 2025 average import unit price (Excel) × Rp ${USD.toLocaleString('id-ID')}/USD (JISDOR 23 Sep 2026) + import duty (0% China – ACFTA; 5% Europe – MFN, assumed), PPN 11%, PPh 22 2.5% — import cost before distributor margin, so their price to customers is higher. Ferrari: selling price to customers, crane only, incl. tax. ${K.note}`);
 }
 h2h('Medium', 4);
 h2h('Heavy', 5);
@@ -284,11 +277,11 @@ h2h('Heavy', 5);
   const cards = [
     {k:'Medium', ph:'fbr350r', m:'FBR350 R', stat:`${mEU} of ${mTot}`, statL:'Medium units in 2025 bought from European brands (Palfinger, Amco Veba, Hiab)',
      pts:[['Target buyer', `Palfinger PK 32080 C and other European-brand customers.`],
-          ['Why we win', `Same price level as Palfinger (${rpx(P('Medium', 'FBR350 R'))} vs ${rpx(P('Medium', 'PK 32080 C'))}), plus special steel, cast base, China stock and 24/7 support.`],
+          ['F.lli Ferrari crane advantage', `Same price level as Palfinger (${rpx(P('Medium', 'FBR350 R'))} vs ${rpx(P('Medium', 'PK 32080 C'))}), plus special steel, cast base, China stock and 24/7 support.`],
           ['Do not chase', `Sany Palfinger and XCMG buyers (${mCN} of ${mTot} units) on price — Ferrari cannot match their cost.`]]},
     {k:'Heavy', ph:'fbr450r', m:'FBR450 R E4', stat:`${hEU} of ${hTot}`, statL:'Heavy units in 2025 bought from Palfinger and Amco Veba',
      pts:[['Target buyer', `Palfinger PK 53002 SH B (${D.brandsHeavy.find(r => r.Brand === 'PALFINGER').q} units) and Amco Veba V950 (${D.brandsHeavy.find(r => r.Brand === 'AMCO VEBA').q} units) customers.`],
-          ['Why we win', `Palfinger price level, below Amco Veba (${rpx(P('Heavy', 'FBR450 R E4'))} vs ${rpx(P('Heavy', 'PK 53002 SH B'))} and ${rpx(P('Heavy', 'V950'))}) with the same EN 12999 standard.`],
+          ['F.lli Ferrari crane advantage', `Palfinger price level, below Amco Veba (${rpx(P('Heavy', 'FBR450 R E4'))} vs ${rpx(P('Heavy', 'PK 53002 SH B'))} and ${rpx(P('Heavy', 'V950'))}) with the same EN 12999 standard.`],
           ['Watch out', `45.5 tm is below PK 53002 SH B and HC501X (50 tm), and Hyva is cheaper (${rpx(P('Heavy', 'HC501X'))}) — lead with material, supply and support.`]]}];
   cards.forEach((c, i) => {
     const x = 0.45 + i * 6.43, y = 1.25, w = 6.0, h = 5.5;
@@ -309,4 +302,4 @@ h2h('Heavy', 5);
   foot(s, SRC + ' Prices as on slides 4 – 5 (IDR, incl. tax).');
 }
 
-pres.writeFile({fileName:'Flli_Ferrari_Market_Strategy_v3.pptx'}).then(() => console.log('done'));
+pres.writeFile({fileName:'Flli_Ferrari_Market_Strategy_v4.pptx'}).then(() => console.log('done'));
