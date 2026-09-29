@@ -1,0 +1,85 @@
+"""Comparison data for deck v5: top 3 models per brand per class (Jan 2023 - 14 Aug 2026) next to the closest F.lli Ferrari model.
+Usage: python3 analysis/build_v5_data.py <Crane_Market_GVW_Pairing_v11_Noir.xlsx>  ->  slides/v5_compare.json
+
+Price basis (user rules, 29 Sep 2026):
+- Competitor = average import unit price x JISDOR x (1 + duty: 0% China, 5% Europe) x (1 + PPN 11% + PPh 22 2.5%).
+- Ferrari   = (K - J) of the TSP price list, i.e. price_with_flatdeck - price_crane_only, minus TSP margin 13.6%.
+"""
+import sys, json, math
+import pandas as pd
+
+FX, MARGIN = 17803, 0.136
+EXCL_BRANDS = ['ZOOMLION', 'HYVA']
+EXCL_MODELS = ['PALFINGER PK 33002', 'PALFINGER PK 36050']      # USD 2.000-2.150 per unit: not a complete crane
+ORIGIN = {'SANY PALFINGER': 'china', 'XCMG': 'china'}             # all other brands: Europe
+FAMILY = {'SPK32080B': 'SPK32080', 'SPK32080C': 'SPK32080', 'SPK36080C': 'SPK36080', 'SPK42502C': 'SPK42502',
+          'SPK42502E': 'SPK42502', 'PK 41002 EH C': 'PK 41002', 'PK 41002 MH C': 'PK 41002',
+          'PK 53002 SH B': 'PK 53002', 'PK 53002 SH C': 'PK 53002'}
+K, T = 'Kategori Max Lifting Moment', 'Max Lifting Moment asli (tm)'
+
+d = pd.read_excel(sys.argv[1], sheet_name='8. Pivot Source')
+d = d[~d.Brand.isin(EXCL_BRANDS) & ~d.Model.isin(EXCL_MODELS)]
+d['m'] = [FAMILY.get(m.replace(b + ' ', ''), m.replace(b + ' ', '')) for b, m in zip(d.Brand, d.Model)]
+taxed = lambda usd, b: usd * FX * (1.0 if ORIGIN.get(b) == 'china' else 1.05) * (1 + 0.11 + 0.025)
+
+def band(tm, cls):
+    if cls == 'Heavy' and tm > 55: return '>55'
+    hi = math.ceil(tm / 5) * 5
+    return f'>{hi - 5}–{hi}'
+BANDS = {'Medium': ['>25–30', '>30–35', '>35–40', '>40–45'], 'Heavy': ['>45–50', '>50–55', '>55']}
+
+# ---- Ferrari line-up: one priced variant per catalogue model, price = (K - J) x (1 - margin)
+cat = {m['model'].replace(' ', ''): m['max_lifting_moment_tm'] for m in json.load(open('data/ferrari_catalogue.json'))['models']}
+pl = json.load(open('data/ferrari_price_list.json'))['models']
+kj = lambda r: r['price_with_flatdeck_idr'] - r['price_crane_only_idr']
+PICK = ['268 A4', 'FBR350R A4', '746 A4', '749R A4', 'FBR450R A4', 'FBR600R A4', 'FBR660R A4']   # R/A4 variant per model
+fer = []
+for r in pl:
+    if r['ferrari_model'] in PICK:
+        fer.append(dict(model=r['ferrari_model'], tm=cat[r['catalogue_model']], price_idr=kj(r) * (1 - MARGIN), estimate=False,
+                        leadtime_weeks=r['leadtime_weeks'], desc=r['desc'], photo=None))
+# 7441C: not in the price list -> interpolate (K - J) between FBR350R A4 and 746 A4 by tm
+a = next(r for r in pl if r['ferrari_model'] == 'FBR350R A4'); b = next(r for r in pl if r['ferrari_model'] == '746 A4')
+ta, tb = cat[a['catalogue_model']], cat[b['catalogue_model']]
+est = kj(a) + (kj(b) - kj(a)) / (tb - ta) * (cat['7441C'] - ta)
+fer.append(dict(model='7441C', tm=cat['7441C'], price_idr=est * (1 - MARGIN), estimate=True, leadtime_weeks=None, desc=None, photo=None,
+                estimate_note=f'(K - J) interpolated between FBR350R A4 and 746 A4 by tm'))
+PHOTO_F = {'268 A4': '268', 'FBR350R A4': 'fbr350r', '7441C': '7441c', '746 A4': '746r', '749R A4': '749r',
+           'FBR450R A4': 'fbr450r', 'FBR600R A4': 'fbr600r', 'FBR660R A4': 'fbr660r'}
+for f in fer: f['photo'] = PHOTO_F[f['model']]
+fer.sort(key=lambda f: f['tm'])
+
+PHOTO_C = {'SPK36080': 'spk36080', 'SPK32080': 'spk32080', 'SPK42502': 'spk42502', 'V825': 'v825', 'V933': 'v933', 'V946B': 'v946b',
+           'KSQZ300.3': 'ksqz300', 'GSQZ330.4': 'gsqz330', 'SQZ325.4': 'sqz325', 'PK 41002': 'pk41002', 'PK 32080 C': 'pk32080c',
+           'X-CLX 388': 'xclx388', '477 EP-5': '477ep5', 'X-CLX 328': 'xclx328', 'PK 53002': 'pk53002', 'PK 76002 EH D': 'pk76002',
+           'PK 88002 EH C': 'pk88002', 'V950': 'v950', 'GSQZ460.4': 'gsqz460', 'GSQZ880.6': 'gsqz880', 'GSQZ860.6': 'gsqz860',
+           'X-HIPRO B58': 'xhipro_b58', 'EFFER 525H': 'effer525h', 'F485RA.2.23': 'f485ra', 'SPK61502': 'spk61502'}
+
+out = {'margin': MARGIN, 'fx': FX, 'ferrari': fer, 'classes': {}}
+for cls, lo, hi in [('Medium', 25, 45), ('Heavy', 45, 999)]:
+    s = d[d[K] == cls]
+    g = s.groupby(['Brand', 'm']).agg(tm=(T, 'max'), q=('Quantity', 'sum'), v=('Total Value (USD)', 'sum')).reset_index()
+    line = [f for f in fer if lo < f['tm'] <= hi]
+    band_units = {k: 0 for k in BANDS[cls]}
+    for _, r in g.iterrows(): band_units[band(r.tm, cls)] += int(r.q)
+    brands = []
+    for br, x in sorted(g.groupby('Brand'), key=lambda t: (-t[1].q.sum(), -t[1].v.sum())):
+        x = x.sort_values(['q', 'v'], ascending=False)
+        models = []
+        for rank, (_, r) in enumerate(x.head(3).iterrows(), 1):
+            bd = band(r.tm, cls)
+            same = [f for f in line if band(f['tm'], cls) == bd]
+            f = min(same or line, key=lambda f: abs(f['tm'] - r.tm))
+            p = taxed(r.v / r.q, br)
+            models.append(dict(rank=rank, model=r.m, tm=float(r.tm), units=int(r.q), band=bd, price_idr=p, photo=PHOTO_C.get(r.m),
+                               ferrari=f['model'], ferrari_same_band=bool(same), diff=f['price_idr'] / p - 1))
+        brands.append(dict(brand=br, units=int(x.q.sum()), n_models=len(x), models=models))
+    out['classes'][cls] = dict(units=int(g.q.sum()), bands=BANDS[cls], band_units=band_units, brands=brands,
+                               lineup=[f['model'] for f in line])
+json.dump(out, open('slides/v5_compare.json', 'w'), indent=1)
+fmt = lambda v: f'Rp {round(v / 1e7) * 1e7:,.0f}'.replace(',', '.')
+for f in fer: print(f"{f['model']:11} {f['tm']:5} {fmt(f['price_idr'])}{' (est.)' if f['estimate'] else ''}")
+for cls, c in out['classes'].items():
+    print('==', cls, c['units'], c['band_units'])
+    for b in c['brands']:
+        print(' ', b['brand'], b['units'], [(m['model'], m['band'], fmt(m['price_idr']), m['ferrari'], f"{m['diff']:+.0%}") for m in b['models']])
