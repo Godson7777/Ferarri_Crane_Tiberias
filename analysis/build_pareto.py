@@ -136,3 +136,25 @@ for c,bands in [('Medium',[(25,30),(30,35),(35,40),(40,45)]),('Heavy',[(45,50),(
             ferrari_price_idr=fp,ferrari_price_estimate='(estimate)' in ftxt))
 json.dump(grid,open('analysis/tm_grid.json','w'),indent=1)
 for x in grid: print(x)
+# top 3 models per brand per class (by units, then value) + Ferrari line-up in the class -> analysis/brand_top3.json
+top3={}
+for c,lo,hi in [('Medium',25,45),('Heavy',45,999)]:
+    s_=d[d[K]==c]; g=s_.groupby(['Brand','m']).agg(tm=(T,'max'),q=('Quantity','sum'),v=('Total Value (USD)','sum')).reset_index()
+    brands=[]
+    for b,x in sorted(g.groupby('Brand'),key=lambda t:-t[1].q.sum()):
+        x=x.sort_values(['q','v'],ascending=False)
+        brands.append(dict(brand=b,units=int(x.q.sum()),n_models=len(x),models=[dict(model=r.m,tm=float(r.tm),units=int(r.q),
+            share_of_brand=float(r.q/x.q.sum()),price_idr=float(taxed(r.v/r.q,b))) for _,r in x.head(3).iterrows()]))
+    fer=[]
+    for m in cat:
+        t=m['max_lifting_moment_tm']
+        if not lo<t<=hi: continue
+        pr=price.get(m['model'].replace(' ',''))
+        if pr: a,p=pick_variant(pr); fer.append(dict(model=a,tm=t,price_idr=p,estimate=False))
+        elif m['model'] in ESTIMATE: fer.append(dict(model=m['model'],tm=t,price_idr=ESTIMATE[m['model']],estimate=True))
+    bu={}
+    for _,r in g.iterrows():
+        k='>55' if c=='Heavy' and r.tm>55 else f'>{int(np.ceil(r.tm/5)*5)-5}–{int(np.ceil(r.tm/5)*5)}'
+        bu[k]=bu.get(k,0)+int(r.q)
+    top3[c]=dict(units=int(g.q.sum()),band_units=bu,brands=brands,ferrari=sorted(fer,key=lambda f:f['tm']))
+json.dump(top3,open('analysis/brand_top3.json','w'),indent=1)
