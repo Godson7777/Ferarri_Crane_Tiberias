@@ -73,6 +73,11 @@ def pick_variant(lst):
         for x in lst:
             if key in x[0]: return x
     return lst[0]
+# 7441C is not in the price list: estimate from the price step between its price-list neighbours (user request)
+_a=next(r for r in pl if r['ferrari_model']=='FBR350R A4'); _b=next(r for r in pl if r['ferrari_model']=='746 A4')
+_tm=lambda r: next(m['max_lifting_moment_tm'] for m in cat if m['model'].replace(' ','')==r['catalogue_model'])
+STEP=(_b['price_crane_only_idr']-_a['price_crane_only_idr'])/(_tm(_b)-_tm(_a))
+ESTIMATE={'7441C':_a['price_crane_only_idr']+STEP*(37.7-_tm(_a))}
 def ferrari_pick(lo,hi,ref_tm):
     fer=[m for m in cat if lo<m['max_lifting_moment_tm']<=hi]
     if not fer: return 'No Ferrari model', None
@@ -82,9 +87,10 @@ def ferrari_pick(lo,hi,ref_tm):
     if m in priced:
         a,p=pick_variant(price[m['model'].replace(' ','')])
         return f"{a} ({m['max_lifting_moment_tm']:g} tm) · {fmt(p)}", p
+    if m['model'] in ESTIMATE: return f"{m['model']} ({m['max_lifting_moment_tm']:g} tm) · {fmt(ESTIMATE[m['model']])} (estimate)", ESTIMATE[m['model']]
     return f"{m['model']} ({m['max_lifting_moment_tm']:g} tm) · price not yet known", None
 gs=wb.create_sheet('Klasifikasi tm')
-r=1; grid=[]
+r=1
 for c,col,bands in [('Medium','F2A33A',[30,35,40,45]),('Heavy','4F9CF9',[50,55,60,65,70,75,80,85,90])]:
     s=d[d[K]==c]; g=s.groupby(['Brand','m']).agg(tm=(T,'max'),q=('Quantity','sum'),v=('Total Value (USD)','sum')).reset_index()
     rows=[]
@@ -106,11 +112,6 @@ for c,col,bands in [('Medium','F2A33A',[30,35,40,45]),('Heavy','4F9CF9',[50,55,6
         if top is not None:
             up=taxed(top.v/top.q,top.Brand)
             x=gs.cell(rr,3+brands.index(top.Brand),f'{top.m} ({top.tm:g} tm)\n{int(top.q)} units · {top.q/tot:.0%} of class\n{fmt(up)} per unit'); x.font=Font(bold=True)
-        fm=ftxt.split(' · ')[0] if ftxt!='No Ferrari model' else None
-        grid.append(dict(cls=c,band=f'>{lo}–{hi}',units=tot,brand=top.Brand if top is not None else None,model=top.m if top is not None else None,
-            tm=float(top.tm) if top is not None else None,top_units=int(top.q) if top is not None else 0,share=float(top.q/tot) if tot else 0,
-            price_idr=float(taxed(top.v/top.q,top.Brand)) if top is not None else None,
-            ferrari=fm.split(' (')[0] if fm else None,ferrari_tm=float(fm.split('(')[1].split(' ')[0]) if fm else None,ferrari_price_idr=fp))
         x=gs.cell(rr,nc,ftxt); x.fill=RED
         for j in range(1,nc+1):
             x=gs.cell(rr,j); x.border=B; x.alignment=Alignment(wrap_text=True,vertical='top',horizontal='center' if j<nc else 'left')
@@ -122,5 +123,16 @@ gs.cell(r+1,1,'Ferrari price = TSP selling price to customers, crane only, incl.
 gs.column_dimensions['A'].width=10; gs.column_dimensions['B'].width=9
 for j in range(3,12): gs.column_dimensions[get_column_letter(j)].width=24
 wb.save('analysis/Pareto_tm_Class.xlsx')
+# slide rows: 5-tm classes; Heavy classes above 55 tm merged into one row (user decision: few units each)
+grid=[]
+for c,bands in [('Medium',[(25,30),(30,35),(35,40),(40,45)]),('Heavy',[(45,50),(50,55),(55,999)])]:
+    s_=d[d[K]==c]; g=s_.groupby(['Brand','m']).agg(tm=(T,'max'),q=('Quantity','sum'),v=('Total Value (USD)','sum')).reset_index()
+    for lo,hi in bands:
+        b=g[(g.tm>lo)&(g.tm<=hi)].sort_values(['q','v'],ascending=False); tot=int(b.q.sum()); top=b.iloc[0]
+        ftxt,fp=ferrari_pick(lo,hi,top.tm); fm=ftxt.split(' · ')[0] if ftxt!='No Ferrari model' else None
+        grid.append(dict(cls=c,band=f'>{lo}' if hi==999 else f'>{lo}–{hi}',units=tot,merged_models=len(b) if hi==999 else None,
+            brand=top.Brand,model=top.m,tm=float(top.tm),top_units=int(top.q),share=float(top.q/tot),price_idr=float(taxed(top.v/top.q,top.Brand)),
+            ferrari=fm.split(' (')[0] if fm else None,ferrari_tm=float(fm.split('(')[1].split(' ')[0]) if fm else None,
+            ferrari_price_idr=fp,ferrari_price_estimate='(estimate)' in ftxt))
 json.dump(grid,open('analysis/tm_grid.json','w'),indent=1)
 for x in grid: print(x)

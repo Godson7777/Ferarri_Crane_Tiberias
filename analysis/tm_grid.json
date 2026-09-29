@@ -3,6 +3,7 @@
   "cls": "Medium",
   "band": ">25\u201330",
   "units": 49,
+  "merged_models": null,
   "brand": "AMCO VEBA",
   "model": "V825",
   "tm": 25.6,
@@ -11,12 +12,14 @@
   "price_idr": 616320504.2596691,
   "ferrari": "268 A4",
   "ferrari_tm": 25.4,
-  "ferrari_price_idr": 669167633
+  "ferrari_price_idr": 669167633,
+  "ferrari_price_estimate": false
  },
  {
   "cls": "Medium",
   "band": ">30\u201335",
   "units": 77,
+  "merged_models": null,
   "brand": "SANY PALFINGER",
   "model": "SPK32080",
   "tm": 30.4,
@@ -25,12 +28,14 @@
   "price_idr": 442417541.3616106,
   "ferrari": "FBR350R A4",
   "ferrari_tm": 32.8,
-  "ferrari_price_idr": 1436737906
+  "ferrari_price_idr": 1436737906,
+  "ferrari_price_estimate": false
  },
  {
   "cls": "Medium",
   "band": ">35\u201340",
   "units": 66,
+  "merged_models": null,
   "brand": "SANY PALFINGER",
   "model": "SPK36080",
   "tm": 36.0,
@@ -39,12 +44,14 @@
   "price_idr": 490917539.40372497,
   "ferrari": "7441C",
   "ferrari_tm": 37.7,
-  "ferrari_price_idr": null
+  "ferrari_price_idr": 1634266469.783019,
+  "ferrari_price_estimate": true
  },
  {
   "cls": "Medium",
   "band": ">40\u201345",
   "units": 26,
+  "merged_models": null,
   "brand": "SANY PALFINGER",
   "model": "SPK42502",
   "tm": 42.5,
@@ -53,12 +60,14 @@
   "price_idr": 786160922.7121612,
   "ferrari": "746 A4",
   "ferrari_tm": 43.4,
-  "ferrari_price_idr": 1864044595
+  "ferrari_price_idr": 1864044595,
+  "ferrari_price_estimate": false
  },
  {
   "cls": "Heavy",
   "band": ">45\u201350",
   "units": 22,
+  "merged_models": null,
   "brand": "AMCO VEBA",
   "model": "V950",
   "tm": 45.9,
@@ -67,12 +76,14 @@
   "price_idr": 1877269694.033226,
   "ferrari": "FBR450R A4",
   "ferrari_tm": 45.5,
-  "ferrari_price_idr": 1776119294
+  "ferrari_price_idr": 1776119294,
+  "ferrari_price_estimate": false
  },
  {
   "cls": "Heavy",
   "band": ">50\u201355",
   "units": 40,
+  "merged_models": null,
   "brand": "PALFINGER",
   "model": "PK 53002",
   "tm": 50.1,
@@ -81,76 +92,23 @@
   "price_idr": 1622139189.003036,
   "ferrari": null,
   "ferrari_tm": null,
-  "ferrari_price_idr": null
+  "ferrari_price_idr": null,
+  "ferrari_price_estimate": false
  },
  {
   "cls": "Heavy",
-  "band": ">55\u201360",
-  "units": 3,
-  "brand": "HYVA",
-  "model": "HB660R",
-  "tm": 60.0,
-  "top_units": 2,
-  "share": 0.6666666666666666,
-  "price_idr": 1842243691.8615716,
-  "ferrari": "FBR660R A4",
-  "ferrari_tm": 58.8,
-  "ferrari_price_idr": 2657458802
- },
- {
-  "cls": "Heavy",
-  "band": ">60\u201365",
-  "units": 1,
-  "brand": "SANY PALFINGER",
-  "model": "SPK61502",
-  "tm": 61.5,
-  "top_units": 1,
-  "share": 1.0,
-  "price_idr": 1402252976.3263001,
-  "ferrari": "9661C",
-  "ferrari_tm": 63.2,
-  "ferrari_price_idr": null
- },
- {
-  "cls": "Heavy",
-  "band": ">70\u201375",
-  "units": 2,
+  "band": ">55",
+  "units": 11,
+  "merged_models": 7,
   "brand": "PALFINGER",
   "model": "PK 76002 EH D",
   "tm": 71.6,
   "top_units": 2,
-  "share": 1.0,
+  "share": 0.18181818181818182,
   "price_idr": 2285338343.5785003,
-  "ferrari": "990R",
-  "ferrari_tm": 74.0,
-  "ferrari_price_idr": null
- },
- {
-  "cls": "Heavy",
-  "band": ">80\u201385",
-  "units": 1,
-  "brand": "PALFINGER",
-  "model": "PK 88002 EH C",
-  "tm": 81.6,
-  "top_units": 1,
-  "share": 1.0,
-  "price_idr": 2220372730.8630004,
-  "ferrari": null,
-  "ferrari_tm": null,
-  "ferrari_price_idr": null
- },
- {
-  "cls": "Heavy",
-  "band": ">85\u201390",
-  "units": 4,
-  "brand": "XCMG",
-  "model": "GSQZ880.6",
-  "tm": 88.0,
-  "top_units": 2,
-  "share": 0.5,
-  "price_idr": 1319253753.34045,
-  "ferrari": null,
-  "ferrari_tm": null,
-  "ferrari_price_idr": null
+  "ferrari": "FBR660R A4",
+  "ferrari_tm": 58.8,
+  "ferrari_price_idr": 2657458802,
+  "ferrari_price_estimate": false
  }
 ]

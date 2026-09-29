@@ -10,6 +10,7 @@ const F = 'Arial';
 const LOGO = {'SANY PALFINGER':['logo_sanypalfinger', 4.694], PALFINGER:['logo_palfinger', 4.516],
   'AMCO VEBA':['logo_amcoveba', 4.469], XCMG:['logo_xcmg', 4.587], HYVA:['logo_hyva', 2.110]};
 const rpx = v => 'Rp ' + (Math.round(v / 1e7) * 1e7).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+const BRAND = {'SANY PALFINGER':'Sany Palfinger', PALFINGER:'Palfinger', 'AMCO VEBA':'Amco Veba', XCMG:'XCMG', HYVA:'Hyva', HIAB:'Hiab'};
 const pct = v => Math.round(v * 100) + '%';
 
 const pres = new pptxgen(); pres.layout = 'LAYOUT_WIDE'; pres.title = 'F.lli Ferrari tm Positioning';
@@ -23,11 +24,17 @@ function slash(s, x, y, h = 0.34) {
   const tot = G.reduce((a, r) => a + r.units, 0);
   const priced = G.filter(r => r.ferrari_price_idr).reduce((a, r) => a + r.units, 0);
   const gap = G.filter(r => !r.ferrari_price_idr).sort((a, b) => b.units - a.units)[0];
-  const why = gap.ferrari ? `has no Ferrari price yet (${gap.ferrari})` : `has no Ferrari model (${gap.model} leads)`;
+  const lead = G.reduce((a, r) => (a[r.brand] = (a[r.brand] || 0) + 1, a), {});
+  const top = Object.entries(lead).sort((a, b) => b[1] - a[1])[0];
+  const NUM = ['zero', 'one', 'two', 'three', 'four', 'five'];
+  const head = gap
+    ? `In ${k}, F.lli Ferrari has a priced crane for ${pct(priced / tot)} of units; the ${gap.band} tm class (${pct(gap.units / tot)}) ` +
+      (gap.ferrari ? `has no Ferrari price yet (${gap.ferrari})` : `has no Ferrari model (${gap.model} leads)`)
+    : `In ${k}, F.lli Ferrari has a crane in every tm class, but ${BRAND[top[0]]} leads ${NUM[top[1]]} of the ${NUM[G.length]} classes`;
 
   const s = pres.addSlide(); s.background = {color:C.bg};
   T(s, 'F.LLI FERRARI POSITIONING BY MAX LIFTING MOMENT', {x:0.45, y:0.3, w:10, h:0.28, fontSize:10.5, bold:true, color:C.mut, charSpacing:2});
-  T(s, `In ${k}, F.lli Ferrari has a priced crane for ${pct(priced / tot)} of units; the ${gap.band} tm class (${pct(gap.units / tot)}) ${why}`,
+  T(s, head,
     {x:0.45, y:0.6, w:11.7, h:0.65, fontSize:18, bold:true});
   slash(s, 12.33, 0.3);
   T(s, `${k} class (${CLS[k].rng}): best-selling import model in each 5-tm class vs the F.lli Ferrari offer, Jan 2023 – 14 Aug 2026`,
@@ -44,11 +51,19 @@ function slash(s, x, y, h = 0.34) {
     H('F.lli Ferrari model', {fill:{color:C.red}, color:'FFFFFF'}), H('Max Lifting Moment (tm)', {fill:{color:C.red}, color:'FFFFFF'}),
     H('Price per unit, crane only (IDR, incl. tax)', {fill:{color:C.red}, color:'FFFFFF'})]];
   G.forEach(r => {
-    const band = V(r.band + ' tm', {bold:true, color:CLS[r.cls].c});
+    const band = r.merged_models
+      ? {text:[{text:r.band + ' tm', options:{bold:true, breakLine:true}}, {text:`${r.merged_models} models`, options:{fontSize:8, color:C.mut}}],
+         options:{fill:{color:C.card}, color:CLS[r.cls].c, fontSize:FS, fontFace:F, align:'center'}}
+      : V(r.band + ' tm', {bold:true, color:CLS[r.cls].c});
+    const fPrice = !r.ferrari_price_idr ? V('Price not yet known', {color:C.mut, italic:true})
+      : r.ferrari_price_estimate
+        ? {text:[{text:rpx(r.ferrari_price_idr), options:{bold:true, breakLine:true}}, {text:'estimate', options:{fontSize:8, italic:true, color:C.mut}}],
+           options:Object.assign({color:C.txt, fontSize:FS, fontFace:F, align:'center'}, FR)}
+        : V(rpx(r.ferrari_price_idr), Object.assign({bold:true}, FR));
     const fer = !r.ferrari
       ? [V('No Ferrari model', {bold:true, color:C.red, colspan:3})]
       : [V(r.ferrari, Object.assign({bold:true}, r.ferrari_price_idr ? FR : {})), V(String(r.ferrari_tm), r.ferrari_price_idr ? FR : {}),
-         r.ferrari_price_idr ? V(rpx(r.ferrari_price_idr), Object.assign({bold:true}, FR)) : V('Price not yet known', {color:C.mut, italic:true})];
+         fPrice];
     rows.push([band, V(String(r.units)), V(''), V(r.model, {bold:true}), V(String(r.tm)),
       V(`${r.top_units} · ${pct(r.share)}`), V(rpx(r.price_idr)), ...fer]);
   });
@@ -86,7 +101,10 @@ function slash(s, x, y, h = 0.34) {
   T(s, 'Source: Indonesia import records, HS 84269100 + 84264900, Jan 2023 – 14 Aug 2026; truck-mounted knuckle boom cranes only, Zoomlion excluded. ' +
     'Best-selling model = most units in the class (variants merged). Competitor price = average import unit price × Rp 17.803/USD (JISDOR 23 Sep 2026) + import duty ' +
     '(0% China – ACFTA; 5% Europe, assumed), PPN 11%, PPh 22 2.5% — import cost before distributor margin. Ferrari = catalogue model closest in tm to the best seller; ' +
-    'price = TSP selling price to customers, crane only, incl. GP, warranty and tax. Prices rounded to Rp 10.000.000.',
+    'price = TSP selling price to customers, crane only, incl. GP, warranty and tax. ' +
+    (G.some(r => r.ferrari_price_estimate) ? '7441C estimate = FBR350R A4 price + 4.9 tm × Rp 40.311.952 per tm (price step from FBR350R A4 to 746 A4 in the price list). ' : '') +
+    (G.some(r => r.merged_models) ? 'Classes above 55 tm merged (few units each); tied best sellers ranked by import value. ' : '') +
+    'Prices rounded to Rp 10.000.000.',
     {x:0.45, y:6.78, w:12.4, h:0.55, fontSize:7.5, color:C.dim});
 });
 
