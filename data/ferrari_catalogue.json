@@ -1,0 +1,426 @@
+{
+ "source": "Pocket F.lli FERRARI_2026_LR.pdf (models in production, 2026). tm = LIFTING MOMENT column of each model's spec table (same for all boom variants A1..A8).",
+ "models": [
+  {
+   "series": "300 Compact telescopic",
+   "model": "310",
+   "max_lifting_moment_tm": 0.93
+  },
+  {
+   "series": "300 Compact telescopic",
+   "model": "314",
+   "max_lifting_moment_tm": 1.27
+  },
+  {
+   "series": "300 Compact telescopic",
+   "model": "315",
+   "max_lifting_moment_tm": 1.27
+  },
+  {
+   "series": "300 Compact telescopic",
+   "model": "321",
+   "max_lifting_moment_tm": 2.0
+  },
+  {
+   "series": "300 Compact telescopic",
+   "model": "322",
+   "max_lifting_moment_tm": 2.0
+  },
+  {
+   "series": "300 Compact telescopic",
+   "model": "329",
+   "max_lifting_moment_tm": 2.75
+  },
+  {
+   "series": "300 Compact telescopic",
+   "model": "330",
+   "max_lifting_moment_tm": 2.73
+  },
+  {
+   "series": "300 Compact telescopic",
+   "model": "350",
+   "max_lifting_moment_tm": 3.45
+  },
+  {
+   "series": "500 Small articulated",
+   "model": "531",
+   "max_lifting_moment_tm": 2.59
+  },
+  {
+   "series": "500 Small articulated",
+   "model": "538",
+   "max_lifting_moment_tm": 2.77
+  },
+  {
+   "series": "500 Small articulated",
+   "model": "543",
+   "max_lifting_moment_tm": 3.98
+  },
+  {
+   "series": "500 Small articulated",
+   "model": "553",
+   "max_lifting_moment_tm": 4.84
+  },
+  {
+   "series": "500 Small articulated",
+   "model": "563",
+   "max_lifting_moment_tm": 6.58
+  },
+  {
+   "series": "500 Small articulated",
+   "model": "583",
+   "max_lifting_moment_tm": 7.9
+  },
+  {
+   "series": "5000 Small articulated",
+   "model": "5027",
+   "max_lifting_moment_tm": 2.6
+  },
+  {
+   "series": "5000 Small articulated",
+   "model": "5047",
+   "max_lifting_moment_tm": 4.3
+  },
+  {
+   "series": "5000 Small articulated",
+   "model": "5077",
+   "max_lifting_moment_tm": 7.55
+  },
+  {
+   "series": "5000 Small articulated",
+   "model": "5107",
+   "max_lifting_moment_tm": 9.56
+  },
+  {
+   "series": "5000 Small articulated",
+   "model": "5147",
+   "max_lifting_moment_tm": 13.9
+  },
+  {
+   "series": "5000 Small articulated",
+   "model": "5197",
+   "max_lifting_moment_tm": 19.1
+  },
+  {
+   "series": "5000 Small articulated",
+   "model": "5227",
+   "max_lifting_moment_tm": 20.5
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7090B",
+   "max_lifting_moment_tm": 8.7
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7091C",
+   "max_lifting_moment_tm": 8.3
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7103C",
+   "max_lifting_moment_tm": 9.5
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7111C",
+   "max_lifting_moment_tm": 10.2
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7112B",
+   "max_lifting_moment_tm": 10.5
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7125C",
+   "max_lifting_moment_tm": 11.5
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7130B",
+   "max_lifting_moment_tm": 12.4
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7131C",
+   "max_lifting_moment_tm": 12.0
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7153C",
+   "max_lifting_moment_tm": 13.9
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7160B",
+   "max_lifting_moment_tm": 15.8
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7161C",
+   "max_lifting_moment_tm": 15.3
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7183C",
+   "max_lifting_moment_tm": 17.3
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7210B",
+   "max_lifting_moment_tm": 18.9
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7213C",
+   "max_lifting_moment_tm": 19.8
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7231C",
+   "max_lifting_moment_tm": 21.7
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7240B",
+   "max_lifting_moment_tm": 22.7
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7243C",
+   "max_lifting_moment_tm": 22.5
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7261C",
+   "max_lifting_moment_tm": 24.8
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7401C",
+   "max_lifting_moment_tm": 34.8
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7401SC",
+   "max_lifting_moment_tm": 32.9
+  },
+  {
+   "series": "7000 New Age articulated with double linkage",
+   "model": "7441C",
+   "max_lifting_moment_tm": 37.7
+  },
+  {
+   "series": "700 Articulated with double linkage",
+   "model": "730",
+   "max_lifting_moment_tm": 27.4
+  },
+  {
+   "series": "700 Articulated with double linkage",
+   "model": "734",
+   "max_lifting_moment_tm": 30.3
+  },
+  {
+   "series": "700 Articulated with double linkage",
+   "model": "738R",
+   "max_lifting_moment_tm": 31.3
+  },
+  {
+   "series": "700 Articulated with double linkage",
+   "model": "745",
+   "max_lifting_moment_tm": 45.1,
+   "note": "non-CE only"
+  },
+  {
+   "series": "700 Articulated with double linkage",
+   "model": "746R",
+   "max_lifting_moment_tm": 43.4
+  },
+  {
+   "series": "700 Articulated with double linkage",
+   "model": "749R",
+   "max_lifting_moment_tm": 44.7
+  },
+  {
+   "series": "6000 Medium articulated (non-CE)",
+   "model": "6108B",
+   "max_lifting_moment_tm": 9.6
+  },
+  {
+   "series": "6000 Medium articulated (non-CE)",
+   "model": "6148B",
+   "max_lifting_moment_tm": 13.9
+  },
+  {
+   "series": "6000 Medium articulated (non-CE)",
+   "model": "6238B",
+   "max_lifting_moment_tm": 19.3
+  },
+  {
+   "series": "6000 Medium articulated (non-CE)",
+   "model": "6248B",
+   "max_lifting_moment_tm": 20.7
+  },
+  {
+   "series": "8 Basic articulated (non-CE)",
+   "model": "128",
+   "max_lifting_moment_tm": 11.9
+  },
+  {
+   "series": "8 Basic articulated (non-CE)",
+   "model": "178",
+   "max_lifting_moment_tm": 15.8
+  },
+  {
+   "series": "8 Basic articulated (non-CE)",
+   "model": "258",
+   "max_lifting_moment_tm": 25.0
+  },
+  {
+   "series": "8 Basic articulated (non-CE)",
+   "model": "268",
+   "max_lifting_moment_tm": 25.4
+  },
+  {
+   "series": "9000C New Age endless slewing, double linkage",
+   "model": "9265C",
+   "max_lifting_moment_tm": 24.8
+  },
+  {
+   "series": "9000C New Age endless slewing, double linkage",
+   "model": "9405C",
+   "max_lifting_moment_tm": 34.8
+  },
+  {
+   "series": "9000C New Age endless slewing, double linkage",
+   "model": "9445C",
+   "max_lifting_moment_tm": 37.7
+  },
+  {
+   "series": "9000C New Age endless slewing, double linkage",
+   "model": "9601C",
+   "max_lifting_moment_tm": 57.5
+  },
+  {
+   "series": "9000C New Age endless slewing, double linkage",
+   "model": "9661C",
+   "max_lifting_moment_tm": 63.2
+  },
+  {
+   "series": "900 Endless slewing, double linkage",
+   "model": "990R",
+   "max_lifting_moment_tm": 74.0
+  },
+  {
+   "series": "7000D Telescopic boom",
+   "model": "7162D",
+   "max_lifting_moment_tm": 16.4
+  },
+  {
+   "series": "7000D Telescopic boom",
+   "model": "7212D",
+   "max_lifting_moment_tm": 20.2
+  },
+  {
+   "series": "7000D Telescopic boom",
+   "model": "7240D",
+   "max_lifting_moment_tm": 20.5
+  },
+  {
+   "series": "FBR Heavy duty articulated",
+   "model": "FBR 330",
+   "max_lifting_moment_tm": 31.8
+  },
+  {
+   "series": "FBR Heavy duty articulated",
+   "model": "FBR 350",
+   "max_lifting_moment_tm": 32.8
+  },
+  {
+   "series": "FBR Heavy duty articulated",
+   "model": "FBR 450",
+   "max_lifting_moment_tm": 45.5
+  },
+  {
+   "series": "FBR Heavy duty articulated",
+   "model": "FBR 600",
+   "max_lifting_moment_tm": 57.4
+  },
+  {
+   "series": "FBR Heavy duty articulated",
+   "model": "FBR 660",
+   "max_lifting_moment_tm": 58.8
+  },
+  {
+   "series": "Trave articulated (FVT)",
+   "model": "FVT 135",
+   "max_lifting_moment_tm": 13.0
+  },
+  {
+   "series": "Trave articulated (FVT)",
+   "model": "FVT 165",
+   "max_lifting_moment_tm": 16.1
+  },
+  {
+   "series": "Trave articulated (FVT)",
+   "model": "FVT 455",
+   "max_lifting_moment_tm": 45.7
+  },
+  {
+   "series": "Stiff boom heavy duty (FST)",
+   "model": "FST 3.2",
+   "max_lifting_moment_tm": 8.0
+  },
+  {
+   "series": "Stiff boom heavy duty (FST)",
+   "model": "FST 6.3",
+   "max_lifting_moment_tm": 15.75
+  },
+  {
+   "series": "Stiff boom heavy duty (FST)",
+   "model": "FST 8",
+   "max_lifting_moment_tm": 20.0
+  },
+  {
+   "series": "Stiff boom heavy duty (FST)",
+   "model": "FST 12",
+   "max_lifting_moment_tm": 30.0
+  },
+  {
+   "series": "Stiff boom heavy duty (FST)",
+   "model": "FST 14",
+   "max_lifting_moment_tm": 35.0
+  },
+  {
+   "series": "FFB Light palmoil articulated",
+   "model": "FB11",
+   "max_lifting_moment_tm": 0.35
+  },
+  {
+   "series": "FFB Light palmoil articulated",
+   "model": "FB16",
+   "max_lifting_moment_tm": 0.81
+  },
+  {
+   "series": "FFB Light palmoil articulated",
+   "model": "FB20",
+   "max_lifting_moment_tm": 0.9
+  },
+  {
+   "series": "FFB Light palmoil articulated",
+   "model": "FB50",
+   "max_lifting_moment_tm": 4.74
+  },
+  {
+   "series": "SKY Self-aligning basket (non-CE)",
+   "model": "058D",
+   "max_lifting_moment_tm": 3.29
+  },
+  {
+   "series": "SKY Self-aligning basket (non-CE)",
+   "model": "078ND",
+   "max_lifting_moment_tm": 5.29
+  }
+ ]
+}

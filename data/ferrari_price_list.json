@@ -2,7 +2,7 @@
  "source": "Price_List_Fli.Ferarri_Crane_2.pdf (TSP, received 29 Sep 2026)",
  "price_basis": "Selling price to customer; includes GP, warranty and taxes. Use price_crane_only_idr for comparisons.",
  "flatdeck": "Flat deck 6 x 2.5 m = Rp 161.000.000; with-flatdeck price = crane + cargo deck + mounting + accessories + install. Deck leadtime: Dwg to BOM 5 wk, PR to PO 1 wk, deck incoming 6-8 wk, assy & RFD 3 wk.",
- "max_lifting_moment_tm": "To be filled from the F.lli Ferrari pocket catalogue (not yet received).",
+ "max_lifting_moment_tm": "From data/ferrari_catalogue.json (pocket catalogue 2026).",
  "models": [
   {
    "no": 4,
@@ -12,7 +12,8 @@
    "leadtime_weeks": 25,
    "price_crane_only_idr": 175570278,
    "price_with_flatdeck_idr": 379051300,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 1.27,
+   "catalogue_model": "315"
   },
   {
    "no": 5,
@@ -22,7 +23,8 @@
    "leadtime_weeks": 25,
    "price_crane_only_idr": 235217172,
    "price_with_flatdeck_idr": 441707901,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 3.45,
+   "catalogue_model": "350"
   },
   {
    "no": 6,
@@ -32,7 +34,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 216422560,
    "price_with_flatdeck_idr": 421964936,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 3.45,
+   "catalogue_model": "350"
   },
   {
    "no": 7,
@@ -42,7 +45,8 @@
    "leadtime_weeks": 25,
    "price_crane_only_idr": 315812638,
    "price_with_flatdeck_idr": 526370110,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 3.98,
+   "catalogue_model": "543"
   },
   {
    "no": 8,
@@ -52,7 +56,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 480513714,
    "price_with_flatdeck_idr": 699381790,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 5.29,
+   "catalogue_model": "078ND"
   },
   {
    "no": 9,
@@ -62,7 +67,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 244888562,
    "price_with_flatdeck_idr": 451867296,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 6.58,
+   "catalogue_model": "563"
   },
   {
    "no": 10,
@@ -72,7 +78,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 326556812,
    "price_with_flatdeck_idr": 537656421,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 6.58,
+   "catalogue_model": "563"
   },
   {
    "no": 11,
@@ -82,7 +89,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 257742524,
    "price_with_flatdeck_idr": 465369853,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 6.58,
+   "catalogue_model": "563"
   },
   {
    "no": 12,
@@ -92,7 +100,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 264488942,
    "price_with_flatdeck_idr": 472456686,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 6.58,
+   "catalogue_model": "563"
   },
   {
    "no": 13,
@@ -102,7 +111,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 346157192,
    "price_with_flatdeck_idr": 558245811,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 6.58,
+   "catalogue_model": "563"
   },
   {
    "no": 14,
@@ -112,7 +122,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 310705005,
    "price_with_flatdeck_idr": 521004752,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 9.6,
+   "catalogue_model": "6108B"
   },
   {
    "no": 15,
@@ -122,7 +133,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 329255948,
    "price_with_flatdeck_idr": 540491752,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 9.6,
+   "catalogue_model": "6108B"
   },
   {
    "no": 16,
@@ -132,7 +144,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 381613953,
    "price_with_flatdeck_idr": 595491675,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 13.9,
+   "catalogue_model": "6148B"
   },
   {
    "no": 17,
@@ -142,7 +155,9 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 397111810,
    "price_with_flatdeck_idr": 611771534,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 13.9,
+   "catalogue_model": "6148B",
+   "note": "Price list says 5148 A4; catalogue has 6148B \u2014 assumed typo, confirm"
   },
   {
    "no": 18,
@@ -152,7 +167,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 482237698,
    "price_with_flatdeck_idr": 701192765,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 15.8,
+   "catalogue_model": "178"
   },
   {
    "no": 19,
@@ -162,7 +178,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 523002666,
    "price_with_flatdeck_idr": 744014681,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 15.8,
+   "catalogue_model": "178"
   },
   {
    "no": 20,
@@ -172,7 +189,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 518926375,
    "price_with_flatdeck_idr": 739732705,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 19.3,
+   "catalogue_model": "6238B"
   },
   {
    "no": 21,
@@ -182,7 +200,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 562881632,
    "price_with_flatdeck_idr": 785905888,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 19.3,
+   "catalogue_model": "6238B"
   },
   {
    "no": 22,
@@ -192,7 +211,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 556973686,
    "price_with_flatdeck_idr": 779699834,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 20.7,
+   "catalogue_model": "6248B"
   },
   {
    "no": 23,
@@ -202,7 +222,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 604237421,
    "price_with_flatdeck_idr": 829348437,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 20.7,
+   "catalogue_model": "6248B"
   },
   {
    "no": 24,
@@ -212,7 +233,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 574480680,
    "price_with_flatdeck_idr": 798090209,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 25.0,
+   "catalogue_model": "258"
   },
   {
    "no": 25,
@@ -222,7 +244,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 723791180,
    "price_with_flatdeck_idr": 954934725,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 25.0,
+   "catalogue_model": "258"
   },
   {
    "no": 26,
@@ -232,7 +255,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 623266744,
    "price_with_flatdeck_idr": 849337955,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 25.0,
+   "catalogue_model": "258"
   },
   {
    "no": 27,
@@ -242,7 +266,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 616709502,
    "price_with_flatdeck_idr": 842449843,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 25.4,
+   "catalogue_model": "268"
   },
   {
    "no": 28,
@@ -252,7 +277,8 @@
    "leadtime_weeks": 14,
    "price_crane_only_idr": 669167633,
    "price_with_flatdeck_idr": 897554944,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 25.4,
+   "catalogue_model": "268"
   },
   {
    "no": 29,
@@ -262,7 +288,9 @@
    "leadtime_weeks": 25,
    "price_crane_only_idr": 1501613628,
    "price_with_flatdeck_idr": 1772005095,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": null,
+   "catalogue_model": null,
+   "note": "934 / 934R not in 2026 pocket catalogue \u2014 ask user for tm"
   },
   {
    "no": 30,
@@ -272,7 +300,8 @@
    "leadtime_weeks": 25,
    "price_crane_only_idr": 1666244038,
    "price_with_flatdeck_idr": 1944942544,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": null,
+   "catalogue_model": null
   },
   {
    "no": 31,
@@ -282,7 +311,8 @@
    "leadtime_weeks": 27,
    "price_crane_only_idr": 1249946630,
    "price_with_flatdeck_idr": 1507639303,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 32.8,
+   "catalogue_model": "FBR350"
   },
   {
    "no": 32,
@@ -292,7 +322,8 @@
    "leadtime_weeks": 27,
    "price_crane_only_idr": 1436737906,
    "price_with_flatdeck_idr": 1703855827,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 32.8,
+   "catalogue_model": "FBR350"
   },
   {
    "no": 33,
@@ -302,7 +333,8 @@
    "leadtime_weeks": 27,
    "price_crane_only_idr": 1578804690,
    "price_with_flatdeck_idr": 1853091118,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 45.5,
+   "catalogue_model": "FBR450"
   },
   {
    "no": 34,
@@ -312,7 +344,8 @@
    "leadtime_weeks": 27,
    "price_crane_only_idr": 1776119294,
    "price_with_flatdeck_idr": 2060361964,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 45.5,
+   "catalogue_model": "FBR450"
   },
   {
    "no": 35,
@@ -322,7 +355,8 @@
    "leadtime_weeks": 27,
    "price_crane_only_idr": 1881353966,
    "price_with_flatdeck_idr": 2170906642,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 45.5,
+   "catalogue_model": "FBR450"
   },
   {
    "no": 36,
@@ -332,7 +366,8 @@
    "leadtime_weeks": 25,
    "price_crane_only_idr": 1864044595,
    "price_with_flatdeck_idr": 2152723863,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 43.4,
+   "catalogue_model": "746R"
   },
   {
    "no": 37,
@@ -342,7 +377,8 @@
    "leadtime_weeks": 25,
    "price_crane_only_idr": 2214501940,
    "price_with_flatdeck_idr": 2520864835,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 44.7,
+   "catalogue_model": "749R"
   },
   {
    "no": 38,
@@ -352,7 +388,8 @@
    "leadtime_weeks": 27,
    "price_crane_only_idr": 2617995742,
    "price_with_flatdeck_idr": 2944718416,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 57.4,
+   "catalogue_model": "FBR600"
   },
   {
    "no": 39,
@@ -362,7 +399,8 @@
    "leadtime_weeks": 27,
    "price_crane_only_idr": 2657458802,
    "price_with_flatdeck_idr": 2986172731,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 58.8,
+   "catalogue_model": "FBR660"
   },
   {
    "no": 42,
@@ -372,7 +410,8 @@
    "leadtime_weeks": 27,
    "price_crane_only_idr": 2842519959,
    "price_with_flatdeck_idr": 3180571837,
-   "max_lifting_moment_tm": null
+   "max_lifting_moment_tm": 58.8,
+   "catalogue_model": "FBR660"
   }
  ]
 }
