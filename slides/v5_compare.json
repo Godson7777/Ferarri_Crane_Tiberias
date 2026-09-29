@@ -140,7 +140,12 @@
        "ferrari_same_band": true,
        "diff": 0.8614415975491003
       }
-     ]
+     ],
+     "band_units": {
+      ">35\u201340": 37,
+      ">30\u201335": 33,
+      ">40\u201345": 18
+     }
     },
     {
      "brand": "AMCO VEBA",
@@ -183,7 +188,12 @@
        "ferrari_same_band": true,
        "diff": 0.3684669161172769
       }
-     ]
+     ],
+     "band_units": {
+      ">25\u201330": 31,
+      ">30\u201335": 4,
+      ">40\u201345": 1
+     }
     },
     {
      "brand": "XCMG",
@@ -226,7 +236,12 @@
        "ferrari_same_band": true,
        "diff": 1.0481376517810683
       }
-     ]
+     ],
+     "band_units": {
+      ">25\u201330": 18,
+      ">30\u201335": 7,
+      ">35\u201340": 8
+     }
     },
     {
      "brand": "PALFINGER",
@@ -257,7 +272,11 @@
        "ferrari_same_band": true,
        "diff": 0.07106306510281901
       }
-     ]
+     ],
+     "band_units": {
+      ">35\u201340": 21,
+      ">30\u201335": 8
+     }
     },
     {
      "brand": "HIAB",
@@ -300,7 +319,11 @@
        "ferrari_same_band": true,
        "diff": 0.00785777460480297
       }
-     ]
+     ],
+     "band_units": {
+      ">30\u201335": 22,
+      ">40\u201345": 4
+     }
     }
    ],
    "lineup": [
@@ -365,7 +388,12 @@
        "ferrari_same_band": true,
        "diff": -0.05768038099676276
       }
-     ]
+     ],
+     "band_units": {
+      ">50\u201355": 39,
+      ">55": 3,
+      ">45\u201350": 1
+     }
     },
     {
      "brand": "AMCO VEBA",
@@ -384,7 +412,10 @@
        "ferrari_same_band": true,
        "diff": -0.2575932315416515
       }
-     ]
+     ],
+     "band_units": {
+      ">45\u201350": 12
+     }
     },
     {
      "brand": "XCMG",
@@ -427,7 +458,11 @@
        "ferrari_same_band": true,
        "diff": 0.5879186780563683
       }
-     ]
+     ],
+     "band_units": {
+      ">45\u201350": 3,
+      ">55": 4
+     }
     },
     {
      "brand": "HIAB",
@@ -458,7 +493,11 @@
        "ferrari_same_band": true,
        "diff": -0.07661440795948327
       }
-     ]
+     ],
+     "band_units": {
+      ">50\u201355": 1,
+      ">45\u201350": 1
+     }
     },
     {
      "brand": "FASSI",
@@ -477,7 +516,10 @@
        "ferrari_same_band": true,
        "diff": -0.1330726739646627
       }
-     ]
+     ],
+     "band_units": {
+      ">45\u201350": 1
+     }
     },
     {
      "brand": "SANY PALFINGER",
@@ -496,7 +538,10 @@
        "ferrari_same_band": true,
        "diff": 0.49209937230693224
       }
-     ]
+     ],
+     "band_units": {
+      ">55": 1
+     }
     }
    ],
    "lineup": [

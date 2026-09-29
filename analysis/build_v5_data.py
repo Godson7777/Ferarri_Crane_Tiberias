@@ -71,7 +71,9 @@ for cls, lo, hi in [('Medium', 25, 45), ('Heavy', 45, 999)]:
             p = taxed(r.v / r.q, br)
             models.append(dict(rank=rank, model=r.m, tm=float(r.tm), units=int(r.q), band=bd, price_idr=p, photo=PHOTO_C.get(r.m),
                                ferrari=f['model'], ferrari_same_band=bool(same), diff=f['price_idr'] / p - 1))
-        brands.append(dict(brand=br, units=int(x.q.sum()), n_models=len(x), models=models))
+        bb = {}
+        for _, r in x.iterrows(): bb[band(r.tm, cls)] = bb.get(band(r.tm, cls), 0) + int(r.q)
+        brands.append(dict(brand=br, units=int(x.q.sum()), n_models=len(x), models=models, band_units=bb))
     out['classes'][cls] = dict(units=int(g.q.sum()), bands=BANDS[cls], band_units=band_units, brands=brands,
                                lineup=[f['model'] for f in line])
 json.dump(out, open('slides/v5_compare.json', 'w'), indent=1)
