@@ -1,7 +1,7 @@
 # Builds data.json for the deck from the Excel source. Run: python build_data.py <xlsx>
 import sys, json, pandas as pd
 d = pd.read_excel(sys.argv[1], sheet_name='8. Pivot Source')
-d = d[d.Brand != 'ZOOMLION']                       # excluded brand (scope rule)
+d = d[~d.Brand.isin(['ZOOMLION', 'HYVA'])]         # excluded brands (scope rule)
 K = 'Kategori Max Lifting Moment'
 CLS = ['Light', 'Small', 'Medium', 'Heavy']
 last = d[d.Year == 2026].Date.max()

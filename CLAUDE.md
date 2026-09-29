@@ -12,7 +12,7 @@ Deck analysing Indonesia's truck-mounted knuckle boom crane imports (HS 84269100
 
 ## Data rules
 - Market data: Excel `Crane_Market_GVW_Pairing_v11_Noir.xlsx`, sheet `8. Pivot Source`. Competitor Max Lifting Moment comes from its column `Max Lifting Moment asli (tm)`.
-- Zoomlion excluded everywhere. XCMG kept.
+- Zoomlion and Hyva excluded everywhere (Hyva: user rule 29 Sep 2026; replace with the next brand/model). XCMG kept.
 - Classes (Excel `Kategori Max Lifting Moment`): Light ≤ 8, Small > 8–25, Medium > 25–45, Heavy > 45 tm.
 - tm breakdown inside Medium and Heavy must use the same step for both classes (proposed: 5-tm bands >25–30, >30–35 … on `Max Lifting Moment asli (tm)`).
 - 2026 data is Jan – 14 Aug; annualise ×1.61 when comparing years. Year-trend commentary was removed at the user's request.

@@ -7,7 +7,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.chart import BarChart, LineChart, Reference
 from openpyxl.utils import get_column_letter
 d=pd.read_excel(sys.argv[1],sheet_name='8. Pivot Source')
-d=d[d.Brand!='ZOOMLION']
+d=d[~d.Brand.isin(['ZOOMLION','HYVA'])]
 K='Kategori Max Lifting Moment';T='Max Lifting Moment asli (tm)';FX=17803
 fam={'SPK32080B':'SPK32080','SPK32080C':'SPK32080','SPK36080C':'SPK36080','SPK42502C':'SPK42502','SPK42502E':'SPK42502',
      'PK 41002 EH C':'PK 41002','PK 41002 MH C':'PK 41002','PK 53002 SH B':'PK 53002','PK 53002 SH C':'PK 53002'}
