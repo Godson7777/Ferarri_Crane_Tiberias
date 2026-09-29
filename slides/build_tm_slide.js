@@ -11,7 +11,7 @@ const LOGO = {'SANY PALFINGER':['logo_sanypalfinger', 4.694], PALFINGER:['logo_p
   'AMCO VEBA':['logo_amcoveba', 4.469], XCMG:['logo_xcmg', 4.587]};
 const PHOTO = {V825:'photo_v825', SPK32080:'photo_spk32080', SPK36080:'photo_spk36080', SPK42502:'photo_spk42502', V950:'photo_v950',
   'PK 53002':'photo_pk53002', '268 A4':'photo_268', 'FBR350R A4':'photo_fbr350r', '7441C':'photo_7441c', '746 A4':'photo_746r',
-  'FBR450R A4':'photo_fbr450r', 'FBR660R A4':'photo_fbr660r'};
+  'FBR450R A4':'photo_fbr450r', 'FBR660R A4':'photo_fbr660r', 'PK 76002 EH D':'photo_pk76002'};
 const rpx = v => 'Rp ' + (Math.round(v / 1e7) * 1e7).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 const BRAND = {'SANY PALFINGER':'Sany Palfinger', PALFINGER:'Palfinger', 'AMCO VEBA':'Amco Veba', XCMG:'XCMG', HIAB:'Hiab'};
 const pct = v => Math.round(v * 100) + '%';
@@ -50,7 +50,7 @@ function slash(s, x, y, h = 0.34) {
   const H = (t, o = {}) => ({text:t, options:Object.assign({fill:{color:C.line}, color:C.mut, bold:true, fontSize:9, fontFace:F, align:'center'}, o)});
   const V = (t, o = {}) => ({text:t, options:Object.assign({fill:{color:C.card}, color:C.txt, fontSize:FS, fontFace:F, align:'center'}, o)});
   const FR = {fill:{color:C.redT}}, RH_ = {fill:{color:C.red}, color:'FFFFFF'};
-  const rows = [[H('tm class'), H('Units in class'), H('Best-selling model', {colspan:2}), H('Units · share of class'),
+  const rows = [[H('tm class'), H('Total qty in class'), H('Best-selling model', {colspan:2}), H('Units · share of class'),
     H('Price per unit, crane only (IDR, incl. tax)'), H('F.lli Ferrari model', Object.assign({colspan:2}, RH_)),
     H('Price per unit, crane only (IDR, incl. tax)', RH_)]];
   G.forEach(r => {
