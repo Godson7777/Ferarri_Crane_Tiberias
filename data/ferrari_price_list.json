@@ -1,0 +1,378 @@
+{
+ "source": "Price_List_Fli.Ferarri_Crane_2.pdf (TSP, received 29 Sep 2026)",
+ "price_basis": "Selling price to customer; includes GP, warranty and taxes. Use price_crane_only_idr for comparisons.",
+ "flatdeck": "Flat deck 6 x 2.5 m = Rp 161.000.000; with-flatdeck price = crane + cargo deck + mounting + accessories + install. Deck leadtime: Dwg to BOM 5 wk, PR to PO 1 wk, deck incoming 6-8 wk, assy & RFD 3 wk.",
+ "max_lifting_moment_tm": "To be filled from the F.lli Ferrari pocket catalogue (not yet received).",
+ "models": [
+  {
+   "no": 4,
+   "ferrari_model": "315 A2",
+   "hyva_equivalent": "HA15 E2",
+   "desc": "Complete with el. Powerpack (std 12V), and stabilisers",
+   "leadtime_weeks": 25,
+   "price_crane_only_idr": 175570278,
+   "price_with_flatdeck_idr": 379051300,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 5,
+   "ferrari_model": "350 A2",
+   "hyva_equivalent": "HA33 E2",
+   "desc": "(gear) pump (FACTORY ORDER)",
+   "leadtime_weeks": 25,
+   "price_crane_only_idr": 235217172,
+   "price_with_flatdeck_idr": 441707901,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 6,
+   "ferrari_model": "350 A2",
+   "hyva_equivalent": "HA33 E2",
+   "desc": "(piston) pump (MALAYSIA STOCK)",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 216422560,
+   "price_with_flatdeck_idr": 421964936,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 7,
+   "ferrari_model": "543 A2",
+   "hyva_equivalent": "HB43 E2",
+   "desc": "(gear) pump",
+   "leadtime_weeks": 25,
+   "price_crane_only_idr": 315812638,
+   "price_with_flatdeck_idr": 526370110,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 8,
+   "ferrari_model": "078NDR SKY",
+   "hyva_equivalent": "HA70X E5-MB",
+   "desc": "Man Basket crane, includes remote control, gear pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 480513714,
+   "price_with_flatdeck_idr": 699381790,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 9,
+   "ferrari_model": "563 A2",
+   "hyva_equivalent": "HB60 E2",
+   "desc": "(gear) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 244888562,
+   "price_with_flatdeck_idr": 451867296,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 10,
+   "ferrari_model": "563R A2",
+   "hyva_equivalent": "HB60x E2",
+   "desc": "(gear) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 326556812,
+   "price_with_flatdeck_idr": 537656421,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 11,
+   "ferrari_model": "563 A3",
+   "hyva_equivalent": "HB60 E3",
+   "desc": "(gear) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 257742524,
+   "price_with_flatdeck_idr": 465369853,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 12,
+   "ferrari_model": "563 A4",
+   "hyva_equivalent": "HB60 E4",
+   "desc": "(gear) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 264488942,
+   "price_with_flatdeck_idr": 472456686,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 13,
+   "ferrari_model": "563R A4",
+   "hyva_equivalent": "HB60x E4",
+   "desc": "(gear) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 346157192,
+   "price_with_flatdeck_idr": 558245811,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 14,
+   "ferrari_model": "6108 A2",
+   "hyva_equivalent": "HB102 E2",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 310705005,
+   "price_with_flatdeck_idr": 521004752,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 15,
+   "ferrari_model": "6108 A3",
+   "hyva_equivalent": "HB102 E3",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 329255948,
+   "price_with_flatdeck_idr": 540491752,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 16,
+   "ferrari_model": "6148 A3",
+   "hyva_equivalent": "HB152 E3",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 381613953,
+   "price_with_flatdeck_idr": 595491675,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 17,
+   "ferrari_model": "5148 A4",
+   "hyva_equivalent": "HB152 E4",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 397111810,
+   "price_with_flatdeck_idr": 611771534,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 18,
+   "ferrari_model": "178 A3",
+   "hyva_equivalent": "HB170 E3",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 482237698,
+   "price_with_flatdeck_idr": 701192765,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 19,
+   "ferrari_model": "178 A4",
+   "hyva_equivalent": "HB170 E4",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 523002666,
+   "price_with_flatdeck_idr": 744014681,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 20,
+   "ferrari_model": "6238 A3",
+   "hyva_equivalent": "HB202 E3",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 518926375,
+   "price_with_flatdeck_idr": 739732705,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 21,
+   "ferrari_model": "6238 A4",
+   "hyva_equivalent": "HB202 E4",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 562881632,
+   "price_with_flatdeck_idr": 785905888,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 22,
+   "ferrari_model": "6248 A3",
+   "hyva_equivalent": "HB230 E3",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 556973686,
+   "price_with_flatdeck_idr": 779699834,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 23,
+   "ferrari_model": "6248 A4",
+   "hyva_equivalent": "HB230 E4",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 604237421,
+   "price_with_flatdeck_idr": 829348437,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 24,
+   "ferrari_model": "258 A3",
+   "hyva_equivalent": "HB250 E3",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 574480680,
+   "price_with_flatdeck_idr": 798090209,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 25,
+   "ferrari_model": "258R A3",
+   "hyva_equivalent": "HB250x E3",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 723791180,
+   "price_with_flatdeck_idr": 954934725,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 26,
+   "ferrari_model": "258 A4",
+   "hyva_equivalent": "HB250 E4",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 623266744,
+   "price_with_flatdeck_idr": 849337955,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 27,
+   "ferrari_model": "268 A3",
+   "hyva_equivalent": "HB280 E3",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 616709502,
+   "price_with_flatdeck_idr": 842449843,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 28,
+   "ferrari_model": "268 A4",
+   "hyva_equivalent": "HB280 E4",
+   "desc": "(piston) pump",
+   "leadtime_weeks": 14,
+   "price_crane_only_idr": 669167633,
+   "price_with_flatdeck_idr": 897554944,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 29,
+   "ferrari_model": "934 A4",
+   "hyva_equivalent": "HC331 E4",
+   "desc": "(piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 25,
+   "price_crane_only_idr": 1501613628,
+   "price_with_flatdeck_idr": 1772005095,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 30,
+   "ferrari_model": "934R A4",
+   "hyva_equivalent": "HC331X E4",
+   "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 25,
+   "price_crane_only_idr": 1666244038,
+   "price_with_flatdeck_idr": 1944942544,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 31,
+   "ferrari_model": "FBR350 A4",
+   "hyva_equivalent": "HBR350 E4",
+   "desc": "(piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 27,
+   "price_crane_only_idr": 1249946630,
+   "price_with_flatdeck_idr": 1507639303,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 32,
+   "ferrari_model": "FBR350R A4",
+   "hyva_equivalent": "HBR350X E4",
+   "desc": "(piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 27,
+   "price_crane_only_idr": 1436737906,
+   "price_with_flatdeck_idr": 1703855827,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 33,
+   "ferrari_model": "FBR450 A4",
+   "hyva_equivalent": "HBR450 E4",
+   "desc": "(piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 27,
+   "price_crane_only_idr": 1578804690,
+   "price_with_flatdeck_idr": 1853091118,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 34,
+   "ferrari_model": "FBR450R A4",
+   "hyva_equivalent": "HBR450X E4",
+   "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 27,
+   "price_crane_only_idr": 1776119294,
+   "price_with_flatdeck_idr": 2060361964,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 35,
+   "ferrari_model": "FBR450R A6",
+   "hyva_equivalent": "HBR450X E6",
+   "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 27,
+   "price_crane_only_idr": 1881353966,
+   "price_with_flatdeck_idr": 2170906642,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 36,
+   "ferrari_model": "746 A4",
+   "hyva_equivalent": "HB460 E4",
+   "desc": "(piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 25,
+   "price_crane_only_idr": 1864044595,
+   "price_with_flatdeck_idr": 2152723863,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 37,
+   "ferrari_model": "749R A4",
+   "hyva_equivalent": "HC501X E4",
+   "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 25,
+   "price_crane_only_idr": 2214501940,
+   "price_with_flatdeck_idr": 2520864835,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 38,
+   "ferrari_model": "FBR600R A4",
+   "hyva_equivalent": "HBR600X E4",
+   "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 27,
+   "price_crane_only_idr": 2617995742,
+   "price_with_flatdeck_idr": 2944718416,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 39,
+   "ferrari_model": "FBR660R A4",
+   "hyva_equivalent": "HBR660X E4",
+   "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 27,
+   "price_crane_only_idr": 2657458802,
+   "price_with_flatdeck_idr": 2986172731,
+   "max_lifting_moment_tm": null
+  },
+  {
+   "no": 42,
+   "ferrari_model": "FBR660R A6",
+   "hyva_equivalent": null,
+   "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "leadtime_weeks": 27,
+   "price_crane_only_idr": 2842519959,
+   "price_with_flatdeck_idr": 3180571837,
+   "max_lifting_moment_tm": null
+  }
+ ]
+}
