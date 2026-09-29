@@ -17,7 +17,7 @@ Deck analysing Indonesia's truck-mounted knuckle boom crane imports (HS 84269100
 - tm breakdown inside Medium and Heavy must use the same step for both classes (proposed: 5-tm bands >25–30, >30–35 … on `Max Lifting Moment asli (tm)`).
 - 2026 data is Jan – 14 Aug; annualise ×1.61 when comparing years. Year-trend commentary was removed at the user's request.
 - Competitor price = average import unit price × JISDOR (USD 1 = Rp 17.803, 23 Sep 2026) × (1 + import duty: 0% China/ACFTA, 5% EU assumed) × (1 + 11% PPN + 2.5% PPh 22). This is import cost before distributor margin.
-- Ferrari price = TSP selling price to customer, crane only, incl. GP, warranty and taxes: `data/ferrari_price_list.json` (field `price_crane_only_idr`). If a Ferrari model is not in the price list, ask the user.
+- Ferrari price = TSP selling price to customer, crane only, incl. GP, warranty and taxes: `data/ferrari_price_list.json` (field `price_crane_only_idr`). If a Ferrari model is not in the price list, write "price not yet known" (user instruction). Medium head-to-head offer = FBR350R A4 (Rp 1.436.737.906).
 - Ferrari Max Lifting Moment comes from `data/ferrari_catalogue.json` (84 models, pocket catalogue 2026). FBR 350 = 32.8 tm (not 35), FBR 450 = 45.5, 746R = 43.4, 749R = 44.7, FBR 600 = 57.4, FBR 660 = 58.8. 934/934R is in the price list but not the catalogue.
 - Buyer profile: 89% of Medium + Heavy cranes need a truck with GVW ≥ 24 t (heavy-duty use: mining, construction, heavy logistics). Triatra does not sell trucks.
 
