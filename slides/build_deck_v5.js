@@ -210,12 +210,12 @@ function brandTile(s, b, x, y, w, h) {
 const photo = (s, f, x, y, w, h) => s.addImage({path:`assets/photo_${f}.jpg`, x, y, w, h, sizing:{type:'cover', w, h}});
 const listNames = a => a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
 const PRICE_NOTE = 'Competitors: average import unit price, Jan 2023 – 14 Aug 2026, × Rp 17.803/USD (JISDOR 23 Sep 2026) + import duty (0% China – ACFTA; 5% Europe, assumed) + PPN 11% + PPh 22 2.5% = import cost before distributor margin. ' +
-  'F.lli Ferrari: crane price from the TSP price list (column K minus column J) less the TSP margin of 13.6%, so both sides are at import-cost level. 7441C = estimate. Prices rounded to Rp 10.000.000.';
+  'F.lli Ferrari: crane price from the TSP price list Rev1, June 2026 (column K minus column J), less the TSP margin of 13.6%, so both sides are at import-cost level. 7441C = estimate between FBR350R A4 and 746 A4. Prices rounded to Rp 10.000.000.';
 
 let kno = 3;
 function comparePage(k, brands, pg, npg) {
   const Cc = V5.classes[k], ms = brands.flatMap(b => b.models), cheaper = ms.filter(m => m.diff <= 0).length;
-  const head = `${k} (${pg}/${npg}): F.lli Ferrari costs less than ${cheaper === ms.length ? 'all ' : cheaper + ' of '}${ms.length} top models of ${listNames(brands.map(b => nm(b.brand)))}`;
+  const head = `${k}: F.lli Ferrari costs less than ${cheaper === ms.length ? 'all ' : cheaper + ' of '}${ms.length} models from ${listNames(brands.map(b => nm(b.brand)))}`;
   const s = slide(`${++kno} · PRICE COMPARISON BY tm CLASS — ${CLS[k].label} (${pg}/${npg})`, head);
   classTab(s, 0.45, 1.2, k, 2.6, 0.32, 11);
   T(s, 'Top 3 models of each brand by units, Jan 2023 – 14 Aug 2026, next to the closest F.lli Ferrari model', {x:3.2, y:1.2, w:9.6, h:0.32, fontSize:11, bold:true, valign:'middle'});
@@ -283,7 +283,7 @@ function comparePage(k, brands, pg, npg) {
 {
   const rows = [], feat = d => !d ? 'Estimate; spec as 7000 New Age series' :
     d.replace('includes remote control, ', 'Remote control, ').replace('(piston) pump', 'piston pump').replace(', incl oil cooler, rear stab', ', oil cooler, rear stabilisers').replace(/^piston/, 'Piston');
-  let bands = 0, win = 0;
+  let pairs = 0, cheap = 0; const cheapBrands = new Set();
   ['Medium', 'Heavy'].forEach(k => {
     const Cc = V5.classes[k], all = Cc.brands.flatMap(b => b.models.map(m => ({...m, brand:b.brand})));
     Cc.bands.forEach(bd => {
@@ -291,23 +291,23 @@ function comparePage(k, brands, pg, npg) {
       const top = ms.slice().sort((a, b) => b.units - a.units)[0];
       const fs = [...new Set(ms.map(m => m.ferrari))].map(n => FERD[n]);
       const same = ms.some(m => m.ferrari_same_band), ch = ms.filter(m => m.diff <= 0).length;
-      bands++; if (ch === ms.length) win++;
+      pairs += ms.length; cheap += ch; ms.filter(m => m.diff <= 0).forEach(m => cheapBrands.add(m.brand));
       rows.push({k, bd, units:Cc.band_units[bd], top:`${nm(top.brand)} ${top.model}`, fer:fs.map(f => f.model).join(' / ') + (same ? '' : ' (nearest)'),
-        price:fs.map(f => rpx(f.price_idr) + (f.estimate ? ' (est.)' : '')).join(' / '), ch:`${ch} of ${ms.length}`, all:ch === ms.length,
-        feat:feat(fs[0].desc), lead:fs.map(f => f.leadtime_weeks ? f.leadtime_weeks + ' wk' : '–').join(' / ')});
+        price:fs.map(f => rpx(f.price_idr) + (f.estimate ? ' (est.)' : '')).join(' / '), ch:`${ch} of ${ms.length}`, all:ch > 0,
+        feat:feat(fs[0].desc), lead:[...new Set(fs.map(f => f.leadtime_weeks ? `${f.leadtime_weeks} wk · ${f.origin}` : '–'))].join(' / ')});
     });
   });
   const s = slide(`${++kno} · F.LLI FERRARI CRANE ADVANTAGE BY tm CLASS`,
-    win === bands ? `F.lli Ferrari costs less than every top model in all ${bands} tm classes, with EU build quality in each` : `F.lli Ferrari costs less than every top model in ${win} of ${bands} tm classes, with EU build quality in each`);
+    [...cheapBrands].every(b => !['SANY PALFINGER', 'XCMG'].includes(b)) ? `F.lli Ferrari costs less than ${cheap} of ${pairs} top models, all of them European; against Chinese brands it competes on EU build quality` : `F.lli Ferrari costs less than ${cheap} of ${pairs} top models and adds EU build quality in every tm class`);
   const hd = [H('Class'), H('tm class'), H('Units', {align:'right'}), H('Top model in class'), H('F.lli Ferrari model'), H('F.lli Ferrari price (import-cost level)', {align:'right'}),
-    H('Cheaper than top models'), H('Standard features'), H('Leadtime')];
+    H('Cheaper than top models'), H('Standard features'), H('Leadtime · made in')];
   const tb = [hd];
   rows.forEach(r => {
     const o = {fontSize:8.5}, g = r.all ? {fill:{color:G.goodT}, color:G.good, bold:true} : {};
     tb.push([V(r.k, Object.assign({bold:true, color:CLS[r.k].c}, o)), V(r.bd + ' tm', Object.assign({bold:true}, o)), V(String(r.units), Object.assign({align:'right'}, o)),
       V(r.top, o), V(r.fer, Object.assign({bold:true}, o)), V(r.price, Object.assign({align:'right'}, o)), V(r.ch, Object.assign({}, o, g)), V(r.feat, o), V(r.lead, o)]);
   });
-  s.addTable(tb, Object.assign({x:0.45, y:1.25, w:12.43, colW:[0.75, 0.85, 0.6, 1.85, 1.75, 1.75, 1.1, 2.73, 1.05], rowH:0.34}, TB));
+  s.addTable(tb, Object.assign({x:0.45, y:1.25, w:12.43, colW:[0.75, 0.8, 0.55, 1.8, 1.7, 1.75, 1.05, 2.53, 1.5], rowH:0.34}, TB));
   const by = 1.25 + 0.34 * tb.length + 0.35, bh = 1.3;
   s.addShape(pres.shapes.RECTANGLE, {x:0.45, y:by, w:12.43, h:bh, fill:{color:C.card}, line:{color:C.card, width:0}});
   T(s, 'F.LLI FERRARI CRANE ADVANTAGE IN EVERY tm CLASS', {x:0.65, y:by + 0.1, w:12, h:0.25, fontSize:10, bold:true, color:C.red});
@@ -318,7 +318,7 @@ function comparePage(k, brands, pg, npg) {
   const cw4 = 12.03 / 4;
   adv.forEach(([a, b], i) => T(s, [{text:a, options:{bold:true, fontSize:10.5, breakLine:true}}, {text:b, options:{fontSize:9, color:C.mut}}],
     {x:0.65 + i * cw4, y:by + 0.42, w:cw4 - 0.2, h:bh - 0.5}));
-  foot(s, 'Green = F.lli Ferrari costs less than every top model in the class (pages 4 – 7). ' + PRICE_NOTE);
+  foot(s, 'Green = F.lli Ferrari costs less than at least one top model in the class (pages 4 – 7). ' + PRICE_NOTE);
 }
 
 pres.writeFile({fileName:'Flli_Ferrari_Market_Strategy_v5.pptx'}).then(() => console.log('done'));

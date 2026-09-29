@@ -3,7 +3,7 @@ Usage: python3 analysis/build_v5_data.py <Crane_Market_GVW_Pairing_v11_Noir.xlsx
 
 Price basis (user rules, 29 Sep 2026):
 - Competitor = average import unit price x JISDOR x (1 + duty: 0% China, 5% Europe) x (1 + PPN 11% + PPh 22 2.5%).
-- Ferrari   = (K - J) of the TSP price list, i.e. price_with_flatdeck - price_crane_only, minus TSP margin 13.6%.
+- Ferrari   = crane price (K - J) of the TSP price list Rev1 June'26 (data/ferrari_price_list_rev1.json), minus TSP margin 13.6%.
 """
 import sys, json, math
 import pandas as pd
@@ -28,22 +28,20 @@ def band(tm, cls):
     return f'>{hi - 5}–{hi}'
 BANDS = {'Medium': ['>25–30', '>30–35', '>35–40', '>40–45'], 'Heavy': ['>45–50', '>50–55', '>55']}
 
-# ---- Ferrari line-up: one priced variant per catalogue model, price = (K - J) x (1 - margin)
+# ---- Ferrari line-up from the Rev1 price list (June'26): crane price = K - J, then less TSP margin
 cat = {m['model'].replace(' ', ''): m['max_lifting_moment_tm'] for m in json.load(open('data/ferrari_catalogue.json'))['models']}
-pl = json.load(open('data/ferrari_price_list.json'))['models']
-kj = lambda r: r['price_with_flatdeck_idr'] - r['price_crane_only_idr']
+pl = json.load(open('data/ferrari_price_list_rev1.json'))['models']
 PICK = ['268 A4', 'FBR350R A4', '746 A4', '749R A4', 'FBR450R A4', 'FBR600R A4', 'FBR660R A4']   # R/A4 variant per model
 fer = []
 for r in pl:
     if r['ferrari_model'] in PICK:
-        fer.append(dict(model=r['ferrari_model'], tm=cat[r['catalogue_model']], price_idr=kj(r) * (1 - MARGIN), estimate=False,
-                        leadtime_weeks=r['leadtime_weeks'], desc=r['desc'], photo=None))
-# 7441C: not in the price list -> interpolate (K - J) between FBR350R A4 and 746 A4 by tm
+        fer.append(dict(model=r['ferrari_model'], tm=cat[r['catalogue_model']], price_idr=r['crane_price_idr'] * (1 - MARGIN), estimate=False,
+                        leadtime_weeks=r['leadtime_weeks'], desc=r['desc'], origin=r['incoterm'].replace('EXW ', '').title(), photo=None))
+# 7441C: not in the price list -> interpolate the crane price (K - J) between FBR350R A4 and 746 A4 by tm
 a = next(r for r in pl if r['ferrari_model'] == 'FBR350R A4'); b = next(r for r in pl if r['ferrari_model'] == '746 A4')
 ta, tb = cat[a['catalogue_model']], cat[b['catalogue_model']]
-est = kj(a) + (kj(b) - kj(a)) / (tb - ta) * (cat['7441C'] - ta)
-fer.append(dict(model='7441C', tm=cat['7441C'], price_idr=est * (1 - MARGIN), estimate=True, leadtime_weeks=None, desc=None, photo=None,
-                estimate_note=f'(K - J) interpolated between FBR350R A4 and 746 A4 by tm'))
+est = a['crane_price_idr'] + (b['crane_price_idr'] - a['crane_price_idr']) / (tb - ta) * (cat['7441C'] - ta)
+fer.append(dict(model='7441C', tm=cat['7441C'], price_idr=est * (1 - MARGIN), estimate=True, leadtime_weeks=None, desc=None, origin='Italy', photo=None))
 PHOTO_F = {'268 A4': '268', 'FBR350R A4': 'fbr350r', '7441C': '7441c', '746 A4': '746r', '749R A4': '749r',
            'FBR450R A4': 'fbr450r', 'FBR600R A4': 'fbr600r', 'FBR660R A4': 'fbr660r'}
 for f in fer: f['photo'] = PHOTO_F[f['model']]

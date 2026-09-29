@@ -5,74 +5,81 @@
   {
    "model": "268 A4",
    "tm": 25.4,
-   "price_idr": 197326636.704,
+   "price_idr": 516260813.76,
    "estimate": false,
    "leadtime_weeks": 14,
    "desc": "(piston) pump",
+   "origin": "China",
    "photo": "268"
   },
   {
    "model": "FBR350R A4",
    "tm": 32.8,
-   "price_idr": 230789883.744,
+   "price_idr": 1124683488.864,
    "estimate": false,
    "leadtime_weeks": 27,
    "desc": "(piston) pump, incl oil cooler, rear stab",
+   "origin": "Brazil",
    "photo": "fbr350r"
   },
   {
    "model": "7441C",
    "tm": 37.7,
-   "price_idr": 239401404.37222645,
+   "price_idr": 1281256588.835321,
    "estimate": true,
    "leadtime_weeks": null,
    "desc": null,
-   "photo": "7441c",
-   "estimate_note": "(K - J) interpolated between FBR350R A4 and 746 A4 by tm"
+   "origin": "Italy",
+   "photo": "7441c"
   },
   {
    "model": "746 A4",
    "tm": 43.4,
-   "price_idr": 249418887.552,
+   "price_idr": 1463392643.904,
    "estimate": false,
    "leadtime_weeks": 25,
    "desc": "(piston) pump, incl oil cooler, rear stab",
+   "origin": "Italy",
    "photo": "746r"
   },
   {
    "model": "749R A4",
    "tm": 44.7,
-   "price_idr": 264697541.28,
+   "price_idr": 1741186355.904,
    "estimate": false,
    "leadtime_weeks": 25,
    "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "origin": "Italy",
    "photo": "749r"
   },
   {
    "model": "FBR450R A4",
    "tm": 45.5,
-   "price_idr": 245585666.88,
+   "price_idr": 1393697727.072,
    "estimate": false,
    "leadtime_weeks": 27,
    "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "origin": "Brazil",
    "photo": "fbr450r"
   },
   {
    "model": "FBR600R A4",
    "tm": 57.4,
-   "price_idr": 282288390.336,
+   "price_idr": 2061019975.104,
    "estimate": false,
    "leadtime_weeks": 27,
    "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "origin": "Brazil",
    "photo": "fbr600r"
   },
   {
    "model": "FBR660R A4",
    "tm": 58.8,
-   "price_idr": 284008834.656,
+   "price_idr": 2092300785.792,
    "estimate": false,
    "leadtime_weeks": 27,
    "desc": "includes remote control, (piston) pump, incl oil cooler, rear stab",
+   "origin": "Brazil",
    "photo": "fbr660r"
   }
  ],
@@ -107,7 +114,7 @@
        "photo": "spk36080",
        "ferrari": "7441C",
        "ferrari_same_band": true,
-       "diff": -0.5123388651727404
+       "diff": 1.6099222089142557
       },
       {
        "rank": 2,
@@ -119,7 +126,7 @@
        "photo": "spk32080",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": -0.4783437315037119
+       "diff": 1.542131321019974
       },
       {
        "rank": 3,
@@ -131,7 +138,7 @@
        "photo": "spk42502",
        "ferrari": "746 A4",
        "ferrari_same_band": true,
-       "diff": -0.6827381260677081
+       "diff": 0.8614415975491003
       }
      ]
     },
@@ -150,7 +157,7 @@
        "photo": "v825",
        "ferrari": "268 A4",
        "ferrari_same_band": true,
-       "diff": -0.6798311343851346
+       "diff": -0.16235009188906002
       },
       {
        "rank": 2,
@@ -162,7 +169,7 @@
        "photo": "v933",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": -0.722900850958486
+       "diff": 0.35035744483041165
       },
       {
        "rank": 3,
@@ -174,7 +181,7 @@
        "photo": "v946b",
        "ferrari": "749R A4",
        "ferrari_same_band": true,
-       "diff": -0.7919637798728314
+       "diff": 0.3684669161172769
       }
      ]
     },
@@ -193,7 +200,7 @@
        "photo": "ksqz300",
        "ferrari": "268 A4",
        "ferrari_same_band": true,
-       "diff": -0.5970980091833031
+       "diff": 0.054102543472457576
       },
       {
        "rank": 2,
@@ -205,7 +212,7 @@
        "photo": "gsqz330",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": -0.6682732642300542
+       "diff": 0.6165681809045427
       },
       {
        "rank": 3,
@@ -217,7 +224,7 @@
        "photo": "sqz325",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": -0.5797133547112819
+       "diff": 1.0481376517810683
       }
      ]
     },
@@ -236,7 +243,7 @@
        "photo": "pk41002",
        "ferrari": "7441C",
        "ferrari_same_band": true,
-       "diff": -0.8178937184766593
+       "diff": -0.02538218736886899
       },
       {
        "rank": 2,
@@ -248,7 +255,7 @@
        "photo": "pk32080c",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": -0.780213257574138
+       "diff": 0.07106306510281901
       }
      ]
     },
@@ -267,7 +274,7 @@
        "photo": "xclx388",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": -0.7459007087415674
+       "diff": 0.23827471453385685
       },
       {
        "rank": 2,
@@ -279,7 +286,7 @@
        "photo": "477ep5",
        "ferrari": "746 A4",
        "ferrari_same_band": true,
-       "diff": -0.5567313826263552
+       "diff": 1.6007494472640915
       },
       {
        "rank": 3,
@@ -291,7 +298,7 @@
        "photo": "xclx328",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": -0.7931832547248713
+       "diff": 0.00785777460480297
       }
      ]
     }
@@ -332,7 +339,7 @@
        "photo": "pk53002",
        "ferrari": "FBR450R A4",
        "ferrari_same_band": false,
-       "diff": -0.8486038260188162
+       "diff": -0.140827287497712
       },
       {
        "rank": 2,
@@ -344,7 +351,7 @@
        "photo": "pk76002",
        "ferrari": "FBR660R A4",
        "ferrari_same_band": true,
-       "diff": -0.8757256948608825
+       "diff": -0.08446782435034639
       },
       {
        "rank": 3,
@@ -356,7 +363,7 @@
        "photo": "pk88002",
        "ferrari": "FBR660R A4",
        "ferrari_same_band": true,
-       "diff": -0.8720895682475738
+       "diff": -0.05768038099676276
       }
      ]
     },
@@ -375,7 +382,7 @@
        "photo": "v950",
        "ferrari": "FBR450R A4",
        "ferrari_same_band": true,
-       "diff": -0.8691793365329568
+       "diff": -0.2575932315416515
       }
      ]
     },
@@ -394,7 +401,7 @@
        "photo": "gsqz460",
        "ferrari": "FBR450R A4",
        "ferrari_same_band": true,
-       "diff": -0.6976247419491859
+       "diff": 0.7159784413401717
       },
       {
        "rank": 2,
@@ -406,7 +413,7 @@
        "photo": "gsqz880",
        "ferrari": "FBR660R A4",
        "ferrari_same_band": true,
-       "diff": -0.7847200859297401
+       "diff": 0.5859729642566007
       },
       {
        "rank": 3,
@@ -418,7 +425,7 @@
        "photo": "gsqz860",
        "ferrari": "FBR660R A4",
        "ferrari_same_band": true,
-       "diff": -0.784455974807382
+       "diff": 0.5879186780563683
       }
      ]
     },
@@ -437,7 +444,7 @@
        "photo": "xhipro_b58",
        "ferrari": "FBR450R A4",
        "ferrari_same_band": false,
-       "diff": -0.927041419550548
+       "diff": -0.5859603329681058
       },
       {
        "rank": 2,
@@ -449,7 +456,7 @@
        "photo": "effer525h",
        "ferrari": "FBR450R A4",
        "ferrari_same_band": true,
-       "diff": -0.8372887735957837
+       "diff": -0.07661440795948327
       }
      ]
     },
@@ -468,7 +475,7 @@
        "photo": "f485ra",
        "ferrari": "FBR450R A4",
        "ferrari_same_band": true,
-       "diff": -0.8472373733806882
+       "diff": -0.1330726739646627
       }
      ]
     },
@@ -487,7 +494,7 @@
        "photo": "spk61502",
        "ferrari": "FBR660R A4",
        "ferrari_same_band": true,
-       "diff": -0.7974624839805567
+       "diff": 0.49209937230693224
       }
      ]
     }
