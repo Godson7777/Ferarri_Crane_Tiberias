@@ -230,7 +230,7 @@ const listNames = a => a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and
 const signed = d => Math.round(Math.abs(d) * 100) === 0 ? '±0%' : (d <= 0 ? '−' : '+') + Math.round(Math.abs(d) * 100) + '%';
 const smaller = m => FERD[m.ferrari].tm < m.tm - 2;          // F.lli Ferrari model is clearly smaller than the rival
 const h2hWin = m => m.diff !== null && m.diff <= 0 && !smaller(m);
-const PRICE_NOTE = 'Competitors: average import unit price, Jan 2023 – 14 Aug 2026, × Rp 17.803/USD (JISDOR 23 Sep 2026) + import duty (0% China – ACFTA; 5% Europe, assumed) + PPN 11% + PPh 22 2.5%, before distributor margin. ' +
+const PRICE_NOTE = 'Competitors: highest import unit price of the model, Jan 2023 – 14 Aug 2026, × Rp 17.803/USD (JISDOR 23 Sep 2026) + import duty (0% China – ACFTA; 5% Europe, assumed) + PPN 11% + PPh 22 2.5%, before distributor margin. ' +
   'F.lli Ferrari: crane price from the TSP price list Rev1, June 2026 (column K minus column J), less the 13.6% TSP margin and 3% warranty. 990R: TSP price less Rp 168.000.000 cargo deck and install, then the same deductions. ' +
   '9601CR A8: UTPE quote of 15 Sep 2026, crane only, no deduction; 50.7 tm per its load chart. 7441C is an estimate. Prices rounded to Rp 10.000.000.';
 

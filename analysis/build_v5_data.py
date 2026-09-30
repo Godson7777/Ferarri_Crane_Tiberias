@@ -2,7 +2,7 @@
 Usage: python3 analysis/build_v5_data.py <Crane_Market_GVW_Pairing_v11_Noir.xlsx>  ->  slides/v5_compare.json
 
 Price basis (user rules, 29 Sep 2026):
-- Competitor = average import unit price x JISDOR x (1 + duty: 0% China, 5% Europe) x (1 + PPN 11% + PPh 22 2.5%).
+- Competitor = HIGHEST import unit price of the model, Jan 2023 - 14 Aug 2026 (user, 30 Sep 2026: no average, avoids dispute) x JISDOR x (1 + duty: 0% China, 5% Europe) x (1 + PPN 11% + PPh 22 2.5%).
 - Ferrari   = crane price (K - J) of the TSP price list Rev1 June'26 (data/ferrari_price_list_rev1.json), less TSP margin 13.6%, less warranty 3% (30 Sep 2026).
 - 990R      = TSP price Rp 5.071.113.441 less cargo deck and install Rp 168.000.000, less 13.6%, less 3% (user, 30 Sep 2026).
 - 9601CR A8 = UTPE quote 15 Sep 2026 (data/Quote_F9601CR_A8.pdf), Rp 3.256.640.000 crane only, no GP or warranty: no deduction. 50.7 tm per the quote load chart.
@@ -76,7 +76,7 @@ FERD = {f['model']: f for f in fer}
 out = {'margin': MARGIN, 'fx': FX, 'ferrari': fer, 'classes': {}}
 for cls, lo, hi in [('Medium', 25, 45), ('Heavy', 45, 999)]:
     s = d[d[K] == cls]
-    g = s.groupby(['Brand', 'm']).agg(tm=(T, 'max'), q=('Quantity', 'sum'), v=('Total Value (USD)', 'sum')).reset_index()
+    g = s.groupby(['Brand', 'm']).agg(tm=(T, 'max'), q=('Quantity', 'sum'), v=('Total Value (USD)', 'sum'), pmax=('Unit Price (USD)', 'max')).reset_index()
     line = [f for f in fer if lo < f['tm'] <= hi]
     band_units = {k: 0 for k in BANDS[cls]}
     for _, r in g.iterrows(): band_units[band(r.tm, cls)] += int(r.q)
@@ -87,7 +87,7 @@ for cls, lo, hi in [('Medium', 25, 45), ('Heavy', 45, 999)]:
         for rank, (_, r) in enumerate(x.iterrows(), 1):              # all models of the brand
             bd = band(r.tm, cls)
             f = FERD[BAND_FER[bd]]; same = [f] if band(f['tm'], cls) == bd else []
-            p = taxed(r.v / r.q, br)
+            p = taxed(r.pmax, br)                                        # highest unit price of the model
             models.append(dict(rank=rank, model=r.m, tm=float(r.tm), units=int(r.q), value_idr=float(r.v * FX), band=bd, price_idr=p, photo=PHOTO_C.get(r.m),
                                ferrari=f['model'], ferrari_same_band=bool(same), diff=None if f['price_idr'] is None else f['price_idr'] / p - 1))
         bb = {}

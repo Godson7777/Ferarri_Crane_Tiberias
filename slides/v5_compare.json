@@ -142,11 +142,11 @@
        "units": 37,
        "value_idr": 15935375038.789999,
        "band": ">35\u201340",
-       "price_idr": 488828396.4601797,
+       "price_idr": 659516852.795,
        "photo": "spk36080",
        "ferrari": "7441C",
        "ferrari_same_band": true,
-       "diff": 1.542444138208943
+       "diff": 0.8844384126095579
       },
       {
        "rank": 2,
@@ -155,11 +155,11 @@
        "units": 33,
        "value_idr": 12863241290.69,
        "band": ">30\u201335",
-       "price_idr": 442417541.3616106,
+       "price_idr": 527803422.44299996,
        "photo": "spk32080",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": 1.4658673813893741
+       "diff": 1.0669494319466941
       },
       {
        "rank": 3,
@@ -168,11 +168,11 @@
        "units": 18,
        "value_idr": 12467750316.14,
        "band": ">40\u201345",
-       "price_idr": 786160922.7121612,
+       "price_idr": 960149767.0254999,
        "photo": "spk42502",
        "ferrari": "746 A4",
        "ferrari_same_band": true,
-       "diff": 0.8055983496226271
+       "diff": 0.4784056751733614
       }
      ],
      "band_units": {
@@ -194,11 +194,11 @@
        "units": 31,
        "value_idr": 16031831870.820002,
        "band": ">25\u201330",
-       "price_idr": 616320504.2596691,
+       "price_idr": 653939783.9829751,
        "photo": "v825",
        "ferrari": "268 A4",
        "ferrari_same_band": true,
-       "diff": -0.18747958913238827
+       "diff": -0.23422155737777028
       },
       {
        "rank": 2,
@@ -207,11 +207,11 @@
        "units": 4,
        "value_idr": 2795480112.94,
        "band": ">30\u201335",
-       "price_idr": 832878356.1490613,
+       "price_idr": 839811239.3753775,
        "photo": "v933",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": 0.30984672148549897
+       "diff": 0.2990335602194194
       },
       {
        "rank": 3,
@@ -246,11 +246,11 @@
        "units": 15,
        "value_idr": 6472643653.17,
        "band": ">25\u201330",
-       "price_idr": 489763369.75653005,
+       "price_idr": 514707651.3625,
        "photo": "ksqz300",
        "ferrari": "268 A4",
        "ferrari_same_band": true,
-       "diff": 0.02247946716828375
+       "diff": -0.027072964581764225
       },
       {
        "rank": 2,
@@ -259,11 +259,11 @@
        "units": 4,
        "value_idr": 2451886841.72,
        "band": ">30\u201335",
-       "price_idr": 695722891.3380499,
+       "price_idr": 776548511.3380499,
        "photo": "gsqz330",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": 0.568071135477406
+       "diff": 0.404861342555799
       },
       {
        "rank": 3,
@@ -272,11 +272,11 @@
        "units": 3,
        "value_idr": 1451431590.08,
        "band": ">30\u201335",
-       "price_idr": 549124951.5802666,
+       "price_idr": 550936321.0791501,
        "photo": "sqz325",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": 0.9866935222276358
+       "diff": 0.9801616674340661
       },
       {
        "rank": 4,
@@ -285,11 +285,11 @@
        "units": 2,
        "value_idr": 1245962538.3000002,
        "band": ">35\u201340",
-       "price_idr": 707083740.4852501,
+       "price_idr": 748178516.6540002,
        "photo": "ksqz400",
        "ferrari": "7441C",
        "ferrari_same_band": true,
-       "diff": 0.7576686041703522
+       "diff": 0.6611261396924213
       },
       {
        "rank": 5,
@@ -311,11 +311,11 @@
        "units": 2,
        "value_idr": 996883613.7800001,
        "band": ">35\u201340",
-       "price_idr": 565731450.82015,
+       "price_idr": 601150449.88845,
        "photo": "sqz365",
        "ferrari": "7441C",
        "ferrari_same_band": true,
-       "diff": 1.196835423182725
+       "diff": 1.0674007503460734
       },
       {
        "rank": 7,
@@ -389,11 +389,11 @@
        "units": 21,
        "value_idr": 23165191853.91,
        "band": ">35\u201340",
-       "price_idr": 1314624637.7093923,
+       "price_idr": 1441885889.8157172,
        "photo": "pk41002",
        "ferrari": "7441C",
        "ferrari_same_band": true,
-       "diff": -0.05462072174780308
+       "diff": -0.1380601613841288
       },
       {
        "rank": 2,
@@ -402,11 +402,11 @@
        "units": 8,
        "value_idr": 7048879763.25,
        "band": ">30\u201335",
-       "price_idr": 1050062807.2316484,
+       "price_idr": 1093047070.440045,
        "photo": "pk32080c",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": 0.03893117314973438
+       "diff": -0.0019249731314116003
       }
      ],
      "band_units": {
@@ -427,11 +427,11 @@
        "units": 9,
        "value_idr": 9774377529.400002,
        "band": ">30\u201335",
-       "price_idr": 1294290491.1847165,
+       "price_idr": 1459676750.4395998,
        "photo": "xclx388",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": -0.15711118050516193
+       "diff": -0.25261330368553936
       },
       {
        "rank": 2,
@@ -514,11 +514,11 @@
        "units": 39,
        "value_idr": 53084479438.74,
        "band": ">50\u201355",
-       "price_idr": 1622139189.003036,
+       "price_idr": 1759797937.4634748,
        "photo": "pk53002",
        "ferrari": "9601CR A8",
        "ferrari_same_band": true,
-       "diff": 1.0076205679991772
+       "diff": 0.8505760977842904
       },
       {
        "rank": 2,
@@ -527,11 +527,11 @@
        "units": 2,
        "value_idr": 3835264684.0,
        "band": ">70\u201375",
-       "price_idr": 2285338343.5785003,
+       "price_idr": 2286208229.31375,
        "photo": "pk76002",
        "ferrari": "990R",
        "ferrari_same_band": true,
-       "diff": 0.7980713114885567
+       "diff": 0.7973871583284158
       },
       {
        "rank": 3,
@@ -566,11 +566,11 @@
        "units": 12,
        "value_idr": 18902652677.49,
        "band": ">45\u201350",
-       "price_idr": 1877269694.033226,
+       "price_idr": 1989267641.5721025,
        "photo": "v950",
        "ferrari": "FBR450R A4",
        "ferrari_same_band": true,
-       "diff": -0.2798654345954019
+       "diff": -0.32040979956248894
       }
      ],
      "band_units": {
