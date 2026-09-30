@@ -251,20 +251,20 @@ function comparePage(k, bands, pg) {
   const head = win.length ? `${k}, ${lo}–${hi} tm: F.lli Ferrari is cheaper head to head on ${listNames(win.map(m => m.model))}, ${wu} of ${units} units`
     : `${k}, ${lo}–${hi} tm: F.lli Ferrari costs more than every model it matches in size` + (gapBand ? `, and has no model above ${Math.floor(FERD[Cc.band_ferrari[gapBand]].tm / 5) * 5 + 5} tm` : '');
   const s = slide(`PRICE COMPARISON BY tm CLASS · JAN 2023 – 14 AUG 2026 · ${CLS[k].label}${pg ? ' · ' + pg : ''}`, head);
-  const dense = bands.length > 4, fs = dense ? 8.5 : 10;
-  const X = 0.45, Y = 1.45, W = 12.43, tw = dense ? 0.85 : 0.95, fw = dense ? 1.45 : 1.6, bw = (W - tw - fw) / brands.length, HH = 0.5;
+  const dense = bands.length > 4, fs = dense ? 9.5 : 12.5;
+  const X = 0.45, Y = 1.45, W = 12.43, tw = dense ? 0.95 : 1.05, fw = dense ? 1.6 : 1.75, bw = (W - tw - fw) / brands.length, HH = 0.5;
   const colW = [tw, fw, ...brands.map(() => bw)];
   const nsub = bands.map(bd => Math.max(1, ...brands.map(b => inBand(b, bd).length)));
   const lines = m => 3 + (m.diff !== null && m.diff <= 0 && smaller(m) ? 1 : 0);
-  const lh = fs / 72 * 1.18, pad = 0.1;
-  const subH = bands.map((bd, i) => Array.from({length:nsub[i]}, (_, j) => Math.max(0.3, ...brands.map(b => { const m = inBand(b, bd)[j]; return m ? lines(m) * lh + pad : 0; }))));
+  const lh = fs / 72 * 1.2, pad = 0.08;
+  const subH = bands.map((bd, i) => Array.from({length:nsub[i]}, (_, j) => Math.max(brands.some(b => inBand(b, bd).length) ? 0.5 : 0.3, ...brands.map(b => { const m = inBand(b, bd)[j]; return m ? lines(m) * lh + pad : 0; }))));
   let flat = subH.flat(); const avail = 6.3 - Y - HH, tot = flat.reduce((a, v) => a + v, 0);
-  if (tot < avail) { const add = Math.min(0.25, (avail - tot) / flat.length); flat = flat.map(v => v + add); }
+  if (tot < avail) { const add = Math.min(0.35, (avail - tot) / flat.length); flat = flat.map(v => v + add); }
   const base = {fontFace:F, fontSize:fs, color:C.txt, valign:'middle', margin:[0.02, 0.07, 0.02, 0.07]};
   const cell = (t, o = {}) => ({text:t, options:Object.assign({}, base, {fill:{color:C.card}}, o)});
   const rows = [[cell('tm class', {fill:{color:C.line}, color:C.mut, bold:true, align:'center', fontSize:9}),
     cell('F.lli Ferrari', {fill:{color:C.red}, color:'FFFFFF', bold:true, align:'center', fontSize:11, fontFace:FH}),
-    ...brands.map(b => cell(`${b.units} ${b.units === 1 ? 'unit' : 'units'} · ${rpx(b.value_idr)}`, {fill:{color:C.line}, color:C.mut, align:'center', valign:'bottom', fontSize:dense ? 7.5 : 8.5, margin:[0, 0.04, 0.05, 0.04]}))]];
+    ...brands.map(b => cell(`${b.units} ${b.units === 1 ? 'unit' : 'units'}`, {fill:{color:C.line}, color:C.mut, align:'center', valign:'bottom', fontSize:dense ? 9.5 : 10.5, margin:[0, 0.04, 0.04, 0.04]}))]];
   bands.forEach((bd, i) => {
     const f = FERD[Cc.band_ferrari[bd]], gap = isGap(bd, f), n = nsub[i], span = {rowspan:n};
     const anyImport = brands.some(b => inBand(b, bd).length);
@@ -284,11 +284,12 @@ function comparePage(k, bands, pg) {
         const ms = inBand(b, bd), m = ms[j];
         if (m) {
           const ok = m.diff !== null && m.diff <= 0, fill = m.diff === null ? '1B222B' : ok ? G.goodT : '24151A';
-          r.push({text:[{text:m.model, options:{bold:true, fontSize:fs + 0.5}}, {text:`  ${m.tm} tm   `, options:{color:C.mut}},
-              {text:m.diff === null ? 'no price' : signed(m.diff), options:{bold:m.diff !== null, italic:m.diff === null, color:m.diff === null ? C.mut : ok ? G.good : G.bad, breakLine:true}},
-              {text:`${m.units} ${m.units === 1 ? 'unit' : 'units'} · ${rpx(m.value_idr)}`, options:{color:C.mut, breakLine:true}},
-              {text:`${rpx(m.price_idr)} per unit`, options:{color:C.mut, breakLine:ok && smaller(m)}},
-              ...(ok && smaller(m) ? [{text:'smaller crane', options:{color:'F5C26B', fontSize:fs - 1}}] : [])],
+          const flag = ok && smaller(m);
+          r.push({text:[{text:m.model + '  ', options:{bold:true, fontSize:fs + 0.5}},
+              {text:m.diff === null ? 'no price' : signed(m.diff), options:{bold:m.diff !== null, italic:m.diff === null, fontSize:fs + 0.5, color:m.diff === null ? C.mut : ok ? G.good : G.bad, breakLine:true}},
+              {text:`${m.tm} tm · ${m.units} ${m.units === 1 ? 'unit' : 'units'}`, options:{color:C.mut, breakLine:true}},
+              {text:rpx(m.price_idr), options:{color:C.mut, breakLine:flag}},
+              ...(flag ? [{text:'smaller crane', options:{color:'F5C26B', fontSize:fs - 1}}] : [])],
             options:Object.assign({}, base, {fill:{color:fill}})});
         } else if (j === ms.length) r.push(cell('', {rowspan:n - ms.length}));
       });
@@ -304,12 +305,12 @@ function comparePage(k, bands, pg) {
     s.addImage({path:`assets/${fl}.png`, x:x + (bw - iw) / 2, y:y + (lh - ih) / 2, w:iw, h:ih});
   });
   [[G.good, 'F.lli Ferrari is cheaper'], [G.bad, 'F.lli Ferrari costs more']].forEach(([col, t], i) => {
-    s.addShape(pres.shapes.RECTANGLE, {x:0.45 + i * 2.3, y:6.54, w:0.16, h:0.13, fill:{color:col}, line:{color:col, width:0}});
-    T(s, t, {x:0.68 + i * 2.3, y:6.49, w:2.0, h:0.22, fontSize:10, color:C.mut, valign:'middle'});
+    s.addShape(pres.shapes.RECTANGLE, {x:0.45 + i * 2.3, y:6.62, w:0.16, h:0.13, fill:{color:col}, line:{color:col, width:0}});
+    T(s, t, {x:0.68 + i * 2.3, y:6.57, w:2.0, h:0.22, fontSize:10, color:C.mut, valign:'middle'});
   });
   T(s, [{text:'Smaller crane: ', options:{bold:true, color:'F5C26B'}}, {text:'cheaper, but the F.lli Ferrari model has at least 2 tm less, so it is not a head-to-head match.', options:{color:C.mut}}],
-    {x:5.1, y:6.49, w:7.8, h:0.22, fontSize:10, valign:'middle'});
-  foot(s, 'Units and import value (before tax): Jan 2023 – 14 Aug 2026; Zoomlion and Hyva excluded. ' + PRICE_NOTE);
+    {x:5.1, y:6.57, w:7.8, h:0.22, fontSize:10, valign:'middle'});
+  foot(s, 'Each model: F.lli Ferrari price difference; tm and units Jan 2023 – 14 Aug 2026; price per unit. Zoomlion and Hyva excluded. ' + PRICE_NOTE);
 }
 comparePage('Medium', ['>25–30', '>30–35'], '1 OF 2');
 comparePage('Medium', ['>35–40', '>40–45'], '2 OF 2');
