@@ -7,8 +7,10 @@ Price basis (user rules, 29 Sep 2026):
 - 990R      = TSP price Rp 5.071.113.441 less cargo deck and install Rp 168.000.000, less 13.6%, less 3% (user, 30 Sep 2026).
 - 9601CR A8 = UTPE quote 15 Sep 2026 (data/Quote_F9601CR_A8.pdf), Rp 3.256.640.000 crane only, no GP or warranty: no deduction. 50.7 tm per the quote load chart.
 """
-import sys, json, math
+import sys, os, json, math
 import pandas as pd
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import row_filter
 
 FX, MARGIN, WARRANTY = 17803, 0.136, 0.03
 NET = (1 - MARGIN) * (1 - WARRANTY)
@@ -20,7 +22,7 @@ FAMILY = {'SPK32080B': 'SPK32080', 'SPK32080C': 'SPK32080', 'SPK36080C': 'SPK360
           'PK 53002 SH B': 'PK 53002', 'PK 53002 SH C': 'PK 53002'}
 K, T = 'Kategori Max Lifting Moment', 'Max Lifting Moment asli (tm)'
 
-d = pd.read_excel(sys.argv[1], sheet_name='8. Pivot Source')
+d, _ = row_filter.load(sys.argv[1])                                 # generic descriptions removed (row_filter.py)
 d = d[~d.Brand.isin(EXCL_BRANDS) & ~d.Model.isin(EXCL_MODELS)]
 d = d[~(d[K].isin(['Medium', 'Heavy']) & (d['Unit Price (USD)'] < 10000))]   # below USD 10.000: not a complete Medium/Heavy crane
 d['m'] = [FAMILY.get(m.replace(b + ' ', ''), m.replace(b + ' ', '')) for b, m in zip(d.Brand, d.Model)]

@@ -1,7 +1,9 @@
 # Builds data.json for the deck from the Excel source. Run: python build_data.py <xlsx>
-import sys, json, pandas as pd
-d = pd.read_excel(sys.argv[1], sheet_name='8. Pivot Source')
-d = d[~d.Brand.isin(['ZOOMLION', 'HYVA'])]         # excluded brands (scope rule)
+import sys, os, json, pandas as pd
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'analysis'))
+import row_filter
+d, removed = row_filter.load(sys.argv[1])          # Zoomlion/Hyva out; rows whose description does not name the model out
+removed.to_csv(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'analysis', 'removed_rows.csv'), index=False)
 d = d[~d.Model.isin(['PALFINGER PK 33002', 'PALFINGER PK 36050'])]   # USD 2.000-2.150 per unit: not a complete crane
 d = d[~(d['Kategori Max Lifting Moment'].isin(['Medium', 'Heavy']) & (d['Unit Price (USD)'] < 10000))]   # below USD 10.000: not a complete crane
 K = 'Kategori Max Lifting Moment'

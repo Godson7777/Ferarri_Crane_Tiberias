@@ -371,7 +371,7 @@ const TOTAL_UNITS = V5.classes.Medium.units + V5.classes.Heavy.units;
   const lo = Math.min(...cn.map(m => m.diff)), hi = Math.max(...cn.map(m => m.diff));
   const pk53 = ALL.find(m => m.model === 'PK 53002'), pk76 = ALL.find(m => m.model === 'PK 76002 EH D');
   const s = slide('WHAT TSP SHOULD DO',
-    'Sell FBR450R A4 and 268 A4 against European cranes, lead with quality against Chinese brands, and rework the 9601CR A8 price');
+    'Sell 268 A4, FBR350R A4 and FBR450R A4 against European cranes, lead with quality against Chinese brands, and rework the 9601CR A8 price');
   const cards = [
     {c:G.good, t:'Win on price against European cranes', b:
       like.map(m => `${m.ferrari}${FERD[m.ferrari].estimate ? ' (est.)' : ''} vs ${nm(m.brand)} ${m.model}: ${signed(m.diff)}, ${m.units} ${m.units === 1 ? 'unit' : 'units'}`)},
