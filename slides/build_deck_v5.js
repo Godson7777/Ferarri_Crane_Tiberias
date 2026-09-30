@@ -252,7 +252,7 @@ function comparePage(k, bands, pg) {
     : `${k}, ${lo}–${hi} tm: F.lli Ferrari costs more than every model it matches in size` + (gapBand ? `, and has no model above ${Math.floor(FERD[Cc.band_ferrari[gapBand]].tm / 5) * 5 + 5} tm` : '');
   const s = slide(`PRICE COMPARISON BY tm CLASS · JAN 2023 – 14 AUG 2026 · ${CLS[k].label}${pg ? ' · ' + pg : ''}`, head);
   const dense = bands.length > 4, fs = dense ? 9.5 : 12.5;
-  const X = 0.45, Y = 1.45, W = 12.43, tw = dense ? 0.95 : 1.05, fw = dense ? 1.6 : 1.75, bw = (W - tw - fw) / brands.length, HH = 0.5;
+  const X = 0.45, Y = 1.45, W = 12.43, tw = dense ? 0.95 : 1.05, fw = dense ? 1.6 : 2.0, bw = (W - tw - fw) / brands.length, HH = 0.5;
   const colW = [tw, fw, ...brands.map(() => bw)];
   const nsub = bands.map(bd => Math.max(1, ...brands.map(b => inBand(b, bd).length)));
   const lines = m => 3 + (m.diff !== null && m.diff <= 0 && smaller(m) ? 1 : 0);
@@ -276,7 +276,7 @@ function comparePage(k, bands, pg) {
         r.push(gap ? {text:[{text:'No F.lli Ferrari model', options:{bold:true, color:G.bad, breakLine:true}}, {text:`largest is ${f.model}, ${f.tm} tm`, options:{color:C.mut, fontSize:fs - 1}}],
                       options:Object.assign({}, base, {fill:{color:C.card}}, span)}
           : {text:[{text:f.model, options:{bold:true, fontFace:FH, fontSize:fs + 1.5, breakLine:true}}, {text:`${f.tm} tm${f.estimate ? ' · estimate' : ''}`, options:{color:'C9A9AC', fontSize:fs - 1, breakLine:true}},
-                   f.price_idr === null ? {text:'Price not yet known', options:{italic:true, color:C.mut}} : {text:rpx(f.price_idr), options:{bold:true}}],
+                   f.price_idr === null ? {text:'Price not yet known', options:{italic:true, color:C.mut}} : {text:rpx(f.price_idr) + ' /unit', options:{bold:true}}],
              options:Object.assign({}, base, {fill:{color:C.redT}}, span)});
         if (!anyImport) { r.push(cell('No imports of this size in 2023 – 2026', {colspan:brands.length, rowspan:n, italic:true, color:C.dim, align:'center'})); rows.push(r); continue; }
       } else if (!anyImport) { rows.push(r); continue; }
@@ -288,7 +288,7 @@ function comparePage(k, bands, pg) {
           r.push({text:[{text:m.model + '  ', options:{bold:true, fontSize:fs + 0.5}},
               {text:m.diff === null ? 'no price' : signed(m.diff), options:{bold:m.diff !== null, italic:m.diff === null, fontSize:fs + 0.5, color:m.diff === null ? C.mut : ok ? G.good : G.bad, breakLine:true}},
               {text:`${m.tm} tm · ${m.units} ${m.units === 1 ? 'unit' : 'units'}`, options:{color:C.mut, breakLine:true}},
-              {text:rpx(m.price_idr), options:{color:C.mut, breakLine:flag}},
+              {text:rpx(m.price_idr) + ' /unit', options:{color:C.mut, breakLine:flag}},
               ...(flag ? [{text:'smaller crane', options:{color:'F5C26B', fontSize:fs - 1}}] : [])],
             options:Object.assign({}, base, {fill:{color:fill}})});
         } else if (j === ms.length) r.push(cell('', {rowspan:n - ms.length}));
