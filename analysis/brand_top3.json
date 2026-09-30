@@ -1,0 +1,334 @@
+{
+ "Medium": {
+  "units": 214,
+  "band_units": {
+   ">25\u201330": 49,
+   ">30\u201335": 76,
+   ">40\u201345": 23,
+   ">35\u201340": 66
+  },
+  "brands": [
+   {
+    "brand": "SANY PALFINGER",
+    "units": 88,
+    "n_models": 4,
+    "models": [
+     {
+      "model": "SPK36080",
+      "tm": 36.0,
+      "units": 34,
+      "share_of_brand": 0.38636363636363635,
+      "price_idr": 490917539.40372497
+     },
+     {
+      "model": "SPK32080",
+      "tm": 30.4,
+      "units": 33,
+      "share_of_brand": 0.375,
+      "price_idr": 442417541.3616106
+     },
+     {
+      "model": "SPK42502",
+      "tm": 42.5,
+      "units": 18,
+      "share_of_brand": 0.20454545454545456,
+      "price_idr": 786160922.7121612
+     }
+    ]
+   },
+   {
+    "brand": "AMCO VEBA",
+    "units": 36,
+    "n_models": 3,
+    "models": [
+     {
+      "model": "V825",
+      "tm": 25.6,
+      "units": 31,
+      "share_of_brand": 0.8611111111111112,
+      "price_idr": 616320504.2596691
+     },
+     {
+      "model": "V933",
+      "tm": 31.9,
+      "units": 4,
+      "share_of_brand": 0.1111111111111111,
+      "price_idr": 832878356.1490613
+     },
+     {
+      "model": "V946B",
+      "tm": 44.2,
+      "units": 1,
+      "share_of_brand": 0.027777777777777776,
+      "price_idr": 1272362769.8974502
+     }
+    ]
+   },
+   {
+    "brand": "XCMG",
+    "units": 33,
+    "n_models": 10,
+    "models": [
+     {
+      "model": "KSQZ300.3",
+      "tm": 30.0,
+      "units": 15,
+      "share_of_brand": 0.45454545454545453,
+      "price_idr": 489763369.75653005
+     },
+     {
+      "model": "GSQZ330.4",
+      "tm": 33.0,
+      "units": 4,
+      "share_of_brand": 0.12121212121212122,
+      "price_idr": 695722891.3380499
+     },
+     {
+      "model": "SQZ325.4",
+      "tm": 32.5,
+      "units": 3,
+      "share_of_brand": 0.09090909090909091,
+      "price_idr": 549124951.5802666
+     }
+    ]
+   },
+   {
+    "brand": "PALFINGER",
+    "units": 31,
+    "n_models": 4,
+    "models": [
+     {
+      "model": "PK 41002",
+      "tm": 38.4,
+      "units": 21,
+      "share_of_brand": 0.6774193548387096,
+      "price_idr": 1314624637.7093923
+     },
+     {
+      "model": "PK 32080 C",
+      "tm": 30.4,
+      "units": 8,
+      "share_of_brand": 0.25806451612903225,
+      "price_idr": 1050062807.2316484
+     },
+     {
+      "model": "PK 33002",
+      "tm": 31.1,
+      "units": 1,
+      "share_of_brand": 0.03225806451612903,
+      "price_idr": 45615959.2875
+     }
+    ]
+   },
+   {
+    "brand": "HIAB",
+    "units": 26,
+    "n_models": 3,
+    "models": [
+     {
+      "model": "X-CLX 388",
+      "tm": 34.3,
+      "units": 21,
+      "share_of_brand": 0.8076923076923077,
+      "price_idr": 908266538.6471874
+     },
+     {
+      "model": "477 EP-5",
+      "tm": 42.0,
+      "units": 4,
+      "share_of_brand": 0.15384615384615385,
+      "price_idr": 562681132.3341601
+     },
+     {
+      "model": "X-CLX 328",
+      "tm": 30.3,
+      "units": 1,
+      "share_of_brand": 0.038461538461538464,
+      "price_idr": 1115914881.249
+     }
+    ]
+   }
+  ],
+  "ferrari": [
+   {
+    "model": "268 A4",
+    "tm": 25.4,
+    "price_idr": 669167633,
+    "estimate": false
+   },
+   {
+    "model": "FBR350R A4",
+    "tm": 32.8,
+    "price_idr": 1436737906,
+    "estimate": false
+   },
+   {
+    "model": "7441C",
+    "tm": 37.7,
+    "price_idr": 1634266469.783019,
+    "estimate": true
+   },
+   {
+    "model": "746 A4",
+    "tm": 43.4,
+    "price_idr": 1864044595,
+    "estimate": false
+   },
+   {
+    "model": "749R A4",
+    "tm": 44.7,
+    "price_idr": 2214501940,
+    "estimate": false
+   }
+  ]
+ },
+ "Heavy": {
+  "units": 66,
+  "band_units": {
+   ">45\u201350": 18,
+   ">50\u201355": 40,
+   ">55": 8
+  },
+  "brands": [
+   {
+    "brand": "PALFINGER",
+    "units": 43,
+    "n_models": 4,
+    "models": [
+     {
+      "model": "PK 53002",
+      "tm": 50.1,
+      "units": 39,
+      "share_of_brand": 0.9069767441860465,
+      "price_idr": 1622139189.003036
+     },
+     {
+      "model": "PK 76002 EH D",
+      "tm": 71.6,
+      "units": 2,
+      "share_of_brand": 0.046511627906976744,
+      "price_idr": 2285338343.5785003
+     },
+     {
+      "model": "PK 88002 EH C",
+      "tm": 81.6,
+      "units": 1,
+      "share_of_brand": 0.023255813953488372,
+      "price_idr": 2220372730.8630004
+     }
+    ]
+   },
+   {
+    "brand": "AMCO VEBA",
+    "units": 12,
+    "n_models": 1,
+    "models": [
+     {
+      "model": "V950",
+      "tm": 45.9,
+      "units": 12,
+      "share_of_brand": 1.0,
+      "price_idr": 1877269694.033226
+     }
+    ]
+   },
+   {
+    "brand": "XCMG",
+    "units": 7,
+    "n_models": 3,
+    "models": [
+     {
+      "model": "GSQZ460.4",
+      "tm": 46.0,
+      "units": 3,
+      "share_of_brand": 0.42857142857142855,
+      "price_idr": 812188366.413
+     },
+     {
+      "model": "GSQZ880.6",
+      "tm": 88.0,
+      "units": 2,
+      "share_of_brand": 0.2857142857142857,
+      "price_idr": 1319253753.34045
+     },
+     {
+      "model": "GSQZ860.6",
+      "tm": 86.0,
+      "units": 2,
+      "share_of_brand": 0.2857142857142857,
+      "price_idr": 1317637240.9404502
+     }
+    ]
+   },
+   {
+    "brand": "HIAB",
+    "units": 2,
+    "n_models": 2,
+    "models": [
+     {
+      "model": "X-HIPRO B58",
+      "tm": 50.93,
+      "units": 1,
+      "share_of_brand": 0.5,
+      "price_idr": 3366097111.08825
+     },
+     {
+      "model": "EFFER 525H",
+      "tm": 50.0,
+      "units": 1,
+      "share_of_brand": 0.5,
+      "price_idr": 1509334495.887225
+     }
+    ]
+   },
+   {
+    "brand": "FASSI",
+    "units": 1,
+    "n_models": 1,
+    "models": [
+     {
+      "model": "F485RA.2.23",
+      "tm": 47.0,
+      "units": 1,
+      "share_of_brand": 1.0,
+      "price_idr": 1607629250.1306975
+     }
+    ]
+   },
+   {
+    "brand": "SANY PALFINGER",
+    "units": 1,
+    "n_models": 1,
+    "models": [
+     {
+      "model": "SPK61502",
+      "tm": 61.5,
+      "units": 1,
+      "share_of_brand": 1.0,
+      "price_idr": 1402252976.3263001
+     }
+    ]
+   }
+  ],
+  "ferrari": [
+   {
+    "model": "FBR450R A4",
+    "tm": 45.5,
+    "price_idr": 1776119294,
+    "estimate": false
+   },
+   {
+    "model": "FBR600R A4",
+    "tm": 57.4,
+    "price_idr": 2617995742,
+    "estimate": false
+   },
+   {
+    "model": "FBR660R A4",
+    "tm": 58.8,
+    "price_idr": 2657458802,
+    "estimate": false
+   }
+  ]
+ }
+}
