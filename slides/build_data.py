@@ -3,6 +3,7 @@ import sys, json, pandas as pd
 d = pd.read_excel(sys.argv[1], sheet_name='8. Pivot Source')
 d = d[~d.Brand.isin(['ZOOMLION', 'HYVA'])]         # excluded brands (scope rule)
 d = d[~d.Model.isin(['PALFINGER PK 33002', 'PALFINGER PK 36050'])]   # USD 2.000-2.150 per unit: not a complete crane
+d = d[~(d['Kategori Max Lifting Moment'].isin(['Medium', 'Heavy']) & (d['Unit Price (USD)'] < 10000))]   # below USD 10.000: not a complete crane
 K = 'Kategori Max Lifting Moment'
 CLS = ['Light', 'Small', 'Medium', 'Heavy']
 last = d[d.Year == 2026].Date.max()

@@ -231,85 +231,80 @@ const smaller = m => FERD[m.ferrari].tm < m.tm - 2;          // F.lli Ferrari mo
 const PRICE_NOTE = 'Competitors: average import unit price, Jan 2023 – 14 Aug 2026, × Rp 17.803/USD (JISDOR 23 Sep 2026) + import duty (0% China – ACFTA; 5% Europe, assumed) + PPN 11% + PPh 22 2.5% = import cost before distributor margin. ' +
   'F.lli Ferrari: crane price from the TSP price list Rev1, June 2026 (column K minus column J), less the TSP margin of 13.6%, so both sides are at import-cost level. 7441C = estimate between FBR350R A4 and 746 A4. Prices rounded to Rp 10.000.000.';
 
-divider('F.lli Ferrari Crane Positioning', 'The top 3 models of every brand in each 5-tm class, next to the closest F.lli Ferrari model',
+divider('F.lli Ferrari Crane Positioning', 'Every brand and model in each 5-tm class, next to one F.lli Ferrari model',
   'photo_fbr660r.jpg', 'Jan 2023 – 14 Aug 2026 · all prices at import-cost level');
 
-function comparePage(k, brands, pg, npg) {
-  const Cc = V5.classes[k], ms = brands.flatMap(b => b.models), n = ms.length, cheaper = ms.filter(m => m.diff <= 0).length;
-  const who = listNames(brands.map(b => nm(b.brand)));
-  const head = cheaper * 2 >= n ? `${k}: F.lli Ferrari costs less than ${cheaper === n ? 'all ' : cheaper + ' of '}${n} top models of ${who}`
-                                : `${k}: F.lli Ferrari costs more than ${n - cheaper === n ? 'all ' : (n - cheaper) + ' of '}${n} top models of ${who}`;
-  const s = slide(`PRICE COMPARISON BY tm CLASS · JAN 2023 – 14 AUG 2026 · ${CLS[k].label} (${pg}/${npg})`, head);
+// One slide per class. Columns: tm class | F.lli Ferrari (1 model per class) | brands, most units → fewest.
+// Each brand cell lists all of its models in that tm class: model · tm / units · import value / price · difference.
+function comparePage(k) {
+  const Cc = V5.classes[k], brands = Cc.brands, ms = brands.flatMap(b => b.models), n = ms.length;
+  const win = ms.filter(m => m.diff <= 0), lfl = win.filter(m => !smaller(m)).reduce((a, m) => a + m.units, 0);
+  const head = win.length * 2 >= n ? `${k}: F.lli Ferrari is cheaper than ${win.length} of ${n} models, but like for like on only ${lfl} of ${Cc.units} units`
+                                   : `${k}: F.lli Ferrari costs more than ${n - win.length} of ${n} models; like for like, it is cheaper on ${lfl} units`;
+  const s = slide(`PRICE COMPARISON BY tm CLASS · JAN 2023 – 14 AUG 2026 · ${CLS[k].label}`, head);
   classTab(s, 0.45, 1.2, k, 2.6, 0.32, 11);
-  T(s, 'Top 3 models of each brand by units, next to the closest F.lli Ferrari model (price per unit, import-cost level)', {x:3.2, y:1.2, w:9.6, h:0.32, fontSize:11, bold:true, valign:'middle'});
-  const X = 0.45, W = 12.43, tw = 0.95, cw = (W - tw) / (brands.length * 2), Y = 1.65, HH = 0.5, bot = 6.42;
-  const RH = (bot - Y - HH) / Cc.bands.length;
-  // header row
-  s.addShape(pres.shapes.RECTANGLE, {x:X, y:Y, w:tw - 0.04, h:HH - 0.04, fill:{color:C.line}, line:{color:C.line, width:0}});
-  T(s, 'tm class', {x:X, y:Y, w:tw - 0.04, h:HH - 0.04, fontSize:9, bold:true, color:C.mut, align:'center', valign:'middle'});
+  T(s, 'All brands and models, most units on the left. Each model: tm · units · import value · price per unit · F.lli Ferrari price difference',
+    {x:3.2, y:1.2, w:9.65, h:0.32, fontSize:10.5, bold:true, valign:'middle'});
+  const X = 0.45, W = 12.43, tw = 0.85, fw = 1.55, bw = (W - tw - fw) / brands.length, Y = 1.62, HH = 0.56, bot = 6.42;
+  const inBand = (b, bd) => b.models.filter(m => m.band === bd).sort((a, c) => c.units - a.units || c.value_idr - a.value_idr);
+  const need = Cc.bands.map(bd => Math.max(1.3, ...brands.map(b => inBand(b, bd).length)));
+  const mh = Math.min(0.72, (bot - Y - HH - 0.04 * Cc.bands.length) / need.reduce((a, v) => a + v, 0));
+  const fs = mh >= 0.55 && bw >= 1.8 ? 8.5 : 7;
+  // header
+  const hdr = (x, w, fill) => s.addShape(pres.shapes.RECTANGLE, {x, y:Y, w:w - 0.04, h:HH - 0.04, fill:{color:fill}, line:{color:fill, width:0}});
+  hdr(X, tw, C.line); T(s, 'tm class', {x:X, y:Y, w:tw - 0.04, h:HH - 0.04, fontSize:9, bold:true, color:C.mut, align:'center', valign:'middle'});
+  hdr(X + tw, fw, C.red);
+  T(s, [{text:'F.lli Ferrari', options:{bold:true, fontSize:11, color:'FFFFFF', breakLine:true}}, {text:'one model per tm class', options:{fontSize:7.5, color:'FFD7D9'}}],
+    {x:X + tw, y:Y, w:fw - 0.04, h:HH - 0.04, align:'center', valign:'middle'});
   brands.forEach((b, i) => {
-    const x = X + tw + i * 2 * cw;
-    s.addShape(pres.shapes.RECTANGLE, {x, y:Y, w:cw - 0.04, h:HH - 0.04, fill:{color:C.line}, line:{color:C.line, width:0}});
-    brandTile(s, b.brand, x + 0.12, Y + 0.05, cw - 0.28, 0.24);
-    T(s, `${b.units} units · ${b.n_models} models${CHINA.includes(b.brand) ? ' · made in China' : ''}`, {x, y:Y + 0.3, w:cw - 0.04, h:0.15, fontSize:7.5, color:C.mut, align:'center'});
-    s.addShape(pres.shapes.RECTANGLE, {x:x + cw, y:Y, w:cw - 0.04, h:HH - 0.04, fill:{color:C.red}, line:{color:C.red, width:0}});
-    T(s, 'F.lli Ferrari', {x:x + cw, y:Y, w:cw - 0.04, h:HH - 0.04, fontSize:10.5, bold:true, color:'FFFFFF', align:'center', valign:'middle'});
+    const x = X + tw + fw + i * bw;
+    hdr(x, bw, C.line);
+    brandTile(s, b.brand, x + 0.1, Y + 0.06, bw - 0.24, 0.24);
+    T(s, `${b.units} units · ${rpx(b.value_idr)}${CHINA.includes(b.brand) ? ' · China' : ''}`, {x, y:Y + 0.32, w:bw - 0.04, h:0.2, fontSize:7, color:C.mut, align:'center', valign:'middle'});
   });
   // body
+  let y = Y + HH;
   Cc.bands.forEach((bd, r) => {
-    const y = Y + HH + r * RH;
-    const gap = Cc.brands.some(b => b.models.some(m => m.band === bd && !m.ferrari_same_band));
-    s.addShape(pres.shapes.RECTANGLE, {x:X, y, w:tw - 0.04, h:RH - 0.04, fill:{color:C.card}, line:{color:C.card, width:0}});
-    T(s, [{text:bd + ' tm', options:{bold:true, fontSize:12, color:CLS[k].c, breakLine:true}}, {text:`${Cc.band_units[bd]} units`, options:{fontSize:8.5, color:C.mut, breakLine:gap}},
-          ...(gap ? [{text:'No F.lli Ferrari model', options:{fontSize:7.5, bold:true, color:G.bad}}] : [])],
-      {x:X, y, w:tw - 0.04, h:RH - 0.04, align:'center', valign:'middle'});
+    const rh = need[r] * mh + 0.04, f = FERD[Cc.band_ferrari[bd]], gap = f.tm <= +bd.replace('>', '').split('–')[0];
+    s.addShape(pres.shapes.RECTANGLE, {x:X, y, w:tw - 0.04, h:rh - 0.04, fill:{color:C.card}, line:{color:C.card, width:0}});
+    T(s, [{text:bd + ' tm', options:{bold:true, fontSize:12, color:CLS[k].c, breakLine:true}}, {text:`${Cc.band_units[bd]} units`, options:{fontSize:8.5, color:C.mut}}],
+      {x:X, y, w:tw - 0.04, h:rh - 0.04, align:'center', valign:'middle'});
+    // F.lli Ferrari cell
+    s.addShape(pres.shapes.RECTANGLE, {x:X + tw, y, w:fw - 0.04, h:rh - 0.04, fill:{color:C.redT}, line:{color:C.redT, width:0}});
+    T(s, gap ? [{text:'No F.lli Ferrari model', options:{bold:true, fontSize:9, color:G.bad, breakLine:true}},
+                {text:`Nearest: ${f.model}`, options:{fontSize:8, color:'FFFFFF', breakLine:true}},
+                {text:`${f.tm} tm · ${rpx(f.price_idr)}`, options:{fontSize:8, color:C.mut}}]
+             : [{text:f.model, options:{bold:true, fontSize:10.5, color:'FFFFFF', breakLine:true}},
+                {text:`${f.tm} tm${f.estimate ? ' · estimate' : ''}`, options:{fontSize:8, color:C.mut, breakLine:true}},
+                {text:rpx(f.price_idr), options:{fontSize:9.5, bold:true, color:'FFFFFF'}}],
+      {x:X + tw + 0.1, y, w:fw - 0.24, h:rh - 0.04, valign:'middle'});
+    // brand cells
     brands.forEach((b, i) => {
-      const x = X + tw + i * 2 * cw, inb = b.models.filter(m => m.band === bd);
-      const other = (b.band_units[bd] || 0) - inb.reduce((a, m) => a + m.units, 0), ob = other > 0 ? 0.17 : 0;
-      s.addShape(pres.shapes.RECTANGLE, {x, y, w:cw - 0.04, h:RH - 0.04, fill:{color:C.card}, line:{color:C.card, width:0}});
-      s.addShape(pres.shapes.RECTANGLE, {x:x + cw, y, w:cw - 0.04, h:RH - 0.04, fill:{color:C.card}, line:{color:C.card, width:0}});
-      if (!inb.length) {
-        T(s, other > 0 ? `No top-3 model\n${other} ${other === 1 ? 'unit' : 'units'} in other models` : 'No model sold', {x, y, w:cw - 0.04, h:RH - 0.04, fontSize:7.5, color:C.dim, align:'center', valign:'middle', italic:true});
-        return;
-      }
-      if (other > 0) T(s, `+ ${other} ${other === 1 ? 'unit' : 'units'} in other models`, {x:x + 0.08, y:y + RH - 0.04 - ob, w:cw - 0.16, h:ob - 0.02, fontSize:7, color:C.dim, italic:true, valign:'middle'});
-      const eh = (RH - 0.04 - ob) / inb.length;
-      inb.forEach((m, j) => {
-        const ey = y + j * eh, cmp = eh < 0.8, ph = Math.min(eh - 0.12, 0.95), pw = Math.min(ph * 1.33, cw * (cmp ? 0.3 : 0.34));
-        const tx = x + pw + 0.13, txw = cw - pw - 0.18, fs = cmp ? 7 : 8.5;
-        // competitor entry
-        photo(s, m.photo, x + 0.06, ey + (eh - ph) / 2, pw, ph);
-        T(s, [{text:`#${m.rank} `, options:{bold:true, color:CLS[k].c, fontSize:fs}}, {text:m.model, options:{bold:true, fontSize:fs + 1, breakLine:true}},
-              {text:`${m.tm} tm · ${m.units} ${m.units === 1 ? 'unit' : 'units'}`, options:{fontSize:fs - 0.5, color:C.mut, breakLine:true}},
-              {text:rpx(m.price_idr), options:{fontSize:fs}}],
-          {x:tx, y:ey + 0.03, w:txw, h:eh - 0.06, valign:'middle'});
-        // F.lli Ferrari entry in the same slot: green = cheaper, red = higher
-        const f = FERD[m.ferrari], ok = m.diff <= 0, fx = x + cw, sm = smaller(m);
-        s.addShape(pres.shapes.RECTANGLE, {x:fx + 0.03, y:ey + 0.03, w:cw - 0.1, h:eh - 0.1, fill:{color:ok ? G.goodT : C.redT}, line:{color:ok ? G.good : 'B4232C', width:1}});
-        photo(s, f.photo, fx + 0.08, ey + (eh - ph) / 2, pw, ph);
-        const tmLine = `${f.tm} tm${sm ? ' · smaller crane' : ''}${f.estimate ? ' · estimate' : ''}`;
-        T(s, [{text:m.ferrari + (cmp && sm ? ' (smaller)' : ''), options:{bold:true, fontSize:fs + 1, color:'FFFFFF', breakLine:true}},
-              ...(cmp ? [] : [{text:tmLine, options:{fontSize:fs - 0.5, color:sm ? 'F5C26B' : C.mut, breakLine:true}}]),
-              {text:rpx(f.price_idr) + (cmp && f.estimate ? ' (est.)' : ''), options:{fontSize:fs, color:'FFFFFF', breakLine:true}},
-              {text:`F.lli Ferrari ${signed(m.diff)}`, options:{fontSize:cmp ? fs : fs - 0.5, bold:true, color:ok ? G.good : G.bad}}],
-          {x:fx + pw + 0.14, y:ey + 0.03, w:txw - 0.02, h:eh - 0.06, valign:'middle'});
+      const x = X + tw + fw + i * bw, list = inBand(b, bd);
+      s.addShape(pres.shapes.RECTANGLE, {x, y, w:bw - 0.04, h:rh - 0.04, fill:{color:C.card}, line:{color:C.card, width:0}});
+      list.forEach((m, j) => {
+        const ok = m.diff <= 0, ey = y + j * mh;
+        s.addShape(pres.shapes.RECTANGLE, {x:x + 0.04, y:ey + 0.03, w:bw - 0.12, h:mh - 0.05, fill:{color:ok ? G.goodT : C.redT}, line:{color:ok ? G.good : C.redT, width:0.75}});
+        T(s, [{text:m.model, options:{bold:true, fontSize:fs + 0.5, breakLine:false}}, {text:`  ${m.tm} tm`, options:{fontSize:fs, color:C.mut, breakLine:true}},
+              {text:`${m.units} ${m.units === 1 ? 'unit' : 'units'} · ${rpx(m.value_idr)}`, options:{fontSize:fs, color:C.txt, breakLine:true}},
+              {text:`${rpx(m.price_idr)} · `, options:{fontSize:fs, color:C.mut}},
+              {text:`${signed(m.diff)}${smaller(m) ? '*' : ''}`, options:{fontSize:fs + 0.5, bold:true, color:ok ? G.good : G.bad}}],
+          {x:x + 0.09, y:ey + 0.03, w:bw - 0.18, h:mh - 0.05, valign:'middle', lineSpacingMultiple:0.92});
       });
     });
+    y += rh;
   });
   // legend
-  [[G.goodT, G.good, 'F.lli Ferrari is cheaper (−)'], [C.redT, 'B4232C', 'F.lli Ferrari is higher (+)']].forEach(([f, l, t], i) => {
-    s.addShape(pres.shapes.RECTANGLE, {x:0.45 + i * 2.5, y:6.5, w:0.2, h:0.14, fill:{color:f}, line:{color:l, width:1}});
-    T(s, t, {x:0.72 + i * 2.5, y:6.46, w:2.2, h:0.22, fontSize:8.5, color:C.mut, valign:'middle'});
+  [[G.goodT, G.good, 'F.lli Ferrari is cheaper (−%)'], [C.redT, C.redT, 'F.lli Ferrari is higher (+%)']].forEach(([f, l, t], i) => {
+    s.addShape(pres.shapes.RECTANGLE, {x:0.45 + i * 2.45, y:6.53, w:0.2, h:0.14, fill:{color:f}, line:{color:l, width:1}});
+    T(s, t, {x:0.72 + i * 2.45, y:6.49, w:2.2, h:0.22, fontSize:8.5, color:C.mut, valign:'middle'});
   });
-  T(s, [{text:'smaller crane', options:{bold:true, color:'F5C26B'}}, {text:' = F.lli Ferrari model has less tm than the rival, so its lower price is not a like-for-like win.', options:{color:C.mut}}],
-    {x:5.55, y:6.46, w:7.3, h:0.22, fontSize:8.5, valign:'middle'});
+  T(s, [{text:'% = F.lli Ferrari price vs the model.  * ', options:{bold:true, color:'F5C26B'}}, {text:'= F.lli Ferrari model is smaller (less tm), so not a like-for-like win. Units and import value (before tax): Jan 2023 – 14 Aug 2026.', options:{color:C.mut}}],
+    {x:5.35, y:6.49, w:7.5, h:0.22, fontSize:8, valign:'middle'});
   foot(s, SRC + ' ' + PRICE_NOTE);
 }
-['Medium', 'Heavy'].forEach(k => {
-  const b = V5.classes[k].brands;
-  comparePage(k, b.slice(0, 3), 1, 2);
-  comparePage(k, b.slice(3, 6), 2, 2);
-});
+comparePage('Medium');
+comparePage('Heavy');
 
 // =============== F.LLI FERRARI CRANE ADVANTAGE BY tm CLASS ===============
 const ALL = ['Medium', 'Heavy'].flatMap(k => V5.classes[k].brands.flatMap(b => b.models.map(m => ({...m, brand:b.brand, k}))));
@@ -331,12 +326,12 @@ const TOTAL_UNITS = V5.classes.Medium.units + V5.classes.Heavy.units;
         feat:feat(fs[0].desc), lead:[...new Set(fs.map(f => f.leadtime_weeks ? `${f.leadtime_weeks} wk · ${f.origin}` : '–'))].join(' / ')});
     });
   });
-  const won = rows.reduce((a, r) => a + r.won, 0), chinaWin = ALL.some(m => m.diff <= 0 && CHINA.includes(m.brand));
+  const won = rows.reduce((a, r) => a + r.won, 0), chinaWin = ALL.some(m => m.diff <= 0 && !smaller(m) && CHINA.includes(m.brand));
   const s = slide('F.LLI FERRARI CRANE ADVANTAGE BY tm CLASS · JAN 2023 – 14 AUG 2026',
     chinaWin ? `Like for like, F.lli Ferrari is cheaper on ${won} of ${TOTAL_UNITS} units and adds EU build quality in every tm class`
              : `Like for like, F.lli Ferrari is cheaper on ${won} of ${TOTAL_UNITS} units, all European; Chinese models stay cheaper`);
   const hd = [H('Class'), H('tm class'), H('Units in class', {align:'right'}), H('F.lli Ferrari model'), H('F.lli Ferrari price', {align:'right'}),
-    H('Units where F.lli Ferrari is cheaper, same size', {align:'right'}), H('Cheaper than (top models)'), H('Standard features'), H('Leadtime · made in')];
+    H('Units where F.lli Ferrari is cheaper, same size', {align:'right'}), H('Cheaper than (models)'), H('Standard features'), H('Leadtime · made in')];
   const tb = [hd];
   rows.forEach(r => {
     const o = {fontSize:8.5}, g = r.won ? {fill:{color:G.goodT}, color:G.good, bold:true} : r.wonSmall ? {color:'F5C26B'} : {color:C.dim};
@@ -372,7 +367,7 @@ const TOTAL_UNITS = V5.classes.Medium.units + V5.classes.Heavy.units;
       ...like.map(m => `${m.ferrari}${FERD[m.ferrari].estimate ? ' (est.)' : ''} vs ${nm(m.brand)} ${m.model}: ${signed(m.diff)} · ${m.units} ${m.units === 1 ? 'unit' : 'units'}`),
       `Also cheaper, but on a smaller crane: ${small.map(m => m.model).join(', ')}.`]},
     {c:C.med, t:'Sell quality against Chinese brands', b:[
-      `Sany Palfinger and XCMG are cheaper in every tm class: F.lli Ferrari is ${signed(lo)} to ${signed(hi)} against their top models.`,
+      `Sany Palfinger and XCMG are cheaper on ${cn.filter(m => m.diff > 0).length} of ${cn.length} models (F.lli Ferrari ${signed(lo)} to ${signed(hi)}); the only F.lli Ferrari win is against a bigger crane.`,
       `They hold ${cnUnits} of ${TOTAL_UNITS} Medium and Heavy units (${pct(cnUnits / TOTAL_UNITS)}).`,
       'Lead with EN 12999, special steel, the cast base and the standard kit, not with price.']},
     {c:C.heavy, t:'Close the gaps in Heavy', b:[
@@ -390,7 +385,28 @@ const TOTAL_UNITS = V5.classes.Medium.units + V5.classes.Heavy.units;
   s.addShape(pres.shapes.RECTANGLE, {x:0.45, y:6.25, w:12.43, h:0.45, fill:{color:C.redT}, line:{color:C.red, width:1}});
   T(s, [{text:'Before launch, confirm:  ', options:{bold:true, color:'FFFFFF'}}, {text:'the 7441C price (now an estimate), the 5% import duty on European cranes, and TSP\'s own freight and clearance cost per unit.', options:{color:C.txt}}],
     {x:0.65, y:6.25, w:12.1, h:0.45, fontSize:10.5, valign:'middle'});
-  foot(s, 'Units = Jan 2023 – 14 Aug 2026 imports, Medium + Heavy, top 3 models per brand. ' + PRICE_NOTE);
+  foot(s, 'Units = Jan 2023 – 14 Aug 2026 imports, Medium + Heavy, all models. ' + PRICE_NOTE);
+}
+
+// =============== APPENDIX: MODEL PHOTOS ===============
+function photoPage(title, head, cards) {
+  const s = slide(title, head);
+  const cols = 7, gx = 0.13, cw = (12.43 - gx * (cols - 1)) / cols, ph = 1.05, chh = 0.42, rh = ph + chh + 0.14;
+  cards.forEach((c, i) => {
+    const x = 0.45 + (i % cols) * (cw + gx), y = 1.3 + Math.floor(i / cols) * rh;
+    s.addShape(pres.shapes.RECTANGLE, {x, y, w:cw, h:ph + chh, fill:{color:c.f ? C.redT : C.card}, line:{color:c.f ? C.red : C.card, width:c.f ? 1 : 0}});
+    if (c.photo) photo(s, c.photo, x, y, cw, ph);
+    else T(s, 'Photo not yet available', {x, y, w:cw, h:ph, fontSize:8, italic:true, color:C.dim, align:'center', valign:'middle'});
+    T(s, [{text:c.name, options:{bold:true, fontSize:8.5, breakLine:true}}, {text:c.sub, options:{fontSize:7.5, color:C.mut}}], {x:x + 0.08, y:y + ph + 0.02, w:cw - 0.16, h:chh - 0.04, valign:'middle'});
+  });
+  foot(s, 'F.lli Ferrari photos: TSP and pocket catalogue 2026. Competitor photos: supplied by TSP; for identification only.');
+}
+{
+  const comp = k => V5.classes[k].brands.flatMap(b => b.models.slice().sort((a, c) => a.tm - c.tm).map(m => ({name:`${nm(b.brand)} ${m.model}`, sub:`${m.tm} tm · ${m.units} ${m.units === 1 ? 'unit' : 'units'}`, photo:m.photo})));
+  const fer = [...new Set(Object.values(V5.classes.Medium.band_ferrari).concat(Object.values(V5.classes.Heavy.band_ferrari)))].map(n => FERD[n])
+    .map(f => ({name:`F.lli Ferrari ${f.model}`, sub:`${f.tm} tm`, photo:f.photo, f:1}));
+  photoPage('APPENDIX · MODEL PHOTOS · MEDIUM', 'Medium: the competitor models in the price comparison', comp('Medium'));
+  photoPage('APPENDIX · MODEL PHOTOS · HEAVY AND F.LLI FERRARI', 'Heavy competitor models and the F.lli Ferrari models in the comparison', comp('Heavy').concat(fer));
 }
 
 pres.writeFile({fileName:'Flli_Ferrari_Market_Strategy_v5.pptx'}).then(() => console.log('done'));

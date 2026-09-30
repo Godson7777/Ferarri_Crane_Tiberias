@@ -85,7 +85,7 @@
  ],
  "classes": {
   "Medium": {
-   "units": 212,
+   "units": 211,
    "bands": [
     ">25\u201330",
     ">30\u201335",
@@ -94,7 +94,7 @@
    ],
    "band_units": {
     ">25\u201330": 49,
-    ">30\u201335": 74,
+    ">30\u201335": 73,
     ">35\u201340": 66,
     ">40\u201345": 23
    },
@@ -102,25 +102,28 @@
     {
      "brand": "SANY PALFINGER",
      "units": 88,
-     "n_models": 4,
+     "value_idr": 41266366645.62,
+     "n_models": 3,
      "models": [
       {
        "rank": 1,
        "model": "SPK36080",
        "tm": 36.0,
-       "units": 34,
+       "units": 37,
+       "value_idr": 15935375038.789999,
        "band": ">35\u201340",
-       "price_idr": 490917539.40372497,
+       "price_idr": 488828396.4601797,
        "photo": "spk36080",
        "ferrari": "7441C",
        "ferrari_same_band": true,
-       "diff": 1.6099222089142557
+       "diff": 1.6210764311432406
       },
       {
        "rank": 2,
        "model": "SPK32080",
        "tm": 30.4,
        "units": 33,
+       "value_idr": 12863241290.69,
        "band": ">30\u201335",
        "price_idr": 442417541.3616106,
        "photo": "spk32080",
@@ -133,6 +136,7 @@
        "model": "SPK42502",
        "tm": 42.5,
        "units": 18,
+       "value_idr": 12467750316.14,
        "band": ">40\u201345",
        "price_idr": 786160922.7121612,
        "photo": "spk42502",
@@ -150,6 +154,7 @@
     {
      "brand": "AMCO VEBA",
      "units": 36,
+     "value_idr": 19894954333.160004,
      "n_models": 3,
      "models": [
       {
@@ -157,6 +162,7 @@
        "model": "V825",
        "tm": 25.6,
        "units": 31,
+       "value_idr": 16031831870.820002,
        "band": ">25\u201330",
        "price_idr": 616320504.2596691,
        "photo": "v825",
@@ -169,6 +175,7 @@
        "model": "V933",
        "tm": 31.9,
        "units": 4,
+       "value_idr": 2795480112.94,
        "band": ">30\u201335",
        "price_idr": 832878356.1490613,
        "photo": "v933",
@@ -181,12 +188,13 @@
        "model": "V946B",
        "tm": 44.2,
        "units": 1,
+       "value_idr": 1067642349.4000001,
        "band": ">40\u201345",
        "price_idr": 1272362769.8974502,
        "photo": "v946b",
-       "ferrari": "749R A4",
+       "ferrari": "746 A4",
        "ferrari_same_band": true,
-       "diff": 0.3684669161172769
+       "diff": 0.15013789976104563
       }
      ],
      "band_units": {
@@ -198,6 +206,7 @@
     {
      "brand": "XCMG",
      "units": 33,
+     "value_idr": 16242008213.830002,
      "n_models": 10,
      "models": [
       {
@@ -205,6 +214,7 @@
        "model": "KSQZ300.3",
        "tm": 30.0,
        "units": 15,
+       "value_idr": 6472643653.17,
        "band": ">25\u201330",
        "price_idr": 489763369.75653005,
        "photo": "ksqz300",
@@ -217,6 +227,7 @@
        "model": "GSQZ330.4",
        "tm": 33.0,
        "units": 4,
+       "value_idr": 2451886841.72,
        "band": ">30\u201335",
        "price_idr": 695722891.3380499,
        "photo": "gsqz330",
@@ -229,12 +240,104 @@
        "model": "SQZ325.4",
        "tm": 32.5,
        "units": 3,
+       "value_idr": 1451431590.08,
        "band": ">30\u201335",
        "price_idr": 549124951.5802666,
        "photo": "sqz325",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
        "diff": 1.0481376517810683
+      },
+      {
+       "rank": 4,
+       "model": "KSQZ400.4",
+       "tm": 40.0,
+       "units": 2,
+       "value_idr": 1245962538.3000002,
+       "band": ">35\u201340",
+       "price_idr": 707083740.4852501,
+       "photo": "ksqz400",
+       "ferrari": "7441C",
+       "ferrari_same_band": true,
+       "diff": 0.8120294888354149
+      },
+      {
+       "rank": 5,
+       "model": "GSQZ400.4",
+       "tm": 40.0,
+       "units": 2,
+       "value_idr": 1240920728.6999998,
+       "band": ">35\u201340",
+       "price_idr": 704222513.5372499,
+       "photo": "gsqz400",
+       "ferrari": "7441C",
+       "ferrari_same_band": true,
+       "diff": 0.8193916897085238
+      },
+      {
+       "rank": 6,
+       "model": "SQZ365.4",
+       "tm": 36.5,
+       "units": 2,
+       "value_idr": 996883613.7800001,
+       "band": ">35\u201340",
+       "price_idr": 565731450.82015,
+       "photo": "sqz365",
+       "ferrari": "7441C",
+       "ferrari_same_band": true,
+       "diff": 1.2647787867863145
+      },
+      {
+       "rank": 7,
+       "model": "SQ12ZK3Q",
+       "tm": 30.0,
+       "units": 2,
+       "value_idr": 879450397.0,
+       "band": ">25\u201330",
+       "price_idr": 499088100.2975,
+       "photo": null,
+       "ferrari": "268 A4",
+       "ferrari_same_band": true,
+       "diff": 0.03440818054420358
+      },
+      {
+       "rank": 8,
+       "model": "SQZ400",
+       "tm": 40.0,
+       "units": 1,
+       "value_idr": 524283573.51,
+       "band": ">35\u201340",
+       "price_idr": 595061855.93385,
+       "photo": null,
+       "ferrari": "7441C",
+       "ferrari_same_band": true,
+       "diff": 1.1531485778475972
+      },
+      {
+       "rank": 9,
+       "model": "KSQZ300.4",
+       "tm": 30.0,
+       "units": 1,
+       "value_idr": 500877435.32,
+       "band": ">25\u201330",
+       "price_idr": 568495889.0882,
+       "photo": null,
+       "ferrari": "268 A4",
+       "ferrari_same_band": true,
+       "diff": -0.09188294292150267
+      },
+      {
+       "rank": 10,
+       "model": "KSQZ365.4",
+       "tm": 36.5,
+       "units": 1,
+       "value_idr": 477667842.25,
+       "band": ">35\u201340",
+       "price_idr": 542153000.95375,
+       "photo": null,
+       "ferrari": "7441C",
+       "ferrari_same_band": true,
+       "diff": 1.363274917931557
       }
      ],
      "band_units": {
@@ -246,6 +349,7 @@
     {
      "brand": "PALFINGER",
      "units": 29,
+     "value_idr": 30214071617.16,
      "n_models": 2,
      "models": [
       {
@@ -253,6 +357,7 @@
        "model": "PK 41002",
        "tm": 38.4,
        "units": 21,
+       "value_idr": 23165191853.91,
        "band": ">35\u201340",
        "price_idr": 1314624637.7093923,
        "photo": "pk41002",
@@ -265,6 +370,7 @@
        "model": "PK 32080 C",
        "tm": 30.4,
        "units": 8,
+       "value_idr": 7048879763.25,
        "band": ">30\u201335",
        "price_idr": 1050062807.2316484,
        "photo": "pk32080c",
@@ -280,26 +386,29 @@
     },
     {
      "brand": "HIAB",
-     "units": 26,
+     "units": 25,
+     "value_idr": 18720555582.14,
      "n_models": 3,
      "models": [
       {
        "rank": 1,
        "model": "X-CLX 388",
        "tm": 34.3,
-       "units": 21,
+       "units": 20,
+       "value_idr": 15895601178.46,
        "band": ">30\u201335",
-       "price_idr": 908266538.6471874,
+       "price_idr": 947179135.2214853,
        "photo": "xclx388",
        "ferrari": "FBR350R A4",
        "ferrari_same_band": true,
-       "diff": 0.23827471453385685
+       "diff": 0.18740315009262498
       },
       {
        "rank": 2,
        "model": "477 EP-5",
        "tm": 42.0,
        "units": 4,
+       "value_idr": 1888587815.68,
        "band": ">40\u201345",
        "price_idr": 562681132.3341601,
        "photo": "477ep5",
@@ -312,6 +421,7 @@
        "model": "X-CLX 328",
        "tm": 30.3,
        "units": 1,
+       "value_idr": 936366588.0,
        "band": ">30\u201335",
        "price_idr": 1115914881.249,
        "photo": "xclx328",
@@ -321,7 +431,7 @@
       }
      ],
      "band_units": {
-      ">30\u201335": 22,
+      ">30\u201335": 21,
       ">40\u201345": 4
      }
     }
@@ -332,31 +442,39 @@
     "7441C",
     "746 A4",
     "749R A4"
-   ]
+   ],
+   "band_ferrari": {
+    ">25\u201330": "268 A4",
+    ">30\u201335": "FBR350R A4",
+    ">35\u201340": "7441C",
+    ">40\u201345": "746 A4"
+   }
   },
   "Heavy": {
-   "units": 66,
+   "units": 65,
    "bands": [
     ">45\u201350",
     ">50\u201355",
     ">55"
    ],
    "band_units": {
-    ">45\u201350": 18,
+    ">45\u201350": 17,
     ">50\u201355": 40,
     ">55": 8
    },
    "brands": [
     {
      "brand": "PALFINGER",
-     "units": 43,
-     "n_models": 4,
+     "units": 42,
+     "value_idr": 58782863678.74,
+     "n_models": 3,
      "models": [
       {
        "rank": 1,
        "model": "PK 53002",
        "tm": 50.1,
        "units": 39,
+       "value_idr": 53084479438.74,
        "band": ">50\u201355",
        "price_idr": 1622139189.003036,
        "photo": "pk53002",
@@ -369,6 +487,7 @@
        "model": "PK 76002 EH D",
        "tm": 71.6,
        "units": 2,
+       "value_idr": 3835264684.0,
        "band": ">55",
        "price_idr": 2285338343.5785003,
        "photo": "pk76002",
@@ -381,6 +500,7 @@
        "model": "PK 88002 EH C",
        "tm": 81.6,
        "units": 1,
+       "value_idr": 1863119556.0,
        "band": ">55",
        "price_idr": 2220372730.8630004,
        "photo": "pk88002",
@@ -391,13 +511,13 @@
      ],
      "band_units": {
       ">50\u201355": 39,
-      ">55": 3,
-      ">45\u201350": 1
+      ">55": 3
      }
     },
     {
      "brand": "AMCO VEBA",
      "units": 12,
+     "value_idr": 18902652677.49,
      "n_models": 1,
      "models": [
       {
@@ -405,6 +525,7 @@
        "model": "V950",
        "tm": 45.9,
        "units": 12,
+       "value_idr": 18902652677.49,
        "band": ">45\u201350",
        "price_idr": 1877269694.033226,
        "photo": "v950",
@@ -420,6 +541,7 @@
     {
      "brand": "XCMG",
      "units": 7,
+     "value_idr": 6793257346.08,
      "n_models": 3,
      "models": [
       {
@@ -427,6 +549,7 @@
        "model": "GSQZ460.4",
        "tm": 46.0,
        "units": 3,
+       "value_idr": 2146753391.3999999,
        "band": ">45\u201350",
        "price_idr": 812188366.413,
        "photo": "gsqz460",
@@ -439,6 +562,7 @@
        "model": "GSQZ880.6",
        "tm": 88.0,
        "units": 2,
+       "value_idr": 2324676217.34,
        "band": ">55",
        "price_idr": 1319253753.34045,
        "photo": "gsqz880",
@@ -451,6 +575,7 @@
        "model": "GSQZ860.6",
        "tm": 86.0,
        "units": 2,
+       "value_idr": 2321827737.34,
        "band": ">55",
        "price_idr": 1317637240.9404502,
        "photo": "gsqz860",
@@ -467,6 +592,7 @@
     {
      "brand": "HIAB",
      "units": 2,
+     "value_idr": 4090985195.7,
      "n_models": 2,
      "models": [
       {
@@ -474,6 +600,7 @@
        "model": "X-HIPRO B58",
        "tm": 50.93,
        "units": 1,
+       "value_idr": 2824499359.0,
        "band": ">50\u201355",
        "price_idr": 3366097111.08825,
        "photo": "xhipro_b58",
@@ -486,6 +613,7 @@
        "model": "EFFER 525H",
        "tm": 50.0,
        "units": 1,
+       "value_idr": 1266485836.6999998,
        "band": ">45\u201350",
        "price_idr": 1509334495.887225,
        "photo": "effer525h",
@@ -502,6 +630,7 @@
     {
      "brand": "FASSI",
      "units": 1,
+     "value_idr": 1348965177.37,
      "n_models": 1,
      "models": [
       {
@@ -509,6 +638,7 @@
        "model": "F485RA.2.23",
        "tm": 47.0,
        "units": 1,
+       "value_idr": 1348965177.37,
        "band": ">45\u201350",
        "price_idr": 1607629250.1306975,
        "photo": "f485ra",
@@ -524,6 +654,7 @@
     {
      "brand": "SANY PALFINGER",
      "units": 1,
+     "value_idr": 1235465177.38,
      "n_models": 1,
      "models": [
       {
@@ -531,6 +662,7 @@
        "model": "SPK61502",
        "tm": 61.5,
        "units": 1,
+       "value_idr": 1235465177.38,
        "band": ">55",
        "price_idr": 1402252976.3263001,
        "photo": "spk61502",
@@ -548,7 +680,12 @@
     "FBR450R A4",
     "FBR600R A4",
     "FBR660R A4"
-   ]
+   ],
+   "band_ferrari": {
+    ">45\u201350": "FBR450R A4",
+    ">50\u201355": "FBR450R A4",
+    ">55": "FBR660R A4"
+   }
   }
  }
 }

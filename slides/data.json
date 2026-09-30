@@ -24,10 +24,10 @@
    71,
    69,
    59,
-   13
+   12
   ],
   "Heavy": [
-   13,
+   12,
    17,
    35,
    1
@@ -36,18 +36,18 @@
  "totUnits": {
   "Light": 177,
   "Small": 203,
-  "Medium": 212,
-  "Heavy": 66
+  "Medium": 211,
+  "Heavy": 65
  },
  "totValueUSD": {
   "Light": 2253465.68,
   "Small": 4466530.45,
-  "Medium": 7102569.9,
-  "Heavy": 5122838.92
+  "Medium": 7096441.97,
+  "Heavy": 5120158.92
  },
- "avgTarget": 71.63636363636363,
+ "avgTarget": 70.98376623376623,
  "avgOther": 104.30844155844156,
- "gvw24Share": 0.8884892086330936,
+ "gvw24Share": 0.8876811594202898,
  "brandsMedium": [
   {
    "Brand": "HIAB",
