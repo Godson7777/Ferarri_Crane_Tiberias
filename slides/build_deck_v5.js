@@ -15,7 +15,7 @@ const C = {bg:'0F141A', card:'161D25', line:'26303A', txt:'EEF1F4', mut:'9AA6B2'
   red:'E30613', redT:'3A0E14', med:'F2A33A', heavy:'4F9CF9', grey1:'4E5A66', grey2:'7D8894'};
 const CLS = {Medium:{c:C.med, pale:'FBE3BD', label:'MEDIUM', rng:'> 25 – 45 tm'},
              Heavy:{c:C.heavy, pale:'CFE3FE', label:'HEAVY', rng:'> 45 tm'}};
-const F = 'Arial';
+const F = 'Calibri', FH = 'Cambria';   // body / titles (user choice, 30 Sep 2026)
 const LOGO = {FERRARI:['logo_ferrari',3.798], 'SANY PALFINGER':['logo_sanypalfinger',4.694], PALFINGER:['logo_palfinger',4.516],
   'AMCO VEBA':['logo_amcoveba',4.469], XCMG:['logo_xcmg',4.587], HYVA:['logo_hyva',2.110]};
 const SRC = `Source: Indonesia import records, HS 84269100 + 84264900, Jan 2023 – ${D.last2026}; truck-mounted knuckle boom cranes only, Zoomlion and Hyva excluded.`;
@@ -44,7 +44,7 @@ function classTab(s, x, y, k, w = 2.6, h = 0.34, fs = 12) {
 function slide(kicker, head) {
   const s = pres.addSlide(); s.background = {color:C.bg}; page++;
   T(s, kicker, {x:0.45, y:0.3, w:10, h:0.28, fontSize:10.5, bold:true, color:C.mut, charSpacing:2});
-  T(s, head, {x:0.45, y:0.6, w:11.7, h:0.45, fontSize:18, bold:true});
+  T(s, head, {x:0.45, y:0.56, w:11.7, h:0.7, fontSize:21, bold:true, fontFace:FH, valign:'top'});
   slash(s, 12.33, 0.3);
   T(s, String(page), {x:12.4, y:7.05, w:0.48, h:0.25, fontSize:9, color:C.dim, align:'right'});
   return s;
@@ -57,7 +57,7 @@ function divider(title, sub, ph, note) {
   s.addShape(pres.shapes.PARALLELOGRAM, {x:5.6, y:0, w:2.2, h:7.5, fill:{color:C.bg}, line:{color:C.bg, width:0}, adjustPoint:0.45});
   s.addShape(pres.shapes.RECTANGLE, {x:0, y:0, w:6.65, h:7.5, fill:{color:C.bg}, line:{color:C.bg, width:0}});
   slash(s, 0.6, 2.3, 0.4);
-  T(s, title, {x:0.6, y:2.9, w:6.2, h:1.7, fontSize:40, bold:true, valign:'top'});
+  T(s, title, {x:0.6, y:2.9, w:6.2, h:1.7, fontSize:42, bold:true, fontFace:FH, valign:'top'});
   T(s, sub, {x:0.6, y:4.65, w:5.6, h:0.9, fontSize:14, color:C.mut});
   if (note) T(s, note, {x:0.6, y:5.65, w:5.4, h:0.6, fontSize:11, color:C.dim});
   T(s, String(page), {x:12.4, y:7.05, w:0.48, h:0.25, fontSize:9, color:C.dim, align:'right'});
@@ -81,7 +81,7 @@ const TB = {border:{type:'solid', pt:1, color:C.bg}, margin:[0.03, 0.08, 0.03, 0
   s.addShape(pres.shapes.RECTANGLE, {x:0, y:0, w:5.95, h:7.5, fill:{color:C.bg}, line:{color:C.bg, width:0}});
   logoTile(s, 'FERRARI', 0.6, 0.7, 2.6, 0.685);
   slash(s, 0.6, 2.45, 0.4);
-  T(s, 'F.lli Ferrari\nMarket Strategy', {x:0.6, y:3.0, w:5.6, h:1.5, fontSize:40, bold:true});
+  T(s, 'F.lli Ferrari\nMarket Strategy', {x:0.6, y:3.0, w:5.6, h:1.5, fontSize:44, bold:true, fontFace:FH});
   T(s, 'Indonesia truck-mounted knuckle boom crane import market\nJan 2023 – Aug 2026', {x:0.6, y:4.6, w:5.2, h:0.7, fontSize:14, color:C.mut});
   T(s, 'PT Triatra Sinergia Pratama  ·  September 2026', {x:0.6, y:6.6, w:5.2, h:0.3, fontSize:10.5, color:C.dim});
 }
@@ -127,7 +127,7 @@ const TB = {border:{type:'solid', pt:1, color:C.bg}, margin:[0.03, 0.08, 0.03, 0
     {text:`Fewer units per year, but ${pct(vT / vAll)} of the money. Average import value per unit is ${rp(avgT)} vs ${rp(avgO)} for Light + Small.`, options:{color:C.mut, breakLine:true}},
     {text:' ', options:{fontSize:6, breakLine:true}},
     {text:'Built for heavy-duty sectors', options:{bold:true, breakLine:true}},
-    {text:`${pct(D.gvw24Share)} of Medium and Heavy cranes need a truck with GVW of 24 t or more — heavy-duty lifting for mining, construction and heavy logistics.`, options:{color:C.mut, breakLine:true}},
+    {text:`${pct(D.gvw24Share)} of Medium and Heavy cranes need a truck with GVW of 24 t or more. They work in mining, construction and heavy logistics.`, options:{color:C.mut, breakLine:true}},
     {text:' ', options:{fontSize:6, breakLine:true}},
     {text:'2026 is a partial year', options:{bold:true, breakLine:true}},
     {text:`Jan – 14 Aug 2026 shows only ${D.unitsYear.Medium[3]} Medium and ${D.unitsYear.Heavy[3]} Heavy units, well below the 2025 pace. The cause is not yet known; import records may still be incomplete.`, options:{color:C.mut}}],
@@ -226,144 +226,174 @@ function brandTile(s, b, x, y, w, h) {
 }
 const photo = (s, f, x, y, w, h) => s.addImage({path:`assets/photo_${f}.jpg`, x, y, w, h, sizing:{type:'cover', w, h}});
 const listNames = a => a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
-const signed = d => (d <= 0 ? '−' : '+') + Math.round(Math.abs(d) * 100) + '%';
+const signed = d => Math.round(Math.abs(d) * 100) === 0 ? '±0%' : (d <= 0 ? '−' : '+') + Math.round(Math.abs(d) * 100) + '%';
 const smaller = m => FERD[m.ferrari].tm < m.tm - 2;          // F.lli Ferrari model is clearly smaller than the rival
-const PRICE_NOTE = 'Competitors: average import unit price, Jan 2023 – 14 Aug 2026, × Rp 17.803/USD (JISDOR 23 Sep 2026) + import duty (0% China – ACFTA; 5% Europe, assumed) + PPN 11% + PPh 22 2.5% = import cost before distributor margin. ' +
-  'F.lli Ferrari: crane price from the TSP price list Rev1, June 2026 (column K minus column J), less the TSP margin of 13.6%, so both sides are at import-cost level. 7441C = estimate between FBR350R A4 and 746 A4. Prices rounded to Rp 10.000.000.';
+const h2hWin = m => m.diff !== null && m.diff <= 0 && !smaller(m);
+const PRICE_NOTE = 'Competitors: average import unit price, Jan 2023 – 14 Aug 2026, × Rp 17.803/USD (JISDOR 23 Sep 2026) + import duty (0% China – ACFTA; 5% Europe, assumed) + PPN 11% + PPh 22 2.5%, before distributor margin. ' +
+  'F.lli Ferrari: crane price from the TSP price list Rev1, June 2026 (column K minus column J), less the 13.6% TSP margin and 3% warranty. 990R: TSP price less Rp 168.000.000 cargo deck and install, then the same deductions. ' +
+  '9601CR A8: UTPE quote of 15 Sep 2026, crane only, no deduction; 50.7 tm per its load chart. 7441C is an estimate. Prices rounded to Rp 10.000.000.';
 
-divider('F.lli Ferrari Crane Positioning', 'Every brand and model in each 5-tm class, next to one F.lli Ferrari model',
+divider('F.lli Ferrari Crane Positioning', 'Every brand and model in each 5-tm class, next to the F.lli Ferrari crane we would offer',
   'photo_fbr660r.jpg', 'Jan 2023 – 14 Aug 2026 · all prices at import-cost level');
 
-// One slide per class, native PowerPoint table (editable). One row per competitor model, grouped by tm class;
-// F.lli Ferrari (one model per class) merged on the left; within a class, brands with most units first.
-function comparePage(k) {
-  const Cc = V5.classes[k], order = Cc.brands.map(b => b.brand), ms = Cc.brands.flatMap(b => b.models), n = ms.length;
-  const win = ms.filter(m => m.diff <= 0), lfl = win.filter(m => !smaller(m)).reduce((a, m) => a + m.units, 0);
-  const head = win.length * 2 >= n ? `${k}: F.lli Ferrari is cheaper than ${win.length} of ${n} models, but like for like on only ${lfl} of ${Cc.units} units`
-                                   : `${k}: F.lli Ferrari costs more than ${n - win.length} of ${n} models; like for like, it is cheaper on ${lfl} units`;
-  const s = slide(`PRICE COMPARISON BY tm CLASS · JAN 2023 – 14 AUG 2026 · ${CLS[k].label}`, head);
-  T(s, 'Every model sold, grouped by tm class; F.lli Ferrari offer on the left, brands with most units first. tm = Max Lifting Moment.', {x:0.45, y:1.12, w:12.4, h:0.28, fontSize:11, bold:true, valign:'middle'});
-  const X = 0.45, Y = 1.45, HH = 0.36, W = [0.12, 0.9, 1.2, 0.6, 1.5, 1.3, 1.45, 0.6, 0.65, 1.65, 1.5, 0.96];
-  const RH = Math.min(0.3, (6.4 - Y - HH) / n), fs = RH < 0.24 ? 8.5 : 9.5;
-  const Hc = (t, f) => ({text:t, options:{fill:{color:f ? C.red : C.line}, color:f ? 'FFFFFF' : C.mut, bold:true, fontSize:8.5, fontFace:F, align:'center', valign:'middle'}});
-  const c = (t, o = {}) => ({text:t, options:Object.assign({fill:{color:C.card}, color:C.txt, fontSize:fs, fontFace:F, align:'center', valign:'middle', margin:[0, 0.06, 0, 0.06]}, o)});
-  const rows = [[{text:'', options:{fill:{color:C.bg}}}, Hc('tm class'), Hc('F.lli Ferrari model', 1), Hc('tm', 1), Hc('Price per unit', 1), Hc('Brand'), Hc('Model'),
-    Hc('tm'), Hc('Units'), Hc('Import value (before tax)'), Hc('Price per unit'), Hc('F.lli Ferrari vs model')]];
-  Cc.bands.forEach(bd => {
-    const list = Cc.brands.flatMap(b => b.models.filter(m => m.band === bd).map(m => ({...m, brand:b.brand})))
-      .sort((a, b) => order.indexOf(a.brand) - order.indexOf(b.brand) || b.units - a.units || b.value_idr - a.value_idr);
-    if (!list.length) return;
-    const f = FERD[Cc.band_ferrari[bd]], gap = f.tm <= +bd.replace('>', '').split('–')[0], span = {rowspan:list.length};
-    list.forEach((m, i) => {
-      const r = [];
-      if (rows.length === 1) r.push({text:'', options:{fill:{color:CLS[k].c}, rowspan:n}});
-      if (!i) {
-        r.push({text:[{text:bd + ' tm', options:{bold:true, color:CLS[k].c, fontSize:fs + 0.5, breakLine:true}}, {text:`${Cc.band_units[bd]} units`, options:{color:C.mut, fontSize:fs - 1}}],
-          options:Object.assign({fill:{color:C.card}, align:'center', valign:'middle', fontFace:F}, span)});
-        if (gap) r.push({text:[{text:'No F.lli Ferrari model', options:{bold:true, color:G.bad, breakLine:true}}, {text:`nearest ${f.model} · ${f.tm} tm · ${rpx(f.price_idr)}`, options:{color:C.mut, fontSize:fs - 1}}],
-          options:Object.assign({fill:{color:C.card}, align:'center', valign:'middle', fontFace:F, fontSize:fs, colspan:3}, span)});
-        else r.push(c(f.model, Object.assign({fill:{color:C.redT}, bold:true}, span)), c(String(f.tm), Object.assign({fill:{color:C.redT}}, span)),
-          c(rpx(f.price_idr) + (f.estimate ? ' (est.)' : ''), Object.assign({fill:{color:C.redT}, bold:true}, span)));
+// Native PowerPoint table (editable). One row per competitor model, grouped by tm class.
+// F.lli Ferrari (one model per class) merged on the left; brand cells merged with the logo on top; brands with most units first.
+function comparePage(k, bands, pg) {
+  const Cc = V5.classes[k], order = Cc.brands.map(b => b.brand);
+  const groups = bands.map(bd => ({bd, ms:Cc.brands.flatMap(b => b.models.filter(m => m.band === bd).map(m => ({...m, brand:b.brand})))
+    .sort((a, c) => order.indexOf(a.brand) - order.indexOf(c.brand) || c.units - a.units || c.value_idr - a.value_idr)}));
+  const all = groups.flatMap(g => g.ms), units = all.reduce((a, m) => a + m.units, 0), nRows = groups.reduce((a, g) => a + Math.max(1, g.ms.length), 0);
+  const win = all.filter(h2hWin), wu = win.reduce((a, m) => a + m.units, 0);
+  const gapG = groups.find(g => { const f = FERD[Cc.band_ferrari[g.bd]]; return f.tm > +g.bd.split('–')[1] || f.tm <= +g.bd.replace('>', '').split('–')[0]; });
+  const gapFrom = gapG ? Math.floor(FERD[Cc.band_ferrari[gapG.bd]].tm / 5) * 5 + 5 : null;
+  const lo = bands[0].replace('>', '').split('–')[0], hi = bands[bands.length - 1].split('–')[1];
+  const head = win.length ? `${k}, ${lo}–${hi} tm: F.lli Ferrari is cheaper head to head on ${listNames(win.map(m => m.model))}, ${wu} of ${units} units`
+                          : `${k}, ${lo}–${hi} tm: F.lli Ferrari costs more than every model it matches in size` +
+                            (gapFrom ? `, and has no model above ${gapFrom} tm` : '');
+  const s = slide(`PRICE COMPARISON BY tm CLASS · JAN 2023 – 14 AUG 2026 · ${CLS[k].label}${pg ? ' · ' + pg : ''}`, head);
+  T(s, 'Every model imported in each tm class, next to the F.lli Ferrari crane we would offer. Brands with the most units come first. tm = Max Lifting Moment.',
+    {x:0.45, y:1.3, w:12.4, h:0.26, fontSize:11.5, color:C.mut, valign:'middle'});
+  const X = 0.45, Y = 1.68, HH = 0.4, W = [0.12, 1.0, 1.3, 1.5, 1.5, 1.45, 0.6, 0.65, 1.65, 1.45, 1.21];
+  const RH = Math.min(0.44, (6.38 - Y - HH) / nRows), fs = 10.5;
+  const base = {fontFace:F, fontSize:fs, color:C.txt, valign:'middle', margin:[0, 0.07, 0, 0.07]};
+  const cell = (t, o = {}) => ({text:t, options:Object.assign({}, base, {fill:{color:C.card}, color:C.txt}, o)});
+  const Hc = (t, o = {}) => ({text:t, options:Object.assign({}, base, {fill:{color:C.line}, color:C.mut, bold:true, fontSize:9}, o)});
+  const RED = {fill:{color:C.redT}};
+  const rows = [[Hc('', {fill:{color:C.bg}}), Hc('tm class'), Hc('F.lli Ferrari', {color:'FF8A8F'}), Hc('Price', {color:'FF8A8F', align:'right'}), Hc('Brand', {align:'center'}),
+    Hc('Model'), Hc('tm', {align:'right'}), Hc('Units', {align:'right'}), Hc('Import value', {align:'right'}), Hc('Price', {align:'right'}),
+    {text:[{text:'F.lli Ferrari', options:{breakLine:true}}, {text:'vs model'}], options:Object.assign({}, base, {fill:{color:C.line}, color:C.mut, bold:true, fontSize:9, align:'right'})}]];
+  const logos = [];
+  groups.forEach(g => {
+    const f = FERD[Cc.band_ferrari[g.bd]], gap = f.tm <= +g.bd.replace('>', '').split('–')[0] || f.tm > +g.bd.split('–')[1], n = Math.max(1, g.ms.length), span = {rowspan:n};
+    const lead = [];
+    if (rows.length === 1) lead.push({text:'', options:{fill:{color:CLS[k].c}, rowspan:nRows}});
+    lead.push({text:[{text:g.bd + ' tm', options:{bold:true, color:CLS[k].c, fontSize:fs + 0.5, breakLine:true}}, {text:`${Cc.band_units[g.bd]} units`, options:{color:C.mut, fontSize:fs - 1.5}}],
+      options:Object.assign({}, base, {fill:{color:C.card}}, span)});
+    if (gap) lead.push({text:[{text:'No F.lli Ferrari model', options:{bold:true, color:G.bad, breakLine:true}}, {text:`largest is ${f.model}, ${f.tm} tm`, options:{color:C.mut, fontSize:fs - 1.5}}],
+      options:Object.assign({}, base, {fill:{color:C.card}, colspan:2}, span)});
+    else lead.push({text:[{text:f.model, options:{bold:true, fontFace:FH, breakLine:true}}, {text:`${f.tm} tm${f.estimate ? ' · estimate' : ''}`, options:{color:'C9A9AC', fontSize:fs - 1.5}}],
+        options:Object.assign({}, base, RED, span)},
+      f.price_idr === null ? cell('Price not yet known', Object.assign({italic:true, color:C.mut, align:'right'}, RED, span))
+                           : cell(rpx(f.price_idr), Object.assign({bold:true, align:'right'}, RED, span)));
+    if (!g.ms.length) { rows.push([...lead, cell('No imports of this size in 2023 – 2026', {colspan:7, italic:true, color:C.dim, align:'center'})]); return; }
+    g.ms.forEach((m, i) => {
+      const r = i ? [] : lead.slice();
+      if (!i || g.ms[i - 1].brand !== m.brand) {
+        let sp = g.ms.slice(i).findIndex(x => x.brand !== m.brand); sp = sp < 0 ? g.ms.length - i : sp;
+        logos.push({b:m.brand, row:rows.length - 1, sp});
+        r.push(cell('', {rowspan:sp}));
       }
-      const first = i === 0 || list[i - 1].brand !== m.brand, ok = m.diff <= 0;
-      r.push(c(first ? nm(m.brand) : '', {bold:true, align:'left', color:first ? C.txt : C.mut}), c(m.model, {align:'left'}), c(String(m.tm)), c(String(m.units), {align:'right'}), c(rpx(m.value_idr), {align:'right'}), c(rpx(m.price_idr), {align:'right'}),
-        {text:[{text:signed(m.diff), options:{bold:true, color:ok ? G.good : G.bad}}, ...(smaller(m) ? [{text:'*', options:{bold:true, color:'F5C26B'}}] : [])],
-         options:{fill:{color:ok ? G.goodT : '22141A'}, align:'center', valign:'middle', fontFace:F, fontSize:fs}});
+      const ok = m.diff !== null && m.diff <= 0;
+      r.push(cell(m.model, {bold:true}), cell(String(m.tm), {align:'right'}), cell(String(m.units), {align:'right'}),
+        cell(rpx(m.value_idr), {align:'right'}), cell(rpx(m.price_idr), {align:'right'}),
+        m.diff === null ? cell('no price', {italic:true, color:C.mut, align:'right'}) :
+        {text:[{text:signed(m.diff), options:{bold:true, color:ok ? G.good : G.bad, breakLine:ok && smaller(m)}}, ...(ok && smaller(m) ? [{text:'smaller crane', options:{fontSize:8, color:'F5C26B'}}] : [])],
+         options:Object.assign({}, base, {fill:{color:ok ? G.goodT : '24151A'}, align:'right'})});
       rows.push(r);
     });
   });
-  s.addTable(rows, {x:X, y:Y, w:W.reduce((a, b) => a + b), colW:W, rowH:[HH, ...rows.slice(1).map(() => RH)], border:{type:'solid', pt:1.5, color:C.bg}, margin:[0, 0.05, 0, 0.05]});
-  // legend
-  [[G.good, 'F.lli Ferrari cheaper (−%)'], [G.bad, 'F.lli Ferrari higher (+%)']].forEach(([col, t], i) => {
-    s.addShape(pres.shapes.RECTANGLE, {x:0.45 + i * 2.3, y:6.53, w:0.2, h:0.13, fill:{color:col}, line:{color:col, width:0}});
-    T(s, t, {x:0.72 + i * 2.3, y:6.49, w:2.0, h:0.22, fontSize:8.5, color:C.mut, valign:'middle'});
+  s.addTable(rows, {x:X, y:Y, w:W.reduce((a, b) => a + b), colW:W, rowH:[HH, ...rows.slice(1).map(() => RH)], border:{type:'solid', pt:1, color:C.bg}});
+  // brand logos over the merged brand cells
+  const bx = X + W.slice(0, 4).reduce((a, b) => a + b), lw = 1.25, lh = Math.min(0.3, RH - 0.08);
+  logos.forEach(({b, row, sp}) => {
+    const y = Y + HH + row * RH + (sp * RH - lh) / 2, x = bx + (W[4] - lw) / 2;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, {x, y, w:lw, h:lh, fill:{color:'FFFFFF'}, line:{color:'FFFFFF', width:0}, rectRadius:0.04});
+    if (LOGO[b]) { const [fl, ar] = LOGO[b], iw = Math.min(lw - 0.14, (lh - 0.08) * ar), ih = iw / ar;
+      s.addImage({path:`assets/${fl}.png`, x:x + (lw - iw) / 2, y:y + (lh - ih) / 2, w:iw, h:ih}); }
+    else T(s, nm(b).toUpperCase(), {x, y, w:lw, h:lh, fontSize:10, bold:true, color:'1A1A1A', align:'center', valign:'middle', charSpacing:3});
   });
-  T(s, [{text:'* ', options:{bold:true, color:'F5C26B'}}, {text:'F.lli Ferrari model is smaller (less tm), so not a like-for-like win.   % = F.lli Ferrari price vs the model.', options:{color:C.mut}}],
-    {x:5.1, y:6.49, w:7.8, h:0.22, fontSize:8.5, valign:'middle'});
-  foot(s, SRC + ' ' + PRICE_NOTE);
+  [[G.good, 'F.lli Ferrari is cheaper'], [G.bad, 'F.lli Ferrari costs more']].forEach(([col, t], i) => {
+    s.addShape(pres.shapes.RECTANGLE, {x:0.45 + i * 2.35, y:6.54, w:0.16, h:0.13, fill:{color:col}, line:{color:col, width:0}});
+    T(s, t, {x:0.68 + i * 2.35, y:6.49, w:2.1, h:0.22, fontSize:10, color:C.mut, valign:'middle'});
+  });
+  T(s, [{text:'Smaller crane: ', options:{bold:true, color:'F5C26B'}}, {text:'cheaper, but the F.lli Ferrari model has at least 2 tm less, so it is not a head-to-head match.', options:{color:C.mut}}],
+    {x:5.2, y:6.49, w:7.7, h:0.22, fontSize:10, valign:'middle'});
+  foot(s, 'Units and import value (before tax): Jan 2023 – 14 Aug 2026; Zoomlion and Hyva excluded. ' + PRICE_NOTE);
 }
-comparePage('Medium');
-comparePage('Heavy');
+comparePage('Medium', ['>25–30', '>30–35'], '1 OF 2');
+comparePage('Medium', ['>35–40', '>40–45'], '2 OF 2');
+comparePage('Heavy', ['>45–50', '>50–55'], '1 OF 2');
+comparePage('Heavy', ['>55–60', '>60–65', '>70–75', '>80–85', '>85–90'], '2 OF 2');
 
 // =============== F.LLI FERRARI CRANE ADVANTAGE BY tm CLASS ===============
 const ALL = ['Medium', 'Heavy'].flatMap(k => V5.classes[k].brands.flatMap(b => b.models.map(m => ({...m, brand:b.brand, k}))));
 const TOTAL_UNITS = V5.classes.Medium.units + V5.classes.Heavy.units;
 {
-  const feat = d => !d ? 'Estimate; 7000 New Age series' :
-    d.replace('includes remote control, ', 'Remote control, ').replace('(piston) pump', 'piston pump').replace(', incl oil cooler, rear stab', ', oil cooler, rear stabilisers').replace(/^piston/, 'Piston');
+  const feat = d => !d ? 'Specification as 7000 New Age series' :
+    d.replace('includes remote control, ', 'Remote control, ').replace('(piston) pump', 'piston pump').replace(', incl oil cooler, rear stab', ', oil cooler, rear stabilisers')
+     .replace(', incl oil cooler', ', oil cooler').replace(/^piston/, 'Piston');
   const rows = [];
   ['Medium', 'Heavy'].forEach(k => {
     const Cc = V5.classes[k];
     Cc.bands.forEach(bd => {
       const ms = ALL.filter(m => m.k === k && m.band === bd); if (!ms.length) return;
-      const fs = [...new Set(ms.map(m => m.ferrari))].map(x => FERD[x]), win = ms.filter(m => m.diff <= 0);
-      const gap = ms.some(m => !m.ferrari_same_band);
-      rows.push({k, bd, units:Cc.band_units[bd], fer:fs.map(f => f.model).join(' / ') + (gap ? ' (nearest)' : ''),
-        price:fs.map(f => rpx(f.price_idr) + (f.estimate ? ' (est.)' : '')).join(' / '),
-        won:win.filter(m => !smaller(m)).reduce((a, m) => a + m.units, 0), wonSmall:win.filter(m => smaller(m)).reduce((a, m) => a + m.units, 0),
-        vs:win.length ? win.map(m => `${m.model} ${signed(m.diff)}${smaller(m) ? '*' : ''}`).join(', ') : 'None',
-        feat:feat(fs[0].desc), lead:[...new Set(fs.map(f => f.leadtime_weeks ? `${f.leadtime_weeks} wk · ${f.origin}` : '–'))].join(' / ')});
+      const f = FERD[Cc.band_ferrari[bd]], gap = f.tm <= +bd.replace('>', '').split('–')[0] || f.tm > +bd.split('–')[1];
+      const win = ms.filter(m => m.diff !== null && m.diff <= 0);
+      rows.push({k, bd, units:Cc.band_units[bd], fer:gap ? 'No model (largest ' + f.model + ')' : f.model,
+        price:gap ? '–' : f.price_idr === null ? 'Not yet known' : rpx(f.price_idr) + (f.estimate ? ' (est.)' : ''),
+        won:win.filter(m => !smaller(m)).reduce((a, m) => a + m.units, 0), wonSmall:win.filter(m => smaller(m)).length,
+        vs:win.length ? win.map(m => `${m.model} ${signed(m.diff)}${smaller(m) ? ' (smaller crane)' : ''}`).join(', ') : f.price_idr === null ? 'No price yet' : 'None',
+        feat:gap ? '–' : feat(f.desc), lead:gap ? '–' : f.leadtime_weeks ? `${f.leadtime_weeks} wk${f.origin && f.origin !== 'Quote' ? ' · ' + f.origin : ''}` : '–'});
     });
   });
-  const won = rows.reduce((a, r) => a + r.won, 0), chinaWin = ALL.some(m => m.diff <= 0 && !smaller(m) && CHINA.includes(m.brand));
+  const won = rows.reduce((a, r) => a + r.won, 0);
   const s = slide('F.LLI FERRARI CRANE ADVANTAGE BY tm CLASS · JAN 2023 – 14 AUG 2026',
-    chinaWin ? `Like for like, F.lli Ferrari is cheaper on ${won} of ${TOTAL_UNITS} units and adds EU build quality in every tm class`
-             : `Like for like, F.lli Ferrari is cheaper on ${won} of ${TOTAL_UNITS} units, all European; Chinese models stay cheaper`);
-  const hd = [H('Class'), H('tm class'), H('Units in class', {align:'right'}), H('F.lli Ferrari model'), H('F.lli Ferrari price', {align:'right'}),
-    H('Units where F.lli Ferrari is cheaper, same size', {align:'right'}), H('Cheaper than (models)'), H('Standard features'), H('Leadtime · made in')];
+    `Head to head, F.lli Ferrari is cheaper on ${won} of ${TOTAL_UNITS} units, all against European brands`);
+  const hd = [H('Class'), H('tm class'), H('Units', {align:'right'}), H('F.lli Ferrari model'), H('F.lli Ferrari price', {align:'right'}),
+    H('Units won head to head', {align:'right'}), H('Cheaper than'), H('Standard features'), H('Leadtime')];
   const tb = [hd];
   rows.forEach(r => {
-    const o = {fontSize:8.5}, g = r.won ? {fill:{color:G.goodT}, color:G.good, bold:true} : r.wonSmall ? {color:'F5C26B'} : {color:C.dim};
+    const o = {fontSize:9.5}, g = r.won ? {fill:{color:G.goodT}, color:G.good, bold:true} : {color:C.dim};
     tb.push([V(r.k, Object.assign({bold:true, color:CLS[r.k].c}, o)), V(r.bd + ' tm', Object.assign({bold:true}, o)), V(String(r.units), Object.assign({align:'right'}, o)),
       V(r.fer, Object.assign({bold:true}, o)), V(r.price, Object.assign({align:'right'}, o)),
-      V(r.won ? `${r.won} of ${r.units}` : r.wonSmall ? `0 of ${r.units}*` : `0 of ${r.units}`, Object.assign({align:'right'}, o, g)), V(r.vs, Object.assign({}, o, r.won ? {color:G.good} : r.wonSmall ? {color:'F5C26B'} : {color:C.dim})), V(r.feat, o), V(r.lead, o)]);
+      V(`${r.won} of ${r.units}`, Object.assign({align:'right'}, o, g)), V(r.vs, Object.assign({}, o, r.won ? {color:G.good} : r.wonSmall ? {color:'F5C26B'} : {color:C.dim})), V(r.feat, o), V(r.lead, o)]);
   });
-  s.addTable(tb, Object.assign({x:0.45, y:1.25, w:12.43, colW:[0.7, 0.75, 0.7, 1.55, 1.5, 1.1, 2.3, 2.43, 1.4], rowH:[0.42, ...rows.map(() => 0.36)]}, TB));
-  const by = 1.25 + 0.42 + 0.36 * rows.length + 0.3, bh = 1.45;
+  const rh = Math.min(0.34, 3.6 / rows.length);
+  s.addTable(tb, Object.assign({x:0.45, y:1.25, w:12.43, colW:[0.7, 0.8, 0.55, 1.75, 1.45, 1.05, 2.6, 2.63, 0.9], rowH:[0.4, ...rows.map(() => rh)]}, TB));
+  const by = 1.25 + 0.4 + rh * rows.length + 0.25, bh = Math.min(1.35, 6.8 - by);
   s.addShape(pres.shapes.RECTANGLE, {x:0.45, y:by, w:12.43, h:bh, fill:{color:C.card}, line:{color:C.card, width:0}});
-  T(s, 'F.LLI FERRARI CRANE ADVANTAGE IN EVERY tm CLASS', {x:0.65, y:by + 0.12, w:12, h:0.25, fontSize:10, bold:true, color:C.red});
+  T(s, 'F.LLI FERRARI CRANE ADVANTAGE IN EVERY tm CLASS', {x:0.65, y:by + 0.1, w:12, h:0.25, fontSize:10, bold:true, color:C.red});
   const adv = [['Designed to EN 12999', 'The European standard for loader cranes, the same one Palfinger, Hiab and Amco Veba follow.'],
     ['900 N/mm² special steel', 'High-strength steel: a lighter crane that leaves more payload on the truck.'],
     ['One-piece cast base', 'About 50% stronger than a welded base (F.lli Ferrari data).'],
-    ['Rich standard kit', 'Piston pump, oil cooler and rear stabilisers on FBR and 700 models; remote control on FBR450R, FBR660R and 749R.']];
+    ['Rich standard kit', 'Piston pump and oil cooler on FBR, 700 and 9000 models; remote control on FBR450R, FBR660R, 749R, 9601CR and 990R.']];
   const cw4 = 12.03 / 4;
-  adv.forEach(([a, b], i) => T(s, [{text:a, options:{bold:true, fontSize:10.5, breakLine:true}}, {text:b, options:{fontSize:9, color:C.mut}}],
-    {x:0.65 + i * cw4, y:by + 0.45, w:cw4 - 0.25, h:bh - 0.55}));
-  foot(s, '* = cheaper, but the F.lli Ferrari model is smaller (less tm) than the rival, so it is not counted as a like-for-like win. Green = cheaper on a crane of the same size. ' + PRICE_NOTE);
+  adv.forEach(([a, b], i) => T(s, [{text:a, options:{bold:true, fontSize:11, breakLine:true}}, {text:b, options:{fontSize:9.5, color:C.mut}}],
+    {x:0.65 + i * cw4, y:by + 0.4, w:cw4 - 0.25, h:bh - 0.45}));
+  foot(s, 'Head to head = the F.lli Ferrari model is about the same size or bigger. Smaller crane = cheaper, but not counted. ' + PRICE_NOTE);
 }
 
 // =============== RECOMMENDATION ===============
 {
-  const like = ALL.filter(m => m.diff <= 0 && !smaller(m)).sort((a, b) => b.units - a.units);
-  const small = ALL.filter(m => m.diff <= 0 && smaller(m)).sort((a, b) => b.units - a.units);
-  const cn = ALL.filter(m => CHINA.includes(m.brand)), cnUnits = ['Medium', 'Heavy'].reduce((a, k) => a + V5.classes[k].brands.filter(b => CHINA.includes(b.brand)).reduce((t, b) => t + b.units, 0), 0);
+  const like = ALL.filter(h2hWin).sort((a, b) => b.units - a.units);
+  const cn = ALL.filter(m => CHINA.includes(m.brand) && m.diff !== null), cnUnits = ['Medium', 'Heavy'].reduce((a, k) => a + V5.classes[k].brands.filter(b => CHINA.includes(b.brand)).reduce((t, b) => t + b.units, 0), 0);
   const lo = Math.min(...cn.map(m => m.diff)), hi = Math.max(...cn.map(m => m.diff));
-  const gapUnits = V5.classes.Heavy.band_units['>50–55'];
+  const pk53 = ALL.find(m => m.model === 'PK 53002'), pk76 = ALL.find(m => m.model === 'PK 76002 EH D');
   const s = slide('WHAT TSP SHOULD DO',
-    'Lead with FBR450R A4 and 268 A4 against European cranes, sell quality against Chinese brands, and close the 50–55 tm gap');
+    'Sell FBR450R A4 and 268 A4 against European cranes, lead with quality against Chinese brands, and rework the 9601CR A8 price');
   const cards = [
-    {c:G.good, t:'Win on price against European cranes', b:[
-      ...like.map(m => `${m.ferrari}${FERD[m.ferrari].estimate ? ' (est.)' : ''} vs ${nm(m.brand)} ${m.model}: ${signed(m.diff)} · ${m.units} ${m.units === 1 ? 'unit' : 'units'}`),
-      `Also cheaper, but on a smaller crane: ${small.map(m => m.model).join(', ')}.`]},
+    {c:G.good, t:'Win on price against European cranes', b:
+      like.map(m => `${m.ferrari}${FERD[m.ferrari].estimate ? ' (est.)' : ''} vs ${nm(m.brand)} ${m.model}: ${signed(m.diff)}, ${m.units} ${m.units === 1 ? 'unit' : 'units'}`)},
     {c:C.med, t:'Sell quality against Chinese brands', b:[
-      `Sany Palfinger and XCMG are cheaper on ${cn.filter(m => m.diff > 0).length} of ${cn.length} models (F.lli Ferrari ${signed(lo)} to ${signed(hi)}); the only F.lli Ferrari win is against a bigger crane.`,
+      `Sany Palfinger and XCMG sell for less on ${cn.filter(m => m.diff > 0).length} of ${cn.length} models (F.lli Ferrari ${signed(lo)} to ${signed(hi)}).`,
       `They hold ${cnUnits} of ${TOTAL_UNITS} Medium and Heavy units (${pct(cnUnits / TOTAL_UNITS)}).`,
-      'Lead with EN 12999, special steel, the cast base and the standard kit, not with price.']},
-    {c:C.heavy, t:'Close the gaps in Heavy', b:[
-      `>50–55 tm: ${gapUnits} units (Palfinger PK 53002 alone ${V5.classes.Heavy.brands.find(b => b.brand === 'PALFINGER').models[0].units}) and no F.lli Ferrari model. Ask F.lli Ferrari for a 50–55 tm offer.`,
-      '>55 tm: FBR660R A4 (58.8 tm) is smaller than Palfinger PK 76002 (71.6 tm) and PK 88002 (81.6 tm).']}];
+      'Lead with EN 12999, special steel, the cast base and the standard kit.']},
+    {c:C.heavy, t:'Heavy above 50 tm', b:[
+      `9601CR A8 (50.7 tm) matches PK 53002 on size, but costs ${signed(pk53.diff)}. PK 53002 sold ${pk53.units} units, the most of any Heavy model.`,
+      `990R (74 tm) costs ${signed(pk76.diff)} against PK 76002 EH D. Above 75 tm F.lli Ferrari has no model.`,
+      '9661C (63.2 tm) has no price yet.']}];
   const cw = (12.43 - 0.5) / 3;
   cards.forEach((c, i) => {
     const x = 0.45 + i * (cw + 0.25), y = 1.35, h = 4.75;
     s.addShape(pres.shapes.RECTANGLE, {x, y, w:cw, h, fill:{color:C.card}, line:{color:C.line, width:1}});
     s.addShape(pres.shapes.OVAL, {x:x + 0.3, y:y + 0.3, w:0.5, h:0.5, fill:{color:c.c}, line:{color:c.c, width:0}});
     T(s, String(i + 1), {x:x + 0.3, y:y + 0.3, w:0.5, h:0.5, fontSize:16, bold:true, color:C.bg, align:'center', valign:'middle'});
-    T(s, c.t, {x:x + 0.95, y:y + 0.25, w:cw - 1.15, h:0.6, fontSize:14, bold:true, valign:'middle'});
-    T(s, c.b.map((t, j) => ({text:t, options:{bullet:true, breakLine:j < c.b.length - 1}})), {x:x + 0.3, y:y + 1.05, w:cw - 0.55, h:h - 1.25, fontSize:11, color:C.txt, paraSpaceAfter:8});
+    T(s, c.t, {x:x + 0.95, y:y + 0.25, w:cw - 1.15, h:0.6, fontSize:15, bold:true, fontFace:FH, valign:'middle'});
+    T(s, c.b.map((t, j) => ({text:t, options:{bullet:true, breakLine:j < c.b.length - 1}})), {x:x + 0.3, y:y + 1.05, w:cw - 0.55, h:h - 1.25, fontSize:12, color:C.txt, paraSpaceAfter:8});
   });
   s.addShape(pres.shapes.RECTANGLE, {x:0.45, y:6.25, w:12.43, h:0.45, fill:{color:C.redT}, line:{color:C.red, width:1}});
-  T(s, [{text:'Before launch, confirm:  ', options:{bold:true, color:'FFFFFF'}}, {text:'the 7441C price (now an estimate), the 5% import duty on European cranes, and TSP\'s own freight and clearance cost per unit.', options:{color:C.txt}}],
-    {x:0.65, y:6.25, w:12.1, h:0.45, fontSize:10.5, valign:'middle'});
+  T(s, [{text:'Before launch, confirm:  ', options:{bold:true, color:'FFFFFF'}}, {text:'the 7441C and 9661C prices, the 5% import duty on European cranes, and TSP\'s own freight and clearance cost per unit.', options:{color:C.txt}}],
+    {x:0.65, y:6.25, w:12.1, h:0.45, fontSize:11, valign:'middle'});
   foot(s, 'Units = Jan 2023 – 14 Aug 2026 imports, Medium + Heavy, all models. ' + PRICE_NOTE);
 }
 
@@ -383,7 +413,7 @@ function photoPage(title, head, cards) {
 {
   const comp = k => V5.classes[k].brands.flatMap(b => b.models.slice().sort((a, c) => a.tm - c.tm).map(m => ({name:`${nm(b.brand)} ${m.model}`, sub:`${m.tm} tm · ${m.units} ${m.units === 1 ? 'unit' : 'units'}`, photo:m.photo})));
   const fer = [...new Set(Object.values(V5.classes.Medium.band_ferrari).concat(Object.values(V5.classes.Heavy.band_ferrari)))].map(n => FERD[n])
-    .map(f => ({name:`F.lli Ferrari ${f.model}`, sub:`${f.tm} tm`, photo:f.photo, f:1}));
+    .filter(f => f.photo).map(f => ({name:`F.lli Ferrari ${f.model}`, sub:`${f.tm} tm`, photo:f.photo, f:1}));
   photoPage('APPENDIX · MODEL PHOTOS · MEDIUM', 'Medium: the competitor models in the price comparison', comp('Medium'));
   photoPage('APPENDIX · MODEL PHOTOS · HEAVY AND F.LLI FERRARI', 'Heavy competitor models and the F.lli Ferrari models in the comparison', comp('Heavy').concat(fer));
 }
