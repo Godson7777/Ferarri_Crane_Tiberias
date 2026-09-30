@@ -55,7 +55,8 @@ PHOTO_C = {'SPK36080': 'spk36080', 'SPK32080': 'spk32080', 'SPK42502': 'spk42502
            'X-CLX 388': 'xclx388', '477 EP-5': '477ep5', 'X-CLX 328': 'xclx328', 'PK 53002': 'pk53002', 'PK 76002 EH D': 'pk76002',
            'PK 88002 EH C': 'pk88002', 'V950': 'v950', 'GSQZ460.4': 'gsqz460', 'GSQZ880.6': 'gsqz880', 'GSQZ860.6': 'gsqz860',
            'X-HIPRO B58': 'xhipro_b58', 'EFFER 525H': 'effer525h', 'F485RA.2.23': 'f485ra', 'SPK61502': 'spk61502',
-           'KSQZ400.4': 'ksqz400', 'GSQZ400.4': 'gsqz400', 'SQZ365.4': 'sqz365', 'PK 48002': 'pk48002'}
+           'KSQZ400.4': 'ksqz400', 'GSQZ400.4': 'gsqz400', 'SQZ365.4': 'sqz365', 'PK 48002': 'pk48002',
+           'SQ12ZK3Q': 'sq12zk3q', 'KSQZ300.4': 'ksqz3004', 'KSQZ365.4': 'ksqz3654', 'SQZ400': 'sqz400'}
 # one F.lli Ferrari model per tm class (user choice, 30 Sep 2026); >50–55 has no model -> nearest FBR450R A4
 BAND_FER = {'>25–30': '268 A4', '>30–35': 'FBR350R A4', '>35–40': '7441C', '>40–45': '746 A4',
             '>45–50': 'FBR450R A4', '>50–55': 'FBR450R A4', '>55': 'FBR660R A4'}
