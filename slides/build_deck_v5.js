@@ -234,73 +234,52 @@ const PRICE_NOTE = 'Competitors: average import unit price, Jan 2023 – 14 Aug 
 divider('F.lli Ferrari Crane Positioning', 'Every brand and model in each 5-tm class, next to one F.lli Ferrari model',
   'photo_fbr660r.jpg', 'Jan 2023 – 14 Aug 2026 · all prices at import-cost level');
 
-// One slide per class. Columns: tm class | F.lli Ferrari (1 model per class) | brands, most units → fewest.
-// Each brand cell lists all of its models in that tm class: model · tm / units · import value / price · difference.
+// One slide per class, native PowerPoint table (editable). One row per competitor model, grouped by tm class;
+// F.lli Ferrari (one model per class) merged on the left; within a class, brands with most units first.
 function comparePage(k) {
-  const Cc = V5.classes[k], brands = Cc.brands, ms = brands.flatMap(b => b.models), n = ms.length;
+  const Cc = V5.classes[k], order = Cc.brands.map(b => b.brand), ms = Cc.brands.flatMap(b => b.models), n = ms.length;
   const win = ms.filter(m => m.diff <= 0), lfl = win.filter(m => !smaller(m)).reduce((a, m) => a + m.units, 0);
   const head = win.length * 2 >= n ? `${k}: F.lli Ferrari is cheaper than ${win.length} of ${n} models, but like for like on only ${lfl} of ${Cc.units} units`
                                    : `${k}: F.lli Ferrari costs more than ${n - win.length} of ${n} models; like for like, it is cheaper on ${lfl} units`;
   const s = slide(`PRICE COMPARISON BY tm CLASS · JAN 2023 – 14 AUG 2026 · ${CLS[k].label}`, head);
-  classTab(s, 0.45, 1.2, k, 2.6, 0.32, 11);
-  T(s, 'All brands and models, most units on the left. Each model: tm · units · import value · price per unit · F.lli Ferrari price difference',
-    {x:3.2, y:1.2, w:9.65, h:0.32, fontSize:10.5, bold:true, valign:'middle'});
-  const X = 0.45, W = 12.43, tw = 0.85, fw = 1.55, bw = (W - tw - fw) / brands.length, Y = 1.62, HH = 0.56, bot = 6.42;
-  const inBand = (b, bd) => b.models.filter(m => m.band === bd).sort((a, c) => c.units - a.units || c.value_idr - a.value_idr);
-  const need = Cc.bands.map(bd => Math.max(1.3, ...brands.map(b => inBand(b, bd).length)));
-  const mh = Math.min(0.72, (bot - Y - HH - 0.04 * Cc.bands.length) / need.reduce((a, v) => a + v, 0));
-  const fs = mh >= 0.55 && bw >= 1.8 ? 8.5 : 7;
-  // header
-  const hdr = (x, w, fill) => s.addShape(pres.shapes.RECTANGLE, {x, y:Y, w:w - 0.04, h:HH - 0.04, fill:{color:fill}, line:{color:fill, width:0}});
-  hdr(X, tw, C.line); T(s, 'tm class', {x:X, y:Y, w:tw - 0.04, h:HH - 0.04, fontSize:9, bold:true, color:C.mut, align:'center', valign:'middle'});
-  hdr(X + tw, fw, C.red);
-  T(s, [{text:'F.lli Ferrari', options:{bold:true, fontSize:11, color:'FFFFFF', breakLine:true}}, {text:'one model per tm class', options:{fontSize:7.5, color:'FFD7D9'}}],
-    {x:X + tw, y:Y, w:fw - 0.04, h:HH - 0.04, align:'center', valign:'middle'});
-  brands.forEach((b, i) => {
-    const x = X + tw + fw + i * bw;
-    hdr(x, bw, C.line);
-    brandTile(s, b.brand, x + 0.1, Y + 0.06, bw - 0.24, 0.24);
-    T(s, `${b.units} units · ${rpx(b.value_idr)}${CHINA.includes(b.brand) ? ' · China' : ''}`, {x, y:Y + 0.32, w:bw - 0.04, h:0.2, fontSize:7, color:C.mut, align:'center', valign:'middle'});
-  });
-  // body
-  let y = Y + HH;
-  Cc.bands.forEach((bd, r) => {
-    const rh = need[r] * mh + 0.04, f = FERD[Cc.band_ferrari[bd]], gap = f.tm <= +bd.replace('>', '').split('–')[0];
-    s.addShape(pres.shapes.RECTANGLE, {x:X, y, w:tw - 0.04, h:rh - 0.04, fill:{color:C.card}, line:{color:C.card, width:0}});
-    T(s, [{text:bd + ' tm', options:{bold:true, fontSize:12, color:CLS[k].c, breakLine:true}}, {text:`${Cc.band_units[bd]} units`, options:{fontSize:8.5, color:C.mut}}],
-      {x:X, y, w:tw - 0.04, h:rh - 0.04, align:'center', valign:'middle'});
-    // F.lli Ferrari cell
-    s.addShape(pres.shapes.RECTANGLE, {x:X + tw, y, w:fw - 0.04, h:rh - 0.04, fill:{color:C.redT}, line:{color:C.redT, width:0}});
-    T(s, gap ? [{text:'No F.lli Ferrari model', options:{bold:true, fontSize:9, color:G.bad, breakLine:true}},
-                {text:`Nearest: ${f.model}`, options:{fontSize:8, color:'FFFFFF', breakLine:true}},
-                {text:`${f.tm} tm · ${rpx(f.price_idr)}`, options:{fontSize:8, color:C.mut}}]
-             : [{text:f.model, options:{bold:true, fontSize:10.5, color:'FFFFFF', breakLine:true}},
-                {text:`${f.tm} tm${f.estimate ? ' · estimate' : ''}`, options:{fontSize:8, color:C.mut, breakLine:true}},
-                {text:rpx(f.price_idr), options:{fontSize:9.5, bold:true, color:'FFFFFF'}}],
-      {x:X + tw + 0.1, y, w:fw - 0.24, h:rh - 0.04, valign:'middle'});
-    // brand cells
-    brands.forEach((b, i) => {
-      const x = X + tw + fw + i * bw, list = inBand(b, bd);
-      s.addShape(pres.shapes.RECTANGLE, {x, y, w:bw - 0.04, h:rh - 0.04, fill:{color:C.card}, line:{color:C.card, width:0}});
-      list.forEach((m, j) => {
-        const ok = m.diff <= 0, ey = y + j * mh;
-        s.addShape(pres.shapes.RECTANGLE, {x:x + 0.04, y:ey + 0.03, w:bw - 0.12, h:mh - 0.05, fill:{color:ok ? G.goodT : C.redT}, line:{color:ok ? G.good : C.redT, width:0.75}});
-        T(s, [{text:m.model, options:{bold:true, fontSize:fs + 0.5, breakLine:false}}, {text:`  ${m.tm} tm`, options:{fontSize:fs, color:C.mut, breakLine:true}},
-              {text:`${m.units} ${m.units === 1 ? 'unit' : 'units'} · ${rpx(m.value_idr)}`, options:{fontSize:fs, color:C.txt, breakLine:true}},
-              {text:`${rpx(m.price_idr)} · `, options:{fontSize:fs, color:C.mut}},
-              {text:`${signed(m.diff)}${smaller(m) ? '*' : ''}`, options:{fontSize:fs + 0.5, bold:true, color:ok ? G.good : G.bad}}],
-          {x:x + 0.09, y:ey + 0.03, w:bw - 0.18, h:mh - 0.05, valign:'middle', lineSpacingMultiple:0.92});
-      });
+  T(s, 'Every model sold, grouped by tm class; F.lli Ferrari offer on the left, brands with most units first. tm = Max Lifting Moment.', {x:0.45, y:1.12, w:12.4, h:0.28, fontSize:11, bold:true, valign:'middle'});
+  const X = 0.45, Y = 1.45, HH = 0.36, W = [0.12, 0.9, 1.2, 0.6, 1.5, 1.3, 1.45, 0.6, 0.65, 1.65, 1.5, 0.96];
+  const RH = Math.min(0.3, (6.4 - Y - HH) / n), fs = RH < 0.24 ? 8.5 : 9.5;
+  const Hc = (t, f) => ({text:t, options:{fill:{color:f ? C.red : C.line}, color:f ? 'FFFFFF' : C.mut, bold:true, fontSize:8.5, fontFace:F, align:'center', valign:'middle'}});
+  const c = (t, o = {}) => ({text:t, options:Object.assign({fill:{color:C.card}, color:C.txt, fontSize:fs, fontFace:F, align:'center', valign:'middle', margin:[0, 0.06, 0, 0.06]}, o)});
+  const rows = [[{text:'', options:{fill:{color:C.bg}}}, Hc('tm class'), Hc('F.lli Ferrari model', 1), Hc('tm', 1), Hc('Price per unit', 1), Hc('Brand'), Hc('Model'),
+    Hc('tm'), Hc('Units'), Hc('Import value (before tax)'), Hc('Price per unit'), Hc('F.lli Ferrari vs model')]];
+  Cc.bands.forEach(bd => {
+    const list = Cc.brands.flatMap(b => b.models.filter(m => m.band === bd).map(m => ({...m, brand:b.brand})))
+      .sort((a, b) => order.indexOf(a.brand) - order.indexOf(b.brand) || b.units - a.units || b.value_idr - a.value_idr);
+    if (!list.length) return;
+    const f = FERD[Cc.band_ferrari[bd]], gap = f.tm <= +bd.replace('>', '').split('–')[0], span = {rowspan:list.length};
+    list.forEach((m, i) => {
+      const r = [];
+      if (rows.length === 1) r.push({text:'', options:{fill:{color:CLS[k].c}, rowspan:n}});
+      if (!i) {
+        r.push({text:[{text:bd + ' tm', options:{bold:true, color:CLS[k].c, fontSize:fs + 0.5, breakLine:true}}, {text:`${Cc.band_units[bd]} units`, options:{color:C.mut, fontSize:fs - 1}}],
+          options:Object.assign({fill:{color:C.card}, align:'center', valign:'middle', fontFace:F}, span)});
+        if (gap) r.push({text:[{text:'No F.lli Ferrari model', options:{bold:true, color:G.bad, breakLine:true}}, {text:`nearest ${f.model} · ${f.tm} tm · ${rpx(f.price_idr)}`, options:{color:C.mut, fontSize:fs - 1}}],
+          options:Object.assign({fill:{color:C.card}, align:'center', valign:'middle', fontFace:F, fontSize:fs, colspan:3}, span)});
+        else r.push(c(f.model, Object.assign({fill:{color:C.redT}, bold:true}, span)), c(String(f.tm), Object.assign({fill:{color:C.redT}}, span)),
+          c(rpx(f.price_idr) + (f.estimate ? ' (est.)' : ''), Object.assign({fill:{color:C.redT}, bold:true}, span)));
+      }
+      const first = i === 0 || list[i - 1].brand !== m.brand, ok = m.diff <= 0;
+      r.push(c(first ? nm(m.brand) : '', {bold:true, align:'left', color:first ? C.txt : C.mut}), c(m.model, {align:'left'}), c(String(m.tm)), c(String(m.units), {align:'right'}), c(rpx(m.value_idr), {align:'right'}), c(rpx(m.price_idr), {align:'right'}),
+        {text:[{text:signed(m.diff), options:{bold:true, color:ok ? G.good : G.bad}}, ...(smaller(m) ? [{text:'*', options:{bold:true, color:'F5C26B'}}] : [])],
+         options:{fill:{color:ok ? G.goodT : '22141A'}, align:'center', valign:'middle', fontFace:F, fontSize:fs}});
+      rows.push(r);
     });
-    y += rh;
   });
+  s.addTable(rows, {x:X, y:Y, w:W.reduce((a, b) => a + b), colW:W, rowH:[HH, ...rows.slice(1).map(() => RH)], border:{type:'solid', pt:1.5, color:C.bg}, margin:[0, 0.05, 0, 0.05]});
   // legend
-  [[G.goodT, G.good, 'F.lli Ferrari is cheaper (−%)'], [C.redT, C.redT, 'F.lli Ferrari is higher (+%)']].forEach(([f, l, t], i) => {
-    s.addShape(pres.shapes.RECTANGLE, {x:0.45 + i * 2.45, y:6.53, w:0.2, h:0.14, fill:{color:f}, line:{color:l, width:1}});
-    T(s, t, {x:0.72 + i * 2.45, y:6.49, w:2.2, h:0.22, fontSize:8.5, color:C.mut, valign:'middle'});
+  [[G.good, 'F.lli Ferrari cheaper (−%)'], [G.bad, 'F.lli Ferrari higher (+%)']].forEach(([col, t], i) => {
+    s.addShape(pres.shapes.RECTANGLE, {x:0.45 + i * 2.3, y:6.53, w:0.2, h:0.13, fill:{color:col}, line:{color:col, width:0}});
+    T(s, t, {x:0.72 + i * 2.3, y:6.49, w:2.0, h:0.22, fontSize:8.5, color:C.mut, valign:'middle'});
   });
-  T(s, [{text:'% = F.lli Ferrari price vs the model.  * ', options:{bold:true, color:'F5C26B'}}, {text:'= F.lli Ferrari model is smaller (less tm), so not a like-for-like win. Units and import value (before tax): Jan 2023 – 14 Aug 2026.', options:{color:C.mut}}],
-    {x:5.35, y:6.49, w:7.5, h:0.22, fontSize:8, valign:'middle'});
+  T(s, [{text:'* ', options:{bold:true, color:'F5C26B'}}, {text:'F.lli Ferrari model is smaller (less tm), so not a like-for-like win.   % = F.lli Ferrari price vs the model.', options:{color:C.mut}}],
+    {x:5.1, y:6.49, w:7.8, h:0.22, fontSize:8.5, valign:'middle'});
   foot(s, SRC + ' ' + PRICE_NOTE);
 }
 comparePage('Medium');
