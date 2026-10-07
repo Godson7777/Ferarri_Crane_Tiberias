@@ -36,4 +36,4 @@ Deck analysing Indonesia's truck-mounted knuckle boom crane imports (HS 84269100
 
 ## Build
 - `slides/build_data.py <xlsx>` → `slides/data.json`; `analysis/build_v5_data.py <xlsx>` (run from repo root) → `slides/v5_compare.json`; `cd slides && node build_deck_v5.js` → `Flli_Ferrari_Market_Strategy_v5.pptx`, the only deck kept in the repo (user wants one PPT; v4 builder `build_deck.js` kept for reference).
-- Theme "Pit Lane Noir": bg 0F141A, Ferrari red E30613 (Ferrari only), Medium amber F2A33A, Heavy blue 4F9CF9, font Arial.
+- Theme (user, 7 Oct 2026): Triatra NEDP template mood. Content slides use the template background image (`slides/assets/bg_triatra.jpg`, near-black with orange glow), Triatra logo top right and "[ INTERNAL USE ONLY ]"; accent Triatra orange FF5A1F (replaces Ferrari red; Ferrari column and slash motif are orange), warm greys (card 1A1614, line 2E2723, text F4F1EE, muted A79F98), Medium gold F2C14E, Heavy blue 4F9CF9, font Bahnschrift. Cover and dividers keep a solid near-black (0C0B0B) panel next to the photo. Template file: `charter/NEDP_Background_Template.pptx`.

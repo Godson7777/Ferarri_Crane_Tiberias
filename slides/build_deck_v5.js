@@ -1,4 +1,4 @@
-// F.lli Ferrari Market Strategy v5 — deck builder (theme: Pit Lane Noir). Flow of v4; comparison slides rebuilt.
+// F.lli Ferrari Market Strategy v5 — deck builder (theme: Triatra NEDP, orange). Flow of v4; comparison slides rebuilt.
 // 1) python build_data.py <xlsx>  2) python ../analysis/build_v5_data.py <xlsx> (from repo root)  3) node build_deck_v5.js
 const pptxgen = require('pptxgenjs');
 const D = require('./data.json');
@@ -11,8 +11,10 @@ const BM = {china: 0, eu: 0.05};          // ACFTA 0%; MFN 5% assumed — confir
 const taxed = (usd, o) => usd * USD * (1 + BM[o]) * (1 + PPN + PPH22);
 
 // ---------- design tokens ----------
-const C = {bg:'0F141A', card:'161D25', line:'26303A', txt:'EEF1F4', mut:'9AA6B2', dim:'5C6773',
-  red:'E30613', redT:'3A0E14', med:'F2A33A', heavy:'4F9CF9', grey1:'4E5A66', grey2:'7D8894'};
+// Triatra NEDP template mood (user, 7 Oct 2026): near-black background with orange glow, Triatra orange accent, warm greys.
+// C.red is the accent (now Triatra orange); C.redT its dark tint. Medium moved to gold so it stays distinct from the accent.
+const C = {bg:'0C0B0B', card:'1A1614', line:'2E2723', txt:'F4F1EE', mut:'A79F98', dim:'6F6963',
+  red:'FF5A1F', redT:'3A1A0E', med:'F2C14E', heavy:'4F9CF9', grey1:'57504B', grey2:'8A827C'};
 const CLS = {Medium:{c:C.med, pale:'FBE3BD', label:'MEDIUM', rng:'> 25 – 45 tm'},
              Heavy:{c:C.heavy, pale:'CFE3FE', label:'HEAVY', rng:'> 45 tm'}};
 const F = 'Bahnschrift', FH = 'Bahnschrift';   // titles and body (user choice, 7 Oct 2026; built into Windows)
@@ -43,11 +45,12 @@ function classTab(s, x, y, k, w = 2.6, h = 0.34, fs = 12) {
   T(s, [{text:CLS[k].label, options:{bold:true}}, {text:'  ·  ' + CLS[k].rng}], {x, y, w, h, fontSize:fs, color:C.bg, align:'center', valign:'middle'});
 }
 function slide(kicker, head) {
-  const s = pres.addSlide(); s.background = {color:C.bg}; page++;
-  T(s, kicker, {x:0.45, y:0.3, w:10, h:0.28, fontSize:10.5, bold:true, color:C.mut, charSpacing:2});
+  const s = pres.addSlide(); s.background = {path:'assets/bg_triatra.jpg'}; page++;
+  T(s, kicker, {x:0.45, y:0.3, w:9.5, h:0.28, fontSize:10.5, bold:true, color:C.red, charSpacing:2});
   T(s, head, {x:0.45, y:0.56, w:11.7, h:0.7, fontSize:21, bold:true, fontFace:FH, valign:'top'});
-  slash(s, 12.33, 0.3);
-  T(s, String(page), {x:12.4, y:7.05, w:0.48, h:0.25, fontSize:9, color:C.dim, align:'right'});
+  T(s, '[ INTERNAL USE ONLY ]', {x:9.6, y:0.33, w:2.55, h:0.22, fontSize:7.5, bold:true, color:C.red, align:'right', valign:'middle'});
+  s.addImage({path:'assets/logo_triatra.png', x:12.29, y:0.29, w:0.59, h:0.27});
+  T(s, String(page).padStart(2, '0'), {x:12.4, y:7.05, w:0.48, h:0.25, fontSize:9, color:C.dim, align:'right'});
   return s;
 }
 function foot(s, t) { T(s, t, {x:0.45, y:6.93, w:11.8, h:0.4, fontSize:7.5, color:C.dim}); }
