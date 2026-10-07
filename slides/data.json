@@ -23,7 +23,7 @@
   "Medium": [
    71,
    59,
-   58,
+   54,
    12
   ],
   "Heavy": [
@@ -36,24 +36,19 @@
  "totUnits": {
   "Light": 177,
   "Small": 200,
-  "Medium": 200,
+  "Medium": 196,
   "Heavy": 65
  },
  "totValueUSD": {
   "Light": 2253465.68,
   "Small": 4338628.25,
-  "Medium": 6752610.95,
+  "Medium": 6646528.39,
   "Heavy": 5120158.92
  },
- "avgTarget": 68.23376623376623,
+ "avgTarget": 67.23376623376623,
  "avgOther": 103.55844155844156,
- "gvw24Share": 0.8830188679245283,
+ "gvw24Share": 0.8812260536398467,
  "brandsMedium": [
-  {
-   "Brand": "HIAB",
-   "q": 4,
-   "v": 106082.56
-  },
   {
    "Brand": "AMCO VEBA",
    "q": 5,
@@ -80,19 +75,19 @@
    "Brand": "SANY PALFINGER",
    "q": 30,
    "v": 742888.26,
-   "share": 0.44241595301028824
+   "share": 0.4722508119263364
   },
   {
    "Brand": "XCMG",
    "q": 14,
    "v": 404268.4,
-   "share": 0.2407559778343306
+   "share": 0.2569916505830378
   },
   {
    "Brand": "PALFINGER",
    "q": 5,
    "v": 273474.04,
-   "share": 0.1628633598681095
+   "share": 0.17384624900489798
   }
  ],
  "modelsMedium": {

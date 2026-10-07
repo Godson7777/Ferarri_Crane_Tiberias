@@ -5,6 +5,8 @@ it is counted under. Rows whose description is generic ("HIAB CRANES WITH ACCESS
 "USED CRANE ... AND PARTS : PALFINGER", "HIAB 19000KG KNUCKLE CRANE") cannot prove the model or its tm and are removed.
 A row whose description names a different model is also removed (the one case, HIAB 6000XG, repeats a Multicrane row
 with the same date, price and description).
+Used cranes ("USED" in the description) are removed too: they are not head to head with a new F.lli Ferrari crane
+(user, 7 Oct 2026; the 4 Hiab 477 EP-5 rows).
 """
 import re
 import pandas as pd
@@ -32,10 +34,12 @@ def load(xlsx):
     assert len(p) == len(r) and (p.Model.values == r.Model.values).all() and (p.Importer.values == r.Importer.values).all(), 'sheets 7 and 8 are not row-aligned'
     p['Description'] = r.Description.values
     p = p[~p.Brand.isin(EXCL_BRANDS)].copy()
-    ok = [names(b, m, d) for b, m, d in zip(p.Brand, p.Model, p.Description)]
+    used = p.Description.astype(str).str.upper().str.contains(r'\bUSED\b').values
+    ok = [names(b, m, d) and not u for b, m, d, u in zip(p.Brand, p.Model, p.Description, used)]
     kept, bad = p[ok], p[[not o for o in ok]].copy()
     ref = kept.drop_duplicates('Model')
     other = lambda row: [m for b, m in zip(ref.Brand, ref.Model) if b == row.Brand and m != row.Model and names(b, m, row.Description)]
-    bad['Reason'] = [f'Description names {other(r)[0]}, not {r.Model}' if other(r) else 'Generic description: no model code'
+    bad['Reason'] = ['Used crane' if names(r.Brand, r.Model, r.Description) else
+                     f'Description names {other(r)[0]}, not {r.Model}' if other(r) else 'Generic description: no model code'
                      for _, r in bad.iterrows()]
     return kept, bad
