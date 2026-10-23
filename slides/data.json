@@ -1,0 +1,228 @@
+{
+ "last2026": "14 Aug 2026",
+ "f26": 1.6103896103896105,
+ "ranges": {
+  "Light": "\u2264 8 tm",
+  "Small": "> 8 \u2013 25 tm",
+  "Medium": "> 25 \u2013 45 tm",
+  "Heavy": "> 45 tm"
+ },
+ "unitsYear": {
+  "Light": [
+   54,
+   49,
+   40,
+   34
+  ],
+  "Small": [
+   56,
+   51,
+   66,
+   27
+  ],
+  "Medium": [
+   71,
+   59,
+   54,
+   12
+  ],
+  "Heavy": [
+   12,
+   17,
+   35,
+   1
+  ]
+ },
+ "totUnits": {
+  "Light": 177,
+  "Small": 200,
+  "Medium": 196,
+  "Heavy": 65
+ },
+ "totValueUSD": {
+  "Light": 2253465.68,
+  "Small": 4338628.25,
+  "Medium": 6646528.39,
+  "Heavy": 5120158.92
+ },
+ "avgTarget": 67.23376623376623,
+ "avgOther": 103.55844155844156,
+ "gvw24Share": 0.8812260536398467,
+ "brandsMedium": [
+  {
+   "Brand": "AMCO VEBA",
+   "q": 5,
+   "v": 152449.2
+  },
+  {
+   "Brand": "PALFINGER",
+   "q": 5,
+   "v": 273474.04
+  },
+  {
+   "Brand": "XCMG",
+   "q": 14,
+   "v": 404268.4
+  },
+  {
+   "Brand": "SANY PALFINGER",
+   "q": 30,
+   "v": 742888.26
+  }
+ ],
+ "topMedium": [
+  {
+   "Brand": "SANY PALFINGER",
+   "q": 30,
+   "v": 742888.26,
+   "share": 0.4722508119263364
+  },
+  {
+   "Brand": "XCMG",
+   "q": 14,
+   "v": 404268.4,
+   "share": 0.2569916505830378
+  },
+  {
+   "Brand": "PALFINGER",
+   "q": 5,
+   "v": 273474.04,
+   "share": 0.17384624900489798
+  }
+ ],
+ "modelsMedium": {
+  "SANY PALFINGER": [
+   {
+    "Model": "SANY PALFINGER SPK36080",
+    "q": 14,
+    "v": 306540.41,
+    "tm": 36.0
+   },
+   {
+    "Model": "SANY PALFINGER SPK42502",
+    "q": 6,
+    "v": 218484.35,
+    "tm": 42.5
+   },
+   {
+    "Model": "SANY PALFINGER SPK32080",
+    "q": 6,
+    "v": 112082.94,
+    "tm": 30.4
+   }
+  ],
+  "XCMG": [
+   {
+    "Model": "XCMG GSQZ330.4",
+    "q": 4,
+    "v": 137723.24,
+    "tm": 33.0
+   },
+   {
+    "Model": "XCMG SQZ325.4",
+    "q": 3,
+    "v": 81527.36,
+    "tm": 32.5
+   },
+   {
+    "Model": "XCMG KSQZ300.3",
+    "q": 3,
+    "v": 71438.93,
+    "tm": 30.0
+   }
+  ],
+  "PALFINGER": [
+   {
+    "Model": "PALFINGER PK 32080 C",
+    "q": 4,
+    "v": 205514.16999999998,
+    "tm": 30.4
+   },
+   {
+    "Model": "PALFINGER PK 41002 EH C",
+    "q": 1,
+    "v": 67959.87,
+    "tm": 38.4
+   }
+  ]
+ },
+ "brandsHeavy": [
+  {
+   "Brand": "SANY PALFINGER",
+   "q": 1,
+   "v": 69396.46
+  },
+  {
+   "Brand": "FASSI",
+   "q": 1,
+   "v": 75771.79
+  },
+  {
+   "Brand": "XCMG",
+   "q": 4,
+   "v": 260995.56
+  },
+  {
+   "Brand": "AMCO VEBA",
+   "q": 7,
+   "v": 621543.8300000001
+  },
+  {
+   "Brand": "PALFINGER",
+   "q": 22,
+   "v": 1670376.8800000001
+  }
+ ],
+ "topHeavy": [
+  {
+   "Brand": "PALFINGER",
+   "q": 22,
+   "v": 1670376.8800000001,
+   "share": 0.6190973142679757
+  },
+  {
+   "Brand": "AMCO VEBA",
+   "q": 7,
+   "v": 621543.8300000001,
+   "share": 0.2303648478736315
+  },
+  {
+   "Brand": "XCMG",
+   "q": 4,
+   "v": 260995.56,
+   "share": 0.09673364865530602
+  }
+ ],
+ "modelsHeavy": {
+  "PALFINGER": [
+   {
+    "Model": "PALFINGER PK 53002 SH B",
+    "q": 22,
+    "v": 1670376.8800000001,
+    "tm": 50.1
+   }
+  ],
+  "AMCO VEBA": [
+   {
+    "Model": "AMCO VEBA V950",
+    "q": 7,
+    "v": 621543.8300000001,
+    "tm": 45.9
+   }
+  ],
+  "XCMG": [
+   {
+    "Model": "XCMG GSQZ880.6",
+    "q": 2,
+    "v": 130577.78,
+    "tm": 88.0
+   },
+   {
+    "Model": "XCMG GSQZ860.6",
+    "q": 2,
+    "v": 130417.78,
+    "tm": 86.0
+   }
+  ]
+ }
+}
